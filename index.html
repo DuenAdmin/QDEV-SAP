@@ -39,8 +39,9 @@
         .nav-left {
             display: flex;
             align-items: center;
-            width: 100%;
+            flex: 1;
             justify-content: center;
+            margin-right: 200px;
         }
         
         .nav-title {
@@ -292,10 +293,10 @@
             <h2>🎯 Workshop prompt example</h2>
             
             <div class="prompt-box">
-                <h3>Prompt 1</h3>
-                <div style="text-align: center; margin: 20px 0; position: relative;">
-                    <img src="Prompt1.jpg" alt="Prompt 1 Example" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-                    <button class="copy-btn" onclick="copyPrompt(this, 'Create an ABAP report extracting sales order items from VBAK/VBAP tables displaying Sales Order Number, Item Number, Material Code, Quantity, Net Value, and Currency in ALV grid. Use modern ABAP syntax with @ escaping, flexible input parameters (date ranges, sales org), comprehensive error handling with informative messages for no-data scenarios, and include sample/mock data options for systems with limited test data.')" style="position: absolute; top: 10px; right: 10px;">Copy Prompt</button>
+                <h3 style="font-size: 20px; margin-bottom: 15px;">ABAP report prompt example for Sales report</h3>
+                <div style="font-size: 14px; margin-bottom: 20px; position: relative; background: black; color: white; padding: 15px; border-radius: 8px;">
+                    <p>Create an ABAP report extracting sales order items from VBAK/VBAP tables displaying Sales Order Number, Item Number, Material Code, Quantity, Net Value, and Currency in ALV grid. Use modern ABAP syntax with @ escaping, flexible input parameters (date ranges, sales org), comprehensive error handling with informative messages for no-data scenarios, and include sample/mock data options for systems with limited test data.</p>
+                    <button class="copy-btn" onclick="copyPrompt(this, 'Create an ABAP report extracting sales order items from VBAK/VBAP tables displaying Sales Order Number, Item Number, Material Code, Quantity, Net Value, and Currency in ALV grid. Use modern ABAP syntax with @ escaping, flexible input parameters (date ranges, sales org), comprehensive error handling with informative messages for no-data scenarios, and include sample/mock data options for systems with limited test data.')" style="position: absolute; top: 2px; right: 8px; padding: 4px 8px; font-size: 10px;">Copy Prompt</button>
                 </div>
 
                 
@@ -315,10 +316,10 @@
             </div>
 
             <div class="prompt-box">
-                <h3>Prompt 2</h3>
-                <div style="text-align: center; margin: 20px 0; position: relative;">
-                    <img src="Prompt2.jpg" alt="Prompt 2 Example" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-                    <button class="copy-btn" onclick="copyPrompt(this, 'Generate comprehensive technical documentation for this ABAP report that extracts sales order data from VBAK/VBAP tables. Include: Program overview and purpose, Table relationships (VBAK-VBAP join logic), Selection screen parameters documentation, ALV grid field descriptions, Error handling scenarios, Modern ABAP syntax explanations (@ escaping usage), Performance considerations, Sample data generation logic')" style="position: absolute; top: 10px; right: 10px;">Copy Prompt</button>
+                <h3 style="font-size: 20px; margin-bottom: 15px;">Technical Documentation Generation</h3>
+                <div style="font-size: 14px; margin-bottom: 20px; position: relative; background: black; color: white; padding: 15px; border-radius: 8px;">
+                    <p>Generate comprehensive technical documentation for this ABAP report that extracts sales order data from VBAK/VBAP tables. Include: Program overview and purpose, Table relationships (VBAK-VBAP join logic), Selection screen parameters documentation, ALV grid field descriptions, Error handling scenarios, Modern ABAP syntax explanations (@-escaping usage), Performance considerations, Sample data generation logic</p>
+                    <button class="copy-btn" onclick="copyPrompt(this, 'Generate comprehensive technical documentation for this ABAP report that extracts sales order data from VBAK/VBAP tables. Include: Program overview and purpose, Table relationships (VBAK-VBAP join logic), Selection screen parameters documentation, ALV grid field descriptions, Error handling scenarios, Modern ABAP syntax explanations (@-escaping usage), Performance considerations, Sample data generation logic')" style="position: absolute; top: 2px; right: 8px; padding: 4px 8px; font-size: 10px;">Copy Prompt</button>
                 </div>
                 
                 <div style="margin-top: 20px;">
@@ -331,10 +332,10 @@
             </div>
 
             <div class="prompt-box">
-                <h3>Prompt 3</h3>
-                <div style="text-align: center; margin: 20px 0; position: relative;">
-                    <img src="Prompt3.jpg" alt="Prompt 3 Example" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-                    <button class="copy-btn" onclick="copyPrompt(this, 'Create end-user documentation for an ABAP sales order report showing: How to execute the report, Input parameter descriptions (date ranges, sales organization), Expected output format and columns, Error message explanations, Troubleshooting guide for no-data scenarios, Screenshots placeholders for selection screen and ALV output, Business use cases and benefits')" style="position: absolute; top: 10px; right: 10px;">Copy Prompt</button>
+                <h3 style="font-size: 20px; margin-bottom: 15px;">User Manual Creation</h3>
+                <div style="font-size: 14px; margin-bottom: 20px; position: relative; background: black; color: white; padding: 15px; border-radius: 8px;">
+                    <p>Based on the Sales report above create end-user documentation for an ABAP sales order report showing: How to execute the report, Input parameter descriptions (date ranges, sales organization), Expected output format and columns, Error message explanations, Troubleshooting guide for no-data scenarios, Screenshots placeholders for selection screen and ALV output, Business use cases and benefits</p>
+                    <button class="copy-btn" onclick="copyPrompt(this, 'Based on the Sales report above create end-user documentation for an ABAP sales order report showing: How to execute the report, Input parameter descriptions (date ranges, sales organization), Expected output format and columns, Error message explanations, Troubleshooting guide for no-data scenarios, Screenshots placeholders for selection screen and ALV output, Business use cases and benefits')" style="position: absolute; top: 2px; right: 8px; padding: 4px 8px; font-size: 10px;">Copy Prompt</button>
                 </div>
                 
                 <div style="margin-top: 20px;">
@@ -347,10 +348,10 @@
             </div>
 
             <div class="prompt-box">
-                <h3>Prompt 4</h3>
-                <div style="text-align: center; margin: 20px 0; position: relative;">
-                    <img src="Prompt4.jpg" alt="Prompt 4 Example" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-                    <button class="copy-btn" onclick="copyPrompt(this, 'Generate a CDS view named ZFIGL_BL001 that extracts balance sheet account data from SAPs universal journal with delta extraction capability enabled for data extraction, including key fields like company code, fiscal year, GL account, document number, amounts, and currency, with proper annotations for OData exposure. Filter for balance sheet accounts only and display the output in ABAP code.')" style="position: absolute; top: 10px; right: 10px;">Copy Prompt</button>
+                <h3 style="font-size: 20px; margin-bottom: 15px;">ABAP code prompt example for CDS View</h3>
+                <div style="font-size: 14px; margin-bottom: 20px; position: relative; background: black; color: white; padding: 15px; border-radius: 8px;">
+                    <p>Generate a CDS view named 'ZFIGL_BL001' that extracts balance sheet account data from SAP's universal journal with delta extraction capability enabled for data extraction, including key fields like company code, fiscal year, GL account, document number, amounts, and currency, with proper annotations for OData exposure. Filter for balance sheet accounts only and display the output in ABAP code.</p>
+                    <button class="copy-btn" onclick="copyPrompt(this, 'Generate a CDS view named ZFIGL_BL001 that extracts balance sheet account data from SAP\'s universal journal with delta extraction capability enabled for data extraction, including key fields like company code, fiscal year, GL account, document number, amounts, and currency, with proper annotations for OData exposure. Filter for balance sheet accounts only and display the output in ABAP code.')" style="position: absolute; top: 2px; right: 8px; padding: 4px 8px; font-size: 10px;">Copy Prompt</button>
                 </div>
                 
                 <div style="margin-top: 20px;">
