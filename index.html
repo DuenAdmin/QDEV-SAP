@@ -152,6 +152,7 @@ hr { border: none; border-top: 2px solid #d5dbdb; margin: 2.5rem 0; }
   <a href="#section-7" onclick="showSection('section-7')">Lab: Code Explanation</a>
   <a href="#section-8" onclick="showSection('section-8')">Lab: Modernization</a>
   <a href="#section-9" onclick="showSection('section-9')">Lab: Debugging</a>
+  <a href="#section-14" onclick="showSection('section-14')">Lab: MCP for SAP ABAP</a>
   <div class="divider"></div>
   <h3>📎 Materials</h3>
   <a href="#section-13" onclick="showSection('section-13')">🔌 MCP for SAP ABAP</a>
@@ -189,6 +190,7 @@ hr { border: none; border-top: 2px solid #d5dbdb; margin: 2.5rem 0; }
       <div class="card lab" onclick="showSection('section-7')"><div class="num">Labs 3.1-3.3</div><h3>Code Explanation Labs</h3><p>Legacy analysis, documentation, dynamic ABAP.</p></div>
       <div class="card lab" onclick="showSection('section-8')"><div class="num">Labs 4.1-4.3</div><h3>Modernization Labs</h3><p>Clean ABAP, Cloud conversion, OO refactoring.</p></div>
       <div class="card lab" onclick="showSection('section-9')"><div class="num">Labs 5.1-5.3</div><h3>Debugging Labs</h3><p>Bug fixing, dump analysis, performance tuning.</p></div>
+      <div class="card lab" onclick="showSection('section-14')"><div class="num">Labs MCP</div><h3>🔌 MCP Labs</h3><p>Install MCP server, read SAP objects from chat, where-used analysis.</p></div>
     </div>
     <h2 class="section-title">📎 Materials</h2>
     <div class="landing-grid">
@@ -691,17 +693,76 @@ START-OF-SELECTION.
 <li><input type="checkbox"> Service definition</li>
 <li><input type="checkbox"> Service binding</li>
 </ol>
+<h2>Hands-On Lab 2.4: Generate a Draw.io Architecture Diagram</h2>
+<p>Amazon Q can also generate <strong>draw.io XML</strong> that you can import directly into <a href="https://app.diagrams.net" target="_blank">diagrams.net (draw.io)</a> to visualize your ABAP architecture.</p>
+
+<h3>Instructions</h3>
+<ol>
+<li>Enter the following prompt:</li>
+</ol>
+
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('drawio-1')">📋 Copy</button><pre><code id="drawio-1">Generate a draw.io XML diagram showing the architecture of an SAP S/4HANA sales order flow:
+
+1. User triggers sales order creation via Fiori app
+2. Fiori app calls OData service (RAP-based)
+3. RAP Business Object: ZI_SalesOrder (CDS + BDEF + behavior impl)
+4. Behavior implementation calls BAPI_SALESORDER_CREATEFROMDAT2 via RFC wrapper
+5. BAPI writes to VBAK/VBAP tables
+6. A background job reads new orders and sends IDoc to external system
+7. Amazon Q Developer is shown as a side panel helping with code generation
+
+Use these colors:
+- Fiori/UI layer: #0070F2 (SAP blue)
+- RAP/OData layer: #FF9900 (AWS orange)
+- Database layer: #1B660F (green)
+- External systems: #879596 (gray)
+
+Output only the raw XML that I can paste into draw.io.</code></pre></div>
+
+<ol start="2">
+<li>Copy the generated XML</li>
+<li>Go to <a href="https://app.diagrams.net" target="_blank">app.diagrams.net</a> → Extras → Edit Diagram (or press Ctrl+Shift+X)</li>
+<li>Paste the XML and click <strong>OK</strong></li>
+</ol>
+
+<div class="expected-output"><div class="expected-output-header">Expected: A layered architecture diagram with colored boxes for each layer, arrows showing the data flow, and labels for each component</div></div>
+
+<div style="background:#e8f5e9;border:2px solid #43a047;border-radius:8px;padding:1rem 1.2rem;margin:1rem 0">
+<div style="font-weight:700;color:#2e7d32;margin-bottom:0.4rem;">🚀 Try more diagram prompts:</div>
+
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('drawio-2')">📋 Copy</button><pre><code id="drawio-2">Generate a draw.io XML diagram showing the CDS view hierarchy for a purchase order reporting scenario:
+- Top level: ZC_PurchaseOrder (consumption view, OData exposed)
+- Middle: ZI_PurchaseOrder (interface view, joins EKKO + EKPO)
+- Base: EKKO, EKPO, LFA1 (database tables)
+- Show associations with arrows and cardinality labels (1:N, 1:1)
+Output only raw XML.</code></pre></div>
+
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('drawio-3')">📋 Copy</button><pre><code id="drawio-3">Generate a draw.io XML sequence diagram showing:
+1. User opens Fiori app
+2. Fiori sends OData request to SAP Gateway
+3. Gateway calls RAP handler
+4. RAP handler calls CDS view
+5. CDS view reads from HANA database
+6. Response flows back through each layer
+Use SAP-style colors and include timing annotations.
+Output only raw XML.</code></pre></div>
+</div>
+
+<div style="background:#fff3e0;border-left:4px solid #ff9900;padding:0.6rem 0.8rem;border-radius:0 6px 6px 0;margin:0.8rem 0;font-size:0.9rem;">💡 <strong>Tip:</strong> If the diagram doesn't look right, ask a follow-up: <em>"Rearrange the boxes so the flow goes top-to-bottom. Make the boxes wider and add more spacing."</em> You can iterate until it looks good.</div>
+
 <h2>💡 Tips</h2>
 <ul>
 <li>Use follow-up prompts to refine: <em>"Add sorting by document date descending"</em></li>
 <li>Ask for variations: <em>"Now make a version that uses ABAP Cloud released APIs only"</em></li>
 <li>Request explanations: <em>"Explain why you used CL_SALV_TABLE instead of REUSE_ALV_GRID_DISPLAY"</em></li>
+<li>Generate diagrams: <em>"Create a draw.io XML showing the data flow for this report"</em></li>
 </ul>
 <h2>✅ Checkpoint</h2>
 <ul>
 <li><input type="checkbox"> Successfully generated an ALV report</li>
 <li><input type="checkbox"> Generated a CDS view with associations</li>
 <li><input type="checkbox"> Generated RAP business object artifacts</li>
+<li><input type="checkbox"> Generated a draw.io architecture diagram</li>
 <li><input type="checkbox"> Understand how prompt specificity affects output quality</li>
 </ul>
 <hr />
@@ -2100,6 +2161,168 @@ SAP BTP ABAP Environment / ABAP Cloud.
 <li>Feedback form link</li>
 <li>Next steps</li>
 </ul></div></div>
+<div id="section-14" class="section" style="display:none;"><div class="container">
+<h1>Lab Instructions — MCP for SAP ABAP</h1>
+
+<div style="background:#fff3e0;color:#e65100;padding:0.2rem 0.7rem;border-radius:12px;font-size:0.8rem;font-weight:600;display:inline-block;margin-bottom:1rem;">⏱️ Estimated time: 20–25 minutes</div>
+
+<div class="if-stuck">Skip this lab and move to the next one. You can always come back later. The labs are independent of each other.</div>
+
+<h2>Lab MCP.1: Install and Connect the MCP Server</h2>
+
+<p><strong>Time:</strong> 10 minutes</p>
+
+<h3>Objective</h3>
+<p>Install an SAP ABAP MCP server and connect it to your IDE so Amazon Q / Kiro can read SAP objects directly.</p>
+
+<h3>Prerequisites</h3>
+<ul>
+<li>Python 3.9+ installed (<code>python3 --version</code> to check)</li>
+<li>Access to an SAP system with ADT services enabled</li>
+<li>SAP username, password, client number, and system URL</li>
+</ul>
+
+<h3>Steps</h3>
+
+<p><strong>Step 1 — Clone and install the MCP server:</strong></p>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('lab-mcp-1')">📋 Copy</button><pre><code id="lab-mcp-1">git clone https://github.com/YahorNovik/mcp-adt.git
+cd mcp-adt
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt</code></pre></div>
+
+<p><strong>Step 2 — Create the SAP connection file:</strong></p>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('lab-mcp-2')">📋 Copy</button><pre><code id="lab-mcp-2"># Create .env file in the mcp-adt folder
+cat > .env << 'EOF'
+SAP_AUTH_TYPE=basic
+SAP_URL=https://your-sap-system:443
+SAP_CLIENT=100
+SAP_USER=your_username
+SAP_PASS=your_password
+SAP_VERIFY_SSL=true
+EOF</code></pre></div>
+
+<div style="background:#fce4ec;border-left:4px solid #e91e63;padding:0.6rem 0.8rem;border-radius:0 6px 6px 0;margin:0.8rem 0;font-size:0.9rem;">🔒 Replace the placeholder values with your actual SAP credentials. Never commit this file to Git.</div>
+
+<p><strong>Step 3 — Test the connection:</strong></p>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('lab-mcp-3')">📋 Copy</button><pre><code id="lab-mcp-3"># Quick test — should return XML if connection works
+curl -u your_username:your_password https://your-sap-system:443/sap/bc/adt/discovery</code></pre></div>
+
+<p><strong>Step 4 — Add to your IDE:</strong></p>
+
+<p><em>For VS Code + Amazon Q:</em></p>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('lab-mcp-4a')">📋 Copy</button><pre><code id="lab-mcp-4a"># Add to ~/.aws/amazonq/default.json
+{
+  "mcpServers": {
+    "sap-abap-adt": {
+      "command": "python3",
+      "args": ["/full/path/to/mcp-adt/mcp_server.py"],
+      "timeout": 60
+    }
+  }
+}</code></pre></div>
+
+<p><em>For Kiro:</em></p>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('lab-mcp-4b')">📋 Copy</button><pre><code id="lab-mcp-4b"># Add to ~/.kiro/settings/mcp.json
+{
+  "mcpServers": {
+    "sap-abap-adt": {
+      "command": "python3",
+      "args": ["/full/path/to/mcp-adt/mcp_server.py"],
+      "timeout": 60
+    }
+  }
+}</code></pre></div>
+
+<h3>✅ Verification</h3>
+<ul>
+<li>Open the chat panel in your IDE</li>
+<li>Check the MCP tools icon — you should see <strong>sap-abap-adt</strong> listed as connected</li>
+<li>If you see a red error, click "Fix Configuration" and check your path and .env file</li>
+</ul>
+
+<div class="expected-output"><div class="expected-output-header">Expected: MCP server shows as "Connected" with 15+ tools available</div></div>
+
+<hr>
+
+<h2>Lab MCP.2: Read SAP Objects via Chat</h2>
+
+<p><strong>Time:</strong> 5 minutes</p>
+
+<h3>Objective</h3>
+<p>Use natural language prompts to read ABAP source code and table definitions directly from SAP — without copy-pasting.</p>
+
+<h3>Exercise A — Read a program</h3>
+<p>Type this in your AI chat:</p>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('lab-mcp-5')">📋 Copy</button><pre><code id="lab-mcp-5">Read the source code of the ABAP demo program SAPBC_DATA_GENERATOR and explain what it does.</code></pre></div>
+
+<div class="expected-output"><div class="expected-output-header">Expected: The AI calls get_program_source, retrieves the code, and gives you a summary — all without you pasting anything</div></div>
+
+<h3>Exercise B — Explore a table structure</h3>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('lab-mcp-6')">📋 Copy</button><pre><code id="lab-mcp-6">Get the structure of table SCARR (airline carriers). Then write a modern ABAP SELECT that reads all carriers and displays them in an ALV grid.</code></pre></div>
+
+<div class="expected-output"><div class="expected-output-header">Expected: The AI calls get_table_source for SCARR, sees the fields (CARRID, CARRNAME, CURRCODE, URL), and generates a working ABAP report</div></div>
+
+<h3>Exercise C — Read table data</h3>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('lab-mcp-7')">📋 Copy</button><pre><code id="lab-mcp-7">Show me the first 5 rows from table SCARR.</code></pre></div>
+
+<div class="expected-output"><div class="expected-output-header">Expected: The AI calls get_table_contents with max_rows=5 and shows you actual data like AA/American Airlines, LH/Lufthansa, etc.</div></div>
+
+<hr>
+
+<h2>Lab MCP.3: Advanced — Where-Used and Cross-Object Analysis</h2>
+
+<p><strong>Time:</strong> 10 minutes</p>
+
+<h3>Objective</h3>
+<p>Use MCP tools for cross-object analysis that would normally require multiple SAP transactions.</p>
+
+<h3>Exercise A — Where-used analysis</h3>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('lab-mcp-8')">📋 Copy</button><pre><code id="lab-mcp-8">Find all objects that reference function module POPUP_TO_CONFIRM. List the top 5 and explain how each one uses it.</code></pre></div>
+
+<div class="expected-output"><div class="expected-output-header">Expected: The AI calls get_usage_references and returns a list of programs/classes that call this FM, with context on each usage</div></div>
+
+<h3>Exercise B — Search and compare</h3>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('lab-mcp-9')">📋 Copy</button><pre><code id="lab-mcp-9">Search for all ABAP objects matching "SFLIGHT*". Then read the source of program SAPBC_DATA_GENERATOR and the structure of table SFLIGHT. Explain how they relate to each other.</code></pre></div>
+
+<div class="expected-output"><div class="expected-output-header">Expected: The AI chains multiple MCP calls — search_objects, get_program_source, get_table_source — and synthesizes the results</div></div>
+
+<h3>Exercise C — Generate code using live SAP context</h3>
+<p>This is the power move — the AI reads your actual SAP system to generate accurate code:</p>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('lab-mcp-10')">📋 Copy</button><pre><code id="lab-mcp-10">Read the structure of tables EKKO and EKPO from my SAP system. Then write a complete ABAP report that:
+1. Has a selection screen for company code and document date range
+2. JOINs these two tables using the actual field names you found
+3. Displays results in CL_SALV_TABLE
+4. Uses modern ABAP syntax</code></pre></div>
+
+<div class="expected-output"><div class="expected-output-header">Expected: The AI reads both table structures via MCP, uses the real field names (not guessed ones), and generates a report with correct JOINs</div></div>
+
+<div style="background:#e8f5e9;border:2px solid #43a047;border-radius:8px;padding:1rem 1.2rem;margin:1rem 0">
+<strong style="color:#2e7d32;">🎯 Key Takeaway:</strong> Without MCP, you'd need to copy-paste table structures into the chat. With MCP, the AI reads them directly — and the generated code uses <em>actual</em> field names from your system, not hallucinated ones.
+</div>
+
+<hr>
+
+<h2>🏆 Lab Summary</h2>
+<table>
+<tr><th>Exercise</th><th>MCP Tools Used</th><th>SAP Equivalent</th></tr>
+<tr><td>Read a program</td><td>get_program_source</td><td>SE38 → Display</td></tr>
+<tr><td>Explore table structure</td><td>get_table_source</td><td>SE11 → Display</td></tr>
+<tr><td>Read table data</td><td>get_table_contents</td><td>SE16 / SE16N</td></tr>
+<tr><td>Where-used analysis</td><td>get_usage_references</td><td>SE80 → Where-Used List</td></tr>
+<tr><td>Search objects</td><td>search_objects</td><td>SE80 → Repository Search</td></tr>
+<tr><td>Generate from live context</td><td>Multiple tools chained</td><td>Manual copy-paste from SE11/SE38</td></tr>
+</table>
+
+<div class="faq-section"><div class="faq-title">Troubleshooting — MCP Lab</div>
+<div class="faq-item"><div class="faq-q">The AI doesn't use MCP tools — it just answers from memory</div><div class="faq-a">Make sure the MCP server shows as "Connected" in your IDE. If tools are set to "Ask" permission, you need to approve each tool call when prompted.</div></div>
+<div class="faq-item"><div class="faq-q">get_table_contents returns empty</div><div class="faq-a">The table might be empty in your system. Try SCARR or SFLIGHT — these are SAP demo tables that usually have data. If using a fresh system, run program SAPBC_DATA_GENERATOR first.</div></div>
+<div class="faq-item"><div class="faq-q">Timeout on large programs</div><div class="faq-a">Some SAP standard programs are huge (100K+ lines). Try smaller programs first, or increase the timeout to 120 seconds in your MCP config.</div></div>
+<div class="faq-item"><div class="faq-q">Authorization error on where-used</div><div class="faq-a">Where-used analysis requires additional ADT authorizations. Ask your Basis admin to check S_ADT_RES and S_DEVELOP authorization objects.</div></div>
+</div>
+
+</div></div>
+
 <div id="section-13" class="section" style="display:none;"><div class="container">
 <h1>🔌 MCP for SAP ABAP — Connect Your IDE to SAP</h1>
 
