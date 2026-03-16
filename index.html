@@ -102,6 +102,35 @@ hr { border: none; border-top: 2px solid #d5dbdb; margin: 2.5rem 0; }
 .section-title { font-size: 1.3rem; color: #232f3e; margin: 2rem 0 0.8rem; border-bottom: 2px solid #ff9900; padding-bottom: 0.4rem; }
 
 @media (max-width: 768px) { .sidebar { display: none; } .main { margin-left: 0; } }
+
+.try-it { background: #e8f5e9; border: 2px solid #43a047; border-radius: 8px; padding: 1rem 1.2rem; margin: 1rem 0; }
+.try-it-header { font-weight: 700; color: #2e7d32; margin-bottom: 0.4rem; font-size: 0.95rem; }
+.try-it-header::before { content: "🚀 "; }
+
+.expected-output { background: #e3f2fd; border: 2px solid #1976d2; border-radius: 8px; padding: 1rem 1.2rem; margin: 1rem 0; }
+.expected-output-header { font-weight: 700; color: #1565c0; margin-bottom: 0.4rem; font-size: 0.95rem; }
+.expected-output-header::before { content: "✅ "; }
+
+.time-est { display: inline-block; background: #fff3e0; color: #e65100; padding: 0.2rem 0.7rem; border-radius: 12px; font-size: 0.8rem; font-weight: 600; margin-left: 0.5rem; }
+
+.if-stuck { background: #fce4ec; border-left: 4px solid #e91e63; padding: 0.8rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; font-size: 0.9rem; }
+.if-stuck::before { content: "💡 If you get stuck: "; font-weight: 700; color: #c2185b; }
+
+.faq-section { background: white; border: 1px solid #d5dbdb; border-radius: 8px; margin: 1.5rem 0; overflow: hidden; }
+.faq-title { background: #232f3e; color: #ff9900; padding: 0.8rem 1.2rem; font-weight: 700; font-size: 0.95rem; }
+.faq-title::before { content: "❓ "; }
+.faq-item { padding: 0.8rem 1.2rem; border-bottom: 1px solid #eee; }
+.faq-item:last-child { border-bottom: none; }
+.faq-q { font-weight: 600; color: #232f3e; margin-bottom: 0.3rem; }
+.faq-a { color: #545b64; font-size: 0.9rem; }
+
+.progress-tracker { position: sticky; top: 0; z-index: 5; background: white; border-bottom: 2px solid #eee; padding: 0.6rem 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.progress-tracker .step { width: 100%; height: 6px; background: #e3e8f0; border-radius: 3px; position: relative; }
+.progress-tracker .step.active { background: #ff9900; }
+.progress-tracker .step.done { background: #1b660f; }
+.progress-tracker .step-label { font-size: 0.7rem; color: #879596; text-align: center; margin-top: 2px; }
+.progress-tracker .step.active .step-label { color: #ff9900; font-weight: 700; }
+
 </style>
 </head>
 <body>
@@ -125,6 +154,7 @@ hr { border: none; border-top: 2px solid #d5dbdb; margin: 2.5rem 0; }
   <a href="#section-9" onclick="showSection('section-9')">Lab: Debugging</a>
   <div class="divider"></div>
   <h3>📎 Materials</h3>
+  <a href="#section-12" onclick="showSection('section-12')">📖 Glossary & Cheat Sheet</a>
   <a href="#section-10" onclick="showSection('section-10')">Participant Handout</a>
   <a href="#section-11" onclick="showSection('section-11')">Slide Deck Outline</a>
 </nav>
@@ -163,6 +193,7 @@ hr { border: none; border-top: 2px solid #d5dbdb; margin: 2.5rem 0; }
     <div class="landing-grid">
       <div class="card res" onclick="showSection('section-10')"><div class="num">Handout</div><h3>📋 Participant Handout</h3><p>Prompt templates, cheat sheets, SAP tables reference.</p></div>
       <div class="card res" onclick="showSection('section-11')"><div class="num">Slides</div><h3>🎤 Slide Deck Outline</h3><p>20-slide structure for your presentation.</p></div>
+      <div class="card res" onclick="showSection('section-12')"><div class="num">Reference</div><h3>📖 Glossary & Cheat Sheet</h3><p>SAP terms, table names, and copy-paste prompt templates.</p></div>
     </div>
   </div>
 </div>
@@ -529,6 +560,13 @@ Use modern ABAP syntax with inline declarations.
 <li>Use inline code suggestions for ABAP development</li>
 <li>Understand how to write effective prompts for ABAP</li>
 </ul>
+<div style="background:#fff8e1;border:2px solid #ff9900;border-radius:8px;padding:1.2rem;margin:1rem 0">
+<h3 style="color:#e65100;margin:0 0 0.5rem">🏃 Warm-Up Exercise (2 minutes)</h3>
+<p>Before we start the real labs, let's build confidence with a simple prompt. Copy and paste this into your chat:</p>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('warmup1')">📋 Copy</button><pre><code id="warmup1">Write a simple ABAP report that prints "Hello, Amazon Q!" to the screen. Use modern ABAP syntax.</code></pre></div>
+<div class="expected-output"><div class="expected-output-header">Expected: You should get a short report with WRITE or cl_demo_output</div></div>
+<div class="if-stuck">This is just a warm-up. If it doesn't work, check your connection in Module 1. You can skip ahead and come back.</div>
+</div>
 <h2>2.1 Prompting Strategies for ABAP</h2>
 <p>Effective prompts for ABAP code generation should include:</p>
 <ol>
@@ -2060,6 +2098,63 @@ SAP BTP ABAP Environment / ABAP Cloud.
 <li>Feedback form link</li>
 <li>Next steps</li>
 </ul></div></div>
+<div id="section-12" class="section" style="display:none;"><div class="container">
+<h1>📖 SAP/ABAP Glossary & Cheat Sheet</h1>
+
+<h2>Key SAP Terms</h2>
+<table>
+<tr><th>Term</th><th>What It Means</th></tr>
+<tr><td><strong>ABAP</strong></td><td>Advanced Business Application Programming — SAP's proprietary programming language</td></tr>
+<tr><td><strong>ALV</strong></td><td>ABAP List Viewer — SAP's standard grid/table display framework</td></tr>
+<tr><td><strong>BAPI</strong></td><td>Business Application Programming Interface — standardized API for SAP business objects</td></tr>
+<tr><td><strong>BTP</strong></td><td>Business Technology Platform — SAP's cloud platform</td></tr>
+<tr><td><strong>CDS</strong></td><td>Core Data Services — modern data modeling layer using SQL-like views</td></tr>
+<tr><td><strong>Clean ABAP</strong></td><td>SAP's official coding style guide for modern, readable ABAP</td></tr>
+<tr><td><strong>ECC</strong></td><td>ERP Central Component — the older SAP ERP system (pre-S/4HANA)</td></tr>
+<tr><td><strong>RAP</strong></td><td>RESTful ABAP Programming Model — modern framework for building OData services</td></tr>
+<tr><td><strong>S/4HANA</strong></td><td>SAP's current ERP suite running on HANA database</td></tr>
+<tr><td><strong>SAP ADT</strong></td><td>ABAP Development Tools — Eclipse-based IDE for ABAP development</td></tr>
+<tr><td><strong>SE80 / SE38</strong></td><td>Classic SAP transactions for ABAP development (being replaced by ADT)</td></tr>
+</table>
+
+<h2>Common SAP Tables — Copy-Paste Ready for Prompts</h2>
+<table>
+<tr><th>Area</th><th>Header Table</th><th>Item Table</th><th>Use In Prompts</th></tr>
+<tr><td>Sales Orders</td><td>VBAK</td><td>VBAP</td><td><em>"Read sales orders from VBAK/VBAP"</em></td></tr>
+<tr><td>Purchase Orders</td><td>EKKO</td><td>EKPO</td><td><em>"Read purchase orders from EKKO/EKPO"</em></td></tr>
+<tr><td>Deliveries</td><td>LIKP</td><td>LIPS</td><td><em>"Read deliveries from LIKP/LIPS"</em></td></tr>
+<tr><td>Billing</td><td>VBRK</td><td>VBRP</td><td><em>"Read billing docs from VBRK/VBRP"</em></td></tr>
+<tr><td>Material Master</td><td>MARA</td><td>MARC, MARD</td><td><em>"Read materials from MARA"</em></td></tr>
+<tr><td>Business Partner</td><td>BUT000</td><td>BUT020</td><td><em>"Read business partners from BUT000"</em></td></tr>
+<tr><td>Accounting Docs</td><td>BKPF</td><td>BSEG*</td><td><em>"Read accounting docs from BKPF"</em></td></tr>
+<tr><td>Airlines (demo)</td><td>SCARR</td><td>SFLIGHT</td><td><em>"Read airlines from SCARR"</em></td></tr>
+</table>
+<p><em>* BSEG: Use CDS views in S/4HANA instead of direct access</em></p>
+
+<h2>Prompt Starter Templates</h2>
+<p>Copy any of these and paste into Amazon Q or Kiro chat:</p>
+
+<div class="try-it">
+<div class="try-it-header">Quick Report</div>
+<pre><code>Write an ABAP report for S/4HANA that reads [TABLE] filtered by [FIELD] and displays results in an ALV grid using CL_SALV_TABLE. Use modern ABAP syntax.</code></pre>
+</div>
+
+<div class="try-it">
+<div class="try-it-header">Explain Code</div>
+<pre><code>Explain this ABAP code: what it does, any performance issues, and how to improve it.</code></pre>
+</div>
+
+<div class="try-it">
+<div class="try-it-header">Modernize Code</div>
+<pre><code>Refactor this ABAP code to Clean ABAP: inline declarations, no SELECT *, no SELECT in LOOP, use CL_SALV_TABLE, add error handling.</code></pre>
+</div>
+
+<div class="try-it">
+<div class="try-it-header">Fix Bugs</div>
+<pre><code>This ABAP code has bugs. Find all issues and provide a corrected version with explanations.</code></pre>
+</div>
+
+</div></div>
 
 </div>
 
