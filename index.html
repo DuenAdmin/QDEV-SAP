@@ -1,502 +1,2125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amazon Q Developer for SAP ABAP Workshop</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif;
-            font-size: 12px;
-            line-height: 1.6;
-            color: #232f3e;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding-top: 80px;
-        }
-        
-        .top-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: #232f3e;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 40px;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .nav-left {
-            display: flex;
-            align-items: center;
-            flex: 1;
-            justify-content: center;
-            margin-right: 200px;
-        }
-        
-        .nav-title {
-            color: white;
-            font-size: 24px;
-            font-weight: 600;
-            margin: 0;
-        }
-        
-        .nav-workshop-btn {
-            background: #ff9900;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-workshop-btn:hover {
-            background: #e88900;
-            transform: translateY(-1px);
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-        
-        .header h1 {
-            font-size: 4em;
-            color: #232f3e;
-            margin-bottom: 15px;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .header .subtitle {
-            font-size: 2em;
-            color: #ff9900;
-            font-weight: 600;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-        
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .card h2 {
-            color: #232f3e;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-            font-weight: 400;
-        }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-        
-        .code-card {
-            background: #1e1e1e;
-            color: #d4d4d4;
-            border-radius: 10px;
-            padding: 20px;
-            position: relative;
-            font-family: 'Fira Code', 'Courier New', monospace;
-            font-size: 12px;
-            line-height: 1.3;
-            overflow-x: auto;
-        }
-        
-        .code-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #404040;
-        }
-        
-        .code-title {
-            color: #569cd6;
-            font-weight: 600;
-        }
-        
-        .copy-btn {
-            background: #ff9900;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: all 0.3s ease;
-        }
-        
-        .copy-btn:hover {
-            background: #e88900;
-            transform: scale(1.05);
-        }
-        
-        .copy-btn.copied {
-            background: #28a745;
-        }
-        
-        .prompt-section {
-            background: linear-gradient(135deg, #ff9900 0%, #ff6b35 100%);
-            color: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 20px 0;
-        }
-        
-        .prompt-section h3 {
-            color: white;
-            margin-bottom: 15px;
-        }
-        
-        .prompt-box {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0;
-            border-left: 4px solid white;
-            font-size: 10px;
-        }
-        
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-        
-        .feature-card {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-3px);
-        }
-        
-        .feature-icon {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-        
-        .aws-logo {
-            color: #ff9900;
-            font-weight: bold;
-        }
-        
-        .footer {
-            text-align: center;
-            padding: 30px;
-            background: rgba(35, 47, 62, 0.9);
-            color: white;
-            border-radius: 15px;
-            margin-top: 30px;
-        }
-        
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amazon Q Developer for SAP ABAP Workshop</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fa; color: #1a1a2e; }
+.hero { background: linear-gradient(135deg, #232f3e 0%, #37475a 100%); color: white; padding: 2.5rem 2rem; text-align: center; }
+.hero h1 { font-size: 2rem; margin-bottom: 0.4rem; color: white; }
+.hero .accent { color: #ff9900; }
+.hero p { color: #d5dbdb; max-width: 700px; margin: 0.4rem auto; }
+.hero .meta { margin-top: 1rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+.hero .meta span { background: rgba(255,153,0,0.15); border: 1px solid #ff9900; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; }
 
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-            
-            .header h1 {
-                font-size: 2em;
-            }
-            
-            .grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+.sidebar { position: fixed; top: 0; left: 0; width: 280px; height: 100vh; background: #232f3e; overflow-y: auto; padding: 1rem 0; z-index: 10; }
+.sidebar h3 { color: #ff9900; padding: 0.8rem 1.2rem; font-size: 0.95rem; }
+.sidebar a { display: block; color: #d5dbdb; padding: 0.6rem 1.2rem; text-decoration: none; font-size: 0.88rem; border-left: 3px solid transparent; }
+.sidebar a:hover, .sidebar a.active { background: rgba(255,153,0,0.1); color: #ff9900; border-left-color: #ff9900; }
+.sidebar .divider { border-top: 1px solid #37475a; margin: 0.5rem 1.2rem; }
+
+.main { margin-left: 280px; }
+.container { max-width: 900px; padding: 2rem 2rem 2rem 1.5rem; }
+
+h1 { color: #232f3e; margin: 1.5rem 0 1rem; border-bottom: 2px solid #ff9900; padding-bottom: 0.5rem; }
+h2 { color: #232f3e; margin: 1.5rem 0 0.8rem; }
+h3 { color: #545b64; margin: 1.2rem 0 0.6rem; }
+h4 { color: #232f3e; margin: 1rem 0 0.5rem; }
+p { margin: 0.5rem 0; }
+table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+th, td { border: 1px solid #d5dbdb; padding: 0.6rem 1rem; text-align: left; }
+th { background: #232f3e; color: white; }
+tr:nth-child(even) { background: #f2f3f3; }
+code { background: #f2f3f3; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.9em; }
+pre { background: #1a1a2e; color: #e8e8e8; padding: 1rem; border-radius: 6px; overflow-x: auto; margin: 0; }
+pre code { background: none; color: #e8e8e8; padding: 0; }
+a { color: #0073bb; cursor: pointer; }
+ul, ol { margin: 0.5rem 0 0.5rem 1.5rem; }
+li { margin: 0.3rem 0; }
+blockquote { border-left: 4px solid #ff9900; padding: 0.5rem 1rem; margin: 1rem 0; background: #fff8e1; border-radius: 0 6px 6px 0; }
+hr { border: none; border-top: 2px solid #d5dbdb; margin: 2.5rem 0; }
+
+.code-wrap { position: relative; margin: 1rem 0; }
+.copy-btn {
+  position: absolute; top: 8px; right: 8px; z-index: 2;
+  background: #ff9900; color: #232f3e; border: none; padding: 0.35rem 0.8rem;
+  border-radius: 4px; font-size: 0.8rem; cursor: pointer; font-weight: 600;
+  opacity: 0; transition: opacity 0.2s;
+}
+.code-wrap:hover .copy-btn { opacity: 1; }
+.copy-btn:hover { background: #ec7211; }
+.copy-btn.copied { background: #1b660f; color: white; opacity: 1; }
+
+.landing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin: 1.5rem 0; }
+.card { background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-left: 4px solid #ff9900; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+.card:hover { transform: translateY(-3px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+.card .num { font-size: 0.8rem; color: #ff9900; font-weight: 700; text-transform: uppercase; }
+.card h3 { color: #232f3e; margin: 0.3rem 0; font-size: 1.05rem; }
+.card p { color: #545b64; font-size: 0.88rem; }
+.card .dur { font-size: 0.8rem; color: #879596; margin-top: 0.5rem; }
+.card.lab { border-left-color: #0073bb; }
+.card.res { border-left-color: #1b660f; }
+.section-title { font-size: 1.3rem; color: #232f3e; margin: 2rem 0 0.8rem; border-bottom: 2px solid #ff9900; padding-bottom: 0.4rem; }
+
+@media (max-width: 768px) { .sidebar { display: none; } .main { margin-left: 0; } }
+</style>
 </head>
 <body>
-    <nav class="top-nav">
-        <div class="nav-left">
-            <h1 class="nav-title">Amazon Q Developer for SAP ABAP Workshop</h1>
-        </div>
-        <a href="https://catalog.us-east-1.prod.workshops.aws/join?access-code=9acb-08d596-41" class="nav-workshop-btn" target="_blank">Join Workshop Event</a>
-    </nav>
-    
-    <div class="container">
 
+<nav class="sidebar">
+  <h3>🏠 Workshop</h3>
+  <a href="#landing" onclick="showSection('landing')">Home</a>
+  <div class="divider"></div>
+  <h3>📚 Modules</h3>
+  <a href="#section-0" onclick="showSection('section-0')">Module 1: Introduction & Setup</a>
+  <a href="#section-1" onclick="showSection('section-1')">Module 2: ABAP Code Generation</a>
+  <a href="#section-2" onclick="showSection('section-2')">Module 3: Code Explanation & Documentation</a>
+  <a href="#section-3" onclick="showSection('section-3')">Module 4: Modernization & Refactoring</a>
+  <a href="#section-4" onclick="showSection('section-4')">Module 5: Debugging & Troubleshooting</a>
+  <a href="#section-5" onclick="showSection('section-5')">Module 6: Real-World Use Cases & Wrap-Up</a>
+  <div class="divider"></div>
+  <h3>🔬 Labs</h3>
+  <a href="#section-6" onclick="showSection('section-6')">Lab: Code Generation</a>
+  <a href="#section-7" onclick="showSection('section-7')">Lab: Code Explanation</a>
+  <a href="#section-8" onclick="showSection('section-8')">Lab: Modernization</a>
+  <a href="#section-9" onclick="showSection('section-9')">Lab: Debugging</a>
+  <div class="divider"></div>
+  <h3>📎 Materials</h3>
+  <a href="#section-10" onclick="showSection('section-10')">Participant Handout</a>
+  <a href="#section-11" onclick="showSection('section-11')">Slide Deck Outline</a>
+</nav>
 
-        <div class="card">
-            <h2>🚀 Workshop Overview</h2>
-            <p>Learn how <span class="aws-logo">Amazon Q Developer</span> revolutionizes SAP ABAP development through AI-powered assistance.</p>
-            
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">💻</div>
-                    <h3>Code Generation</h3>
-                    <p>Generate ABAP functions, classes, and reports instantly</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Optimization</h3>
-                    <p>Improve performance and code quality</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📚</div>
-                    <h3>Documentation</h3>
-                    <p>Auto-generate comprehensive documentation</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
-                    <h3>Debugging</h3>
-                    <p>Identify and fix code issues quickly</p>
-                </div>
-            </div>
-        </div>
+<div class="main">
 
-        <div class="prompt-section">
-            <h2>🎯 Workshop prompt example</h2>
-            
-            <div class="prompt-box">
-                <h3 style="font-size: 20px; margin-bottom: 15px;">ABAP report prompt example for Sales report</h3>
-                <div style="font-size: 14px; margin-bottom: 20px; position: relative; background: black; color: white; padding: 15px; border-radius: 8px;">
-                    <p>Create an ABAP report extracting sales order items from VBAK/VBAP tables displaying Sales Order Number, Item Number, Material Code, Quantity, Net Value, and Currency in ALV grid. Use modern ABAP syntax with @ escaping, flexible input parameters (date ranges, sales org), comprehensive error handling with informative messages for no-data scenarios, and include sample/mock data options for systems with limited test data.</p>
-                    <button class="copy-btn" onclick="copyPrompt(this, 'Create an ABAP report extracting sales order items from VBAK/VBAP tables displaying Sales Order Number, Item Number, Material Code, Quantity, Net Value, and Currency in ALV grid. Use modern ABAP syntax with @ escaping, flexible input parameters (date ranges, sales org), comprehensive error handling with informative messages for no-data scenarios, and include sample/mock data options for systems with limited test data.')" style="position: absolute; top: 2px; right: 8px; padding: 4px 8px; font-size: 10px;">Copy Prompt</button>
-                </div>
-
-                
-                <div style="margin-top: 20px;">
-                    <h4 style="color: white; margin-bottom: 15px;">Output Screenshots:</h4>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
-                        <div style="text-align: center;">
-                            <img src="Output1.1.png" alt="Output 1.1 - Selection Screen" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
-                            <p style="color: white; margin-top: 8px; font-size: 12px;">Selection Screen Interface</p>
-                        </div>
-                        <div style="text-align: center;">
-                            <img src="Output1.2.png" alt="Output 1.2 - ALV Grid Results" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
-                            <p style="color: white; margin-top: 8px; font-size: 12px;">ALV Grid Output</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="prompt-box">
-                <h3 style="font-size: 20px; margin-bottom: 15px;">Technical Documentation Generation</h3>
-                <div style="font-size: 14px; margin-bottom: 20px; position: relative; background: black; color: white; padding: 15px; border-radius: 8px;">
-                    <p>Generate comprehensive technical documentation for this ABAP report that extracts sales order data from VBAK/VBAP tables. Include: Program overview and purpose, Table relationships (VBAK-VBAP join logic), Selection screen parameters documentation, ALV grid field descriptions, Error handling scenarios, Modern ABAP syntax explanations (@-escaping usage), Performance considerations, Sample data generation logic</p>
-                    <button class="copy-btn" onclick="copyPrompt(this, 'Generate comprehensive technical documentation for this ABAP report that extracts sales order data from VBAK/VBAP tables. Include: Program overview and purpose, Table relationships (VBAK-VBAP join logic), Selection screen parameters documentation, ALV grid field descriptions, Error handling scenarios, Modern ABAP syntax explanations (@-escaping usage), Performance considerations, Sample data generation logic')" style="position: absolute; top: 2px; right: 8px; padding: 4px 8px; font-size: 10px;">Copy Prompt</button>
-                </div>
-                
-                <div style="margin-top: 20px;">
-                    <h4 style="color: white; margin-bottom: 15px;">Output Screenshot:</h4>
-                    <div style="text-align: center; margin: 15px 0;">
-                        <img src="Output2.1.png" alt="Output 2.1 - Technical Documentation" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
-                        <p style="color: white; margin-top: 8px; font-size: 12px;">Technical Documentation Output</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="prompt-box">
-                <h3 style="font-size: 20px; margin-bottom: 15px;">User Manual Creation</h3>
-                <div style="font-size: 14px; margin-bottom: 20px; position: relative; background: black; color: white; padding: 15px; border-radius: 8px;">
-                    <p>Based on the Sales report above create end-user documentation for an ABAP sales order report showing: How to execute the report, Input parameter descriptions (date ranges, sales organization), Expected output format and columns, Error message explanations, Troubleshooting guide for no-data scenarios, Screenshots placeholders for selection screen and ALV output, Business use cases and benefits</p>
-                    <button class="copy-btn" onclick="copyPrompt(this, 'Based on the Sales report above create end-user documentation for an ABAP sales order report showing: How to execute the report, Input parameter descriptions (date ranges, sales organization), Expected output format and columns, Error message explanations, Troubleshooting guide for no-data scenarios, Screenshots placeholders for selection screen and ALV output, Business use cases and benefits')" style="position: absolute; top: 2px; right: 8px; padding: 4px 8px; font-size: 10px;">Copy Prompt</button>
-                </div>
-                
-                <div style="margin-top: 20px;">
-                    <h4 style="color: white; margin-bottom: 15px;">Output Screenshot:</h4>
-                    <div style="text-align: center; margin: 15px 0;">
-                        <img src="Output3.2.jpg" alt="Output 3.2 - User Documentation" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
-                        <p style="color: white; margin-top: 8px; font-size: 12px;">User Documentation Output</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="prompt-box">
-                <h3 style="font-size: 20px; margin-bottom: 15px;">ABAP code prompt example for CDS View</h3>
-                <div style="font-size: 14px; margin-bottom: 20px; position: relative; background: black; color: white; padding: 15px; border-radius: 8px;">
-                    <p>Generate a CDS view named 'ZFIGL_BL001' that extracts balance sheet account data from SAP's universal journal with delta extraction capability enabled for data extraction, including key fields like company code, fiscal year, GL account, document number, amounts, and currency, with proper annotations for OData exposure. Filter for balance sheet accounts only and display the output in ABAP code.</p>
-                    <button class="copy-btn" onclick="copyPrompt(this, 'Generate a CDS view named ZFIGL_BL001 that extracts balance sheet account data from SAP\'s universal journal with delta extraction capability enabled for data extraction, including key fields like company code, fiscal year, GL account, document number, amounts, and currency, with proper annotations for OData exposure. Filter for balance sheet accounts only and display the output in ABAP code.')" style="position: absolute; top: 2px; right: 8px; padding: 4px 8px; font-size: 10px;">Copy Prompt</button>
-                </div>
-                
-                <div style="margin-top: 20px;">
-                    <h4 style="color: white; margin-bottom: 15px;">Output Screenshots:</h4>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
-                        <div style="text-align: center;">
-                            <img src="output4.1.jpg" alt="Output 4.1 - CDS View Code" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
-                            <p style="color: white; margin-top: 8px; font-size: 12px;">CDS View Definition</p>
-                        </div>
-                        <div style="text-align: center;">
-                            <img src="output4.2.jpg" alt="Output 4.2 - Data Preview" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
-                            <p style="color: white; margin-top: 8px; font-size: 12px;">Data Preview Results</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>📊 Program Flow Diagram</h2>
-            
-            <div class="prompt-box" style="background: rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 15px; margin: 10px 0; border-left: 4px solid #ff9900; position: relative;">
-                <h3 style="color: #232f3e; margin-bottom: 15px;">Generate the diagram for the Sales report above in draw.io format</h3>
-                <button class="copy-btn" onclick="copyPrompt(this, 'Generate the diagram for the Sales report above in draw.io format')" style="position: absolute; top: 15px; right: 15px;">Copy Prompt</button>
-            </div>
-            
-            <div style="margin-top: 20px;">
-                <h4 style="color: #232f3e; margin-bottom: 15px;">Output of the prompt:</h4>
-                <div style="text-align: center; margin: 15px 0;">
-                    <img src="Output_Diagram.png" alt="Program Flow Diagram" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
-                    <p style="color: #232f3e; margin-top: 8px; font-size: 12px;">ABAP Sales Order Report Program Flow</p>
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="card">
-            <h2>🎯 Amazon Q Developer Best Practices</h2>
-            
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">📝</div>
-                    <h3>Be Specific</h3>
-                    <p>Include context, requirements, and expected outcomes in your prompts</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔧</div>
-                    <h3>Mention Standards</h3>
-                    <p>Reference SAP coding standards and best practices</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🛡️</div>
-                    <h3>Include Error Handling</h3>
-                    <p>Always ask for proper exception handling and validation</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📋</div>
-                    <h3>Request Documentation</h3>
-                    <p>Ask for comprehensive comments and documentation</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>📚 Resources</h2>
-            
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">📖</div>
-                    <h3>Workshop Documentation</h3>
-                    <p>SAP ABAP Development with Amazon Q Developer</p>
-                    <a href="https://docs.aws.amazon.com/amazonq/" style="color: #ff9900; text-decoration: none;">Access Documentation →</a>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📝</div>
-                    <h3>About Q Developer for ABAP</h3>
-                    <p>Build SAP applications faster with Amazon Q Developer | AWS for SAP</p>
-                    <a href="https://aws.amazon.com/blogs/awsforsap/build-sap-applications-faster-with-amazon-q-developer/" style="color: #ff9900; text-decoration: none;">Read Blog Post →</a>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>ABAP Accelerator for Q Developer</h3>
-                    <p>Download the ABAP Accelerator package for Amazon Q Developer</p>
-                    <a href="https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME" style="color: #ff9900; text-decoration: none;">View on GitHub →</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer">
-            <h2>Ready to Get Started?</h2>
-            <p>Use Amazon Q Developer to accelerate your ABAP development</p>
-            <div style="margin-top: 20px;">
-                <span class="aws-logo" style="font-size: 1.2em;">Powered by AWS</span>
-            </div>
-        </div>
+<div id="landing" class="section">
+  <div class="hero">
+    <h1>Amazon Q Developer for <span class="accent">SAP ABAP</span></h1>
+    <p>A hands-on workshop for SAP ABAP developers to accelerate development, modernization, and troubleshooting with generative AI.</p>
+    <div class="meta">
+      <span>⏱ 3-4 Hours</span>
+      <span>📊 Intermediate</span>
+      <span>🧑‍💻 6 Modules</span>
+      <span>🔬 12 Labs</span>
     </div>
+  </div>
+  <div class="container">
+    <h2 class="section-title">📚 Modules</h2>
+    <div class="landing-grid">
+      <div class="card" onclick="showSection('section-0')"><div class="num">Module 1</div><h3>Introduction & Setup</h3><p>Install VS Code or Kiro, create AWS Builder ID, set up your AI assistant.</p><div class="dur">⏱ 30 min</div></div>
+      <div class="card" onclick="showSection('section-1')"><div class="num">Module 2</div><h3>ABAP Code Generation</h3><p>Generate ALV reports, CDS views, and RAP business objects.</p><div class="dur">⏱ 45 min</div></div>
+      <div class="card" onclick="showSection('section-2')"><div class="num">Module 3</div><h3>Code Explanation & Documentation</h3><p>Understand legacy code and auto-generate documentation.</p><div class="dur">⏱ 30 min</div></div>
+      <div class="card" onclick="showSection('section-3')"><div class="num">Module 4</div><h3>Modernization & Refactoring</h3><p>Convert to Clean ABAP, ABAP Cloud, and OO patterns.</p><div class="dur">⏱ 45 min</div></div>
+      <div class="card" onclick="showSection('section-4')"><div class="num">Module 5</div><h3>Debugging & Troubleshooting</h3><p>Fix bugs, analyze dumps, and optimize performance.</p><div class="dur">⏱ 30 min</div></div>
+      <div class="card" onclick="showSection('section-5')"><div class="num">Module 6</div><h3>Real-World Use Cases</h3><p>S/4HANA migration, BTP, REST integration, unit testing.</p><div class="dur">⏱ 30 min</div></div>
+    </div>
+    <h2 class="section-title">🔬 Lab Instructions</h2>
+    <div class="landing-grid">
+      <div class="card lab" onclick="showSection('section-6')"><div class="num">Labs 2.1-2.3</div><h3>Code Generation Labs</h3><p>ALV report, CDS view, RAP business object.</p></div>
+      <div class="card lab" onclick="showSection('section-7')"><div class="num">Labs 3.1-3.3</div><h3>Code Explanation Labs</h3><p>Legacy analysis, documentation, dynamic ABAP.</p></div>
+      <div class="card lab" onclick="showSection('section-8')"><div class="num">Labs 4.1-4.3</div><h3>Modernization Labs</h3><p>Clean ABAP, Cloud conversion, OO refactoring.</p></div>
+      <div class="card lab" onclick="showSection('section-9')"><div class="num">Labs 5.1-5.3</div><h3>Debugging Labs</h3><p>Bug fixing, dump analysis, performance tuning.</p></div>
+    </div>
+    <h2 class="section-title">📎 Materials</h2>
+    <div class="landing-grid">
+      <div class="card res" onclick="showSection('section-10')"><div class="num">Handout</div><h3>📋 Participant Handout</h3><p>Prompt templates, cheat sheets, SAP tables reference.</p></div>
+      <div class="card res" onclick="showSection('section-11')"><div class="num">Slides</div><h3>🎤 Slide Deck Outline</h3><p>20-slide structure for your presentation.</p></div>
+    </div>
+  </div>
+</div>
 
-    <script>
-        function copyCode(button) {
-            const codeBlock = button.closest('.code-card').querySelector('pre');
-            const text = codeBlock.textContent;
-            
-            navigator.clipboard.writeText(text).then(() => {
-                button.textContent = 'Copied!';
-                button.classList.add('copied');
-                setTimeout(() => {
-                    button.textContent = 'Copy';
-                    button.classList.remove('copied');
-                }, 2000);
-            }).catch(err => {
-                console.error('Copy failed:', err);
-                button.textContent = 'Error';
-                setTimeout(() => {
-                    button.textContent = 'Copy';
-                }, 2000);
-            });
-        }
-        
-        function copyPrompt(button, promptText) {
-            navigator.clipboard.writeText(promptText).then(() => {
-                button.textContent = 'Copied!';
-                button.classList.add('copied');
-                setTimeout(() => {
-                    button.textContent = 'Copy Prompt';
-                    button.classList.remove('copied');
-                }, 2000);
-            }).catch(err => {
-                console.error('Copy failed:', err);
-                button.textContent = 'Error';
-                setTimeout(() => {
-                    button.textContent = 'Copy Prompt';
-                }, 2000);
-            });
-        }
-        
-        // Add smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+<div id="section-0" class="section" style="display:none;"><div class="container"><h1>Module 1: Introduction &amp; Setup (30 minutes)</h1>
+<h2>Learning Objectives</h2>
+<ul>
+<li>Understand what Amazon Q Developer is and how it supports SAP ABAP</li>
+<li>Set up the complete development environment from scratch</li>
+<li>Choose your preferred IDE: VS Code or Kiro</li>
+</ul>
+<h2>1.1 What is Amazon Q Developer?</h2>
+<p>Amazon Q Developer is a generative AI-powered assistant that helps developers build, transform, and operate applications on AWS. For SAP ABAP developers, it provides:</p>
+<ul>
+<li><strong>Code generation</strong> — Write ABAP code from natural language descriptions</li>
+<li><strong>Code explanation</strong> — Understand legacy ABAP programs instantly</li>
+<li><strong>Code transformation</strong> — Modernize classical ABAP to Clean ABAP / ABAP Cloud</li>
+<li><strong>Debugging assistance</strong> — Identify and fix runtime errors, performance issues</li>
+<li><strong>Documentation</strong> — Auto-generate technical documentation</li>
+</ul>
+<h2>1.2 What is Kiro?</h2>
+<p>Kiro is an agentic AI IDE from AWS that goes beyond code completion. It uses spec-driven development to turn natural language prompts into structured requirements, system designs, and implementation tasks. Key features:</p>
+<ul>
+<li><strong>Spec-driven development</strong> — Turns prompts into requirements, design, and tasks before writing code</li>
+<li><strong>Agent hooks</strong> — Automate tasks like generating docs and tests on file save</li>
+<li><strong>Steering files</strong> — Configure coding standards and preferred workflows per project</li>
+<li><strong>Built on Code OSS</strong> — Familiar VS Code experience, import your existing settings and extensions</li>
+<li><strong>Native MCP support</strong> — Connect to docs, databases, APIs, and more</li>
+</ul>
+<blockquote>
+<p>💡 <strong>Kiro vs. VS Code + Amazon Q:</strong> VS Code with the Amazon Q extension gives you AI chat and inline suggestions. Kiro takes it further with spec-driven workflows, autonomous agents, and agent hooks — ideal for building structured, production-ready code.</p>
+</blockquote>
+<h2>1.3 Supported ABAP Patterns</h2>
+<p>Both Amazon Q and Kiro understand:
+- Classical ABAP (reports, module pools, function modules)
+- ABAP Objects (classes, interfaces)
+- CDS views and ABAP annotations
+- RAP (RESTful ABAP Programming Model)
+- ALV programming (classical and OO)
+- SAP-specific tables, BAPIs, and transactions</p>
+<h2>1.4 Choose Your IDE</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>VS Code + Amazon Q</th>
+<th>Kiro</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI Chat &amp; Code Suggestions</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Spec-Driven Development</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Agent Hooks (auto-tasks)</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Steering Files</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Autonomous Agent Mode</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>VS Code Extensions Compatible</td>
+<td>✅</td>
+<td>✅ (Open VSX)</td>
+</tr>
+<tr>
+<td>Price</td>
+<td>Free tier available</td>
+<td>Free tier available</td>
+</tr>
+<tr>
+<td>Auth Options</td>
+<td>AWS Builder ID, IAM Identity Center</td>
+<td>GitHub, Google, AWS Builder ID, IAM Identity Center</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Choose <strong>Option A (VS Code)</strong> if you want a familiar setup with AI assistance.
+Choose <strong>Option B (Kiro)</strong> if you want the full agentic AI experience with spec-driven development.</p>
+</blockquote>
+<hr />
+<h2>Option A: VS Code Setup</h2>
+<h3>Hands-On Lab 1A.1: Install Visual Studio Code</h3>
+<h4>Step 1: Download VS Code</h4>
+<ol>
+<li>Open your browser and go to <a href="https://code.visualstudio.com">https://code.visualstudio.com</a></li>
+<li>Click the <strong>Download</strong> button for your operating system:</li>
+<li><strong>macOS</strong>: Click "Download for Mac" (Universal or Apple Silicon/Intel)</li>
+<li><strong>Windows</strong>: Click "Download for Windows"</li>
+<li><strong>Linux</strong>: Choose .deb (Ubuntu/Debian) or .rpm (Fedora/RHEL)</li>
+<li>Wait for the download to complete</li>
+</ol>
+<h4>Step 2: Install VS Code</h4>
+<p><strong>macOS:</strong>
+1. Open the downloaded <code>.zip</code> file
+2. Drag <strong>Visual Studio Code.app</strong> to your <strong>Applications</strong> folder
+3. Open VS Code from Applications or Spotlight (Cmd+Space, type "Visual Studio Code")</p>
+<p><strong>Windows:</strong>
+1. Run the downloaded <code>.exe</code> installer
+2. Accept the license agreement
+3. Choose the installation location (default is fine)
+4. Check these options:
+   - ✅ Add "Open with Code" action to file context menu
+   - ✅ Add "Open with Code" action to directory context menu
+   - ✅ Add to PATH
+5. Click <strong>Install</strong>, then <strong>Finish</strong>
+6. VS Code will open automatically</p>
+<p><strong>Linux (Ubuntu/Debian):</strong></p>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-1')">📋 Copy</button><pre><code id="cb-1" class="language-bash">sudo dpkg -i code_*.deb
+sudo apt-get install -f
+</code></pre></div>
+<h4>Step 3: Verify Installation</h4>
+<ol>
+<li>Open VS Code</li>
+<li>You should see the Welcome tab</li>
+<li>Verify the version: <strong>Help → About</strong> (should be 1.80+)</li>
+</ol>
+<h3>Hands-On Lab 1A.2: Create an AWS Builder ID</h3>
+<p>AWS Builder ID is a free personal profile that gives you access to Amazon Q Developer.</p>
+<h4>Step 1: Start the Sign-Up</h4>
+<ol>
+<li>Open your browser and go to <a href="https://profile.aws.amazon.com/">https://profile.aws.amazon.com/</a></li>
+<li>Click <strong>Create AWS Builder ID</strong></li>
+</ol>
+<h4>Step 2: Enter Your Email</h4>
+<ol>
+<li>Enter your <strong>email address</strong> (personal or work email)</li>
+<li>Enter your <strong>name</strong> (this will be your display name)</li>
+<li>Click <strong>Next</strong></li>
+</ol>
+<h4>Step 3: Verify Your Email</h4>
+<ol>
+<li>Check your email inbox for a verification code from AWS</li>
+<li>The subject line will be: <strong>"Verify your AWS Builder ID email"</strong></li>
+<li>Copy the <strong>6-digit verification code</strong></li>
+<li>Paste it into the verification field on the sign-up page</li>
+<li>Click <strong>Verify</strong></li>
+</ol>
+<h4>Step 4: Set Your Password</h4>
+<ol>
+<li>Create a password (minimum 8 characters, must include uppercase, lowercase, number, and special character)</li>
+<li>Confirm the password</li>
+<li>Click <strong>Create AWS Builder ID</strong></li>
+</ol>
+<h4>Step 5: Verify Your Builder ID</h4>
+<ol>
+<li>You should see a confirmation page: <strong>"AWS Builder ID created successfully"</strong></li>
+<li>Note down your email — you'll use this to sign in to Amazon Q</li>
+</ol>
+<blockquote>
+<p>💡 <strong>Tip:</strong> If you already have an AWS Builder ID (e.g., from AWS re:Post or Amazon CodeCatalyst), you can use the same one. No need to create a new one.</p>
+</blockquote>
+<h3>Hands-On Lab 1A.3: Install Amazon Q Developer Extension</h3>
+<h4>Step 1: Open the Extensions Panel</h4>
+<ol>
+<li>Open VS Code</li>
+<li>Click the <strong>Extensions</strong> icon in the left sidebar (or press <code>Ctrl+Shift+X</code> / <code>Cmd+Shift+X</code> on Mac)</li>
+</ol>
+<h4>Step 2: Search and Install</h4>
+<ol>
+<li>In the search box, type: <strong>Amazon Q</strong></li>
+<li>Find <strong>"Amazon Q"</strong> by Amazon Web Services (look for the official AWS publisher badge ✓)</li>
+<li>Click the <strong>Install</strong> button</li>
+<li>Wait for the installation to complete (usually 10-20 seconds)</li>
+<li>You may see a prompt to reload VS Code — click <strong>Reload</strong> if prompted</li>
+</ol>
+<h4>Step 3: Verify the Extension</h4>
+<ol>
+<li>After installation, you should see the <strong>Amazon Q icon</strong> (Q logo) in the left sidebar</li>
+<li>You should also see the Amazon Q status bar item at the bottom of VS Code</li>
+</ol>
+<h3>Hands-On Lab 1A.4: Authenticate Amazon Q with Your Builder ID</h3>
+<h4>Step 1: Open Amazon Q</h4>
+<ol>
+<li>Click the <strong>Amazon Q icon</strong> (Q logo) in the VS Code left sidebar</li>
+<li>The Amazon Q panel will open</li>
+</ol>
+<h4>Step 2: Start Authentication</h4>
+<ol>
+<li>Click <strong>"Use for Free"</strong> (this uses AWS Builder ID — the free tier)</li>
+<li>A dialog will appear: <strong>"Amazon Q would like to sign in using AWS"</strong></li>
+<li>Click <strong>Allow</strong></li>
+</ol>
+<h4>Step 3: Browser Authentication</h4>
+<ol>
+<li>Your default browser will open automatically</li>
+<li>You'll see a page asking to <strong>"Confirm request from VS Code"</strong></li>
+<li>Click <strong>Confirm and continue</strong></li>
+<li>Sign in with your <strong>AWS Builder ID</strong> (the email and password from Lab 1A.2)</li>
+<li>If prompted, enter the verification code sent to your email</li>
+<li>You'll see: <strong>"Successfully authorized"</strong> — you can close the browser tab</li>
+</ol>
+<h4>Step 4: Verify Connection</h4>
+<ol>
+<li>Go back to VS Code</li>
+<li>The Amazon Q panel should now show the <strong>chat interface</strong></li>
+<li>The status bar at the bottom should show <strong>"Amazon Q"</strong> (not "Amazon Q: Not Connected")</li>
+</ol>
+<blockquote>
+<p>⚠️ <strong>Troubleshooting:</strong>
+- If the browser doesn't open, copy the URL from the VS Code dialog and paste it manually
+- If you see "expired" error, restart the process — the auth code expires after a few minutes
+- If you're behind a corporate proxy, you may need to configure VS Code proxy settings first: <strong>File → Preferences → Settings → search "proxy"</strong></p>
+</blockquote>
+<hr />
+<h2>Option B: Kiro Setup</h2>
+<h3>Hands-On Lab 1B.1: Download and Install Kiro</h3>
+<h4>Step 1: Download Kiro</h4>
+<ol>
+<li>Open your browser and go to <a href="https://kiro.dev/downloads/">https://kiro.dev/downloads/</a></li>
+<li>Download the installer for your operating system:</li>
+<li><strong>macOS</strong>: Download the <code>.dmg</code> file (Apple Silicon or Intel)</li>
+<li><strong>Windows</strong>: Download the <code>.exe</code> installer</li>
+<li><strong>Linux</strong>: Download the <code>.deb</code> or <code>.AppImage</code> file</li>
+</ol>
+<p><strong>Alternative — Install Kiro CLI (macOS/Linux):</strong></p>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-2')">📋 Copy</button><pre><code id="cb-2" class="language-bash">curl -fsSL https://cli.kiro.dev/install | bash
+</code></pre></div>
+<h4>Step 2: Install Kiro</h4>
+<p><strong>macOS:</strong>
+1. Open the downloaded <code>.dmg</code> file
+2. Drag <strong>Kiro</strong> to your <strong>Applications</strong> folder
+3. Open Kiro from Applications or Spotlight (Cmd+Space, type "Kiro")
+4. If you see a security warning ("Kiro can't be opened"), go to <strong>System Settings → Privacy &amp; Security</strong> and click <strong>Open Anyway</strong></p>
+<p><strong>Windows:</strong>
+1. Run the downloaded <code>.exe</code> installer
+2. Follow the installation wizard
+3. Click <strong>Install</strong>, then <strong>Finish</strong>
+4. Kiro will open automatically</p>
+<p><strong>Linux:</strong></p>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-3')">📋 Copy</button><pre><code id="cb-3" class="language-bash">sudo dpkg -i kiro_*.deb
+</code></pre></div>
+<h4>Step 3: First Launch</h4>
+<ol>
+<li>Open Kiro</li>
+<li>You'll see the Welcome screen</li>
+<li>If you're coming from VS Code, Kiro will offer to <strong>import your VS Code settings, themes, and extensions</strong> — click <strong>Import</strong> if you want to keep your familiar setup</li>
+</ol>
+<h3>Hands-On Lab 1B.2: Sign In to Kiro</h3>
+<p>Kiro supports multiple sign-in options. You do NOT need an AWS account.</p>
+<h4>Step 1: Choose Sign-In Method</h4>
+<p>On the Kiro welcome screen, choose one of:
+- <strong>Sign in with GitHub</strong> — Use your existing GitHub account
+- <strong>Sign in with Google</strong> — Use your Google account
+- <strong>Sign in with AWS Builder ID</strong> — Use your Builder ID (see Lab 1A.2 if you need to create one)
+- <strong>Sign in with IAM Identity Center</strong> — For enterprise/organization-managed access</p>
+<h4>Step 2: Browser Authentication</h4>
+<ol>
+<li>Your browser will open automatically</li>
+<li>Sign in with your chosen provider</li>
+<li>Authorize Kiro when prompted</li>
+<li>You'll see <strong>"Successfully signed in"</strong> — you can close the browser tab</li>
+</ol>
+<h4>Step 3: Verify Sign-In</h4>
+<ol>
+<li>Go back to Kiro</li>
+<li>The chat panel should be active and ready</li>
+<li>You should see your account name in the bottom-left corner</li>
+</ol>
+<h3>Hands-On Lab 1B.3: Configure Kiro for ABAP Development</h3>
+<h4>Step 1: Set Up a Steering File (Optional but Recommended)</h4>
+<p>Steering files tell Kiro how to behave in your project. Create one for ABAP:</p>
+<ol>
+<li>Open your ABAP project folder in Kiro</li>
+<li>Create a folder: <code>.kiro/</code> in your project root</li>
+<li>Create a file: <code>.kiro/steering/abap.md</code> with this content:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-4')">📋 Copy</button><pre><code id="cb-4" class="language-markdown"># ABAP Development Standards
+
+## Coding Standards
+- Follow Clean ABAP guidelines
+- Use modern ABAP syntax (inline declarations, string templates, NEW operator)
+- No SELECT * — always use explicit field lists
+- No SELECT inside LOOP — use JOINs or FOR ALL ENTRIES
+- Use CL_SALV_TABLE for ALV output (not REUSE_ALV_*)
+- Use RETURNING parameters instead of CHANGING where possible
+
+## Naming Conventions
+- Local variables: lv_, lt_, ls_, lo_, lr_, lx_
+- Global variables: gv_, gt_, gs_, go_
+- Parameters: iv_, it_, is_, io_ (importing), ev_, et_ (exporting), rv_, rt_ (returning)
+- Classes: zcl_ prefix
+- Interfaces: zif_ prefix
+
+## SAP Version
+- Target: S/4HANA 2023 or later
+- Use released APIs where possible
+</code></pre></div>
+<ol>
+<li>Kiro will now follow these standards when generating ABAP code for this project</li>
+</ol>
+<h4>Step 2: Test the Chat</h4>
+<ol>
+<li>Open the Kiro chat panel</li>
+<li>Type a test question:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-5')">📋 Copy</button><pre><code id="cb-5">What is the difference between VBAK and VBAP tables in SAP?
+</code></pre></div>
+<ol>
+<li>Verify you get a meaningful response</li>
+</ol>
+<h3>Hands-On Lab 1B.4: Try Spec-Driven Development (Kiro Exclusive)</h3>
+<p>This is what makes Kiro different — let's try it with an ABAP scenario.</p>
+<h4>Step 1: Create a New Spec</h4>
+<ol>
+<li>In the Kiro chat, type:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-6')">📋 Copy</button><pre><code id="cb-6">Create a spec for an ABAP report that displays purchase orders with
+ALV grid, filtered by company code and date range
+</code></pre></div>
+<ol>
+<li>Kiro will generate:</li>
+<li><strong>Requirements</strong> — User stories with acceptance criteria in EARS notation</li>
+<li><strong>Design</strong> — Architecture decisions, data model, component design</li>
+<li>
+<p><strong>Tasks</strong> — Sequenced implementation steps</p>
+</li>
+<li>
+<p>Review each section and edit if needed</p>
+</li>
+<li>Once satisfied, ask Kiro to implement each task</li>
+</ol>
+<blockquote>
+<p>💡 <strong>This is the key difference:</strong> Instead of just generating code from a prompt, Kiro first creates a structured spec that documents all decisions, then implements against that spec. This produces more accurate, production-ready code.</p>
+</blockquote>
+<hr />
+<h2>Test Your Setup (Both Options)</h2>
+<h3>Hands-On Lab 1.5: Test with ABAP</h3>
+<h4>Step 1: Test the Chat</h4>
+<ol>
+<li>In the chat panel (Amazon Q or Kiro), type:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-7')">📋 Copy</button><pre><code id="cb-7">What is the difference between VBAK and VBAP tables in SAP?
+</code></pre></div>
+<ol>
+<li>Press Enter and wait for the response</li>
+<li>Verify you get a meaningful answer about sales document header (VBAK) and item (VBAP) tables</li>
+</ol>
+<h4>Step 2: Test Inline Code Suggestions</h4>
+<ol>
+<li>Create a new file and save it as <code>test.abap</code></li>
+<li>Start typing:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-8')">📋 Copy</button><pre><code id="cb-8" class="language-abap">REPORT z_test_workshop.
+
+DATA lt_
+</code></pre></div>
+<ol>
+<li>Pause after typing <code>DATA lt_</code> — you should see a gray inline suggestion</li>
+<li>Press <strong>Tab</strong> to accept the suggestion, or <strong>Esc</strong> to dismiss it</li>
+</ol>
+<h4>Step 3: Test Code Generation via Chat</h4>
+<ol>
+<li>In the chat, type:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-9')">📋 Copy</button><pre><code id="cb-9">Write a simple ABAP report that selects the first 10 entries from
+the SCARR (airline carrier) table and displays them using WRITE statements.
+Use modern ABAP syntax with inline declarations.
+</code></pre></div>
+<ol>
+<li>Review the generated code</li>
+<li>Verify it includes:</li>
+<li><code>SELECT</code> with <code>INTO TABLE @DATA(...)</code></li>
+<li><code>LOOP AT</code> with <code>INTO DATA(...)</code></li>
+<li><code>WRITE</code> statements for output</li>
+</ol>
+<h2>✅ Checkpoint</h2>
+<p>Before proceeding to Module 2, confirm ALL of the following:</p>
+<p><strong>If using VS Code + Amazon Q:</strong>
+- <input type="checkbox"> VS Code is installed and running
+- <input type="checkbox"> AWS Builder ID is created
+- <input type="checkbox"> Amazon Q Developer extension is installed
+- <input type="checkbox"> Authentication is successful (chat panel is active)
+- <input type="checkbox"> Chat responds to ABAP questions
+- <input type="checkbox"> Inline code suggestions appear when typing ABAP code</p>
+<p><strong>If using Kiro:</strong>
+- <input type="checkbox"> Kiro is installed and running
+- <input type="checkbox"> Signed in (GitHub, Google, or AWS Builder ID)
+- <input type="checkbox"> Chat responds to ABAP questions
+- <input type="checkbox"> Inline code suggestions appear when typing ABAP code
+- <input type="checkbox"> (Optional) Steering file created for ABAP standards
+- <input type="checkbox"> (Optional) Tested spec-driven development</p>
+<blockquote>
+<p>🎉 <strong>Congratulations!</strong> Your environment is ready. You can now use AI to assist with ABAP development.</p>
+</blockquote>
+<hr />
+<p><a href="#section-1" onclick="showSection('section-1'); return false;">Next: Module 2 — ABAP Code Generation →</a></p></div></div>
+<div id="section-1" class="section" style="display:none;"><div class="container"><h1>Module 2: ABAP Code Generation with Amazon Q (45 minutes)</h1>
+<h2>Learning Objectives</h2>
+<ul>
+<li>Generate ABAP code using natural language prompts</li>
+<li>Use inline code suggestions for ABAP development</li>
+<li>Understand how to write effective prompts for ABAP</li>
+</ul>
+<h2>2.1 Prompting Strategies for ABAP</h2>
+<p>Effective prompts for ABAP code generation should include:</p>
+<ol>
+<li><strong>Context</strong> — SAP module (MM, SD, FI), system version (ECC, S/4HANA)</li>
+<li><strong>Specifics</strong> — Table names, field names, transaction codes</li>
+<li><strong>Standards</strong> — Clean ABAP, naming conventions, modern syntax</li>
+<li><strong>Output format</strong> — Report, class, CDS view, function module</li>
+</ol>
+<h3>Good vs. Bad Prompts</h3>
+<table>
+<thead>
+<tr>
+<th>❌ Vague Prompt</th>
+<th>✅ Specific Prompt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Write code to read purchase orders</td>
+<td>Write an ABAP report for S/4HANA that reads purchase orders from EKKO/EKPO, filters by company code (BUKRS) and creation date (AEDAT) using selection screen parameters, and displays results in an ALV grid using CL_SALV_TABLE</td>
+</tr>
+<tr>
+<td>Create a CDS view for sales</td>
+<td>Create a CDS view entity joining VBAK and VBAP with associations to I_BusinessPartner and I_Product, exposing sales order number, item, material, quantity, net value, and currency</td>
+</tr>
+</tbody>
+</table>
+<h2>Hands-On Lab 2.1: Generate an ALV Report</h2>
+<h3>Instructions</h3>
+<ol>
+<li>Open the Amazon Q chat panel</li>
+<li>Enter the following prompt:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-10')">📋 Copy</button><pre><code id="cb-10">Write an ABAP report for S/4HANA that:
+- Has a selection screen with parameters for company code (BUKRS) and
+  a select-option for document date (AEDAT)
+- Reads purchase order headers (EKKO) and items (EKPO) using a JOIN
+- Displays results in an ALV grid using CL_SALV_TABLE
+- Uses modern ABAP syntax (inline declarations, string templates)
+- Follows Clean ABAP naming conventions
+</code></pre></div>
+<ol>
+<li>Review the generated code</li>
+<li>Copy it into your ABAP project</li>
+<li>Verify the structure includes:</li>
+<li><input type="checkbox"> Selection screen definition</li>
+<li><input type="checkbox"> Data retrieval with JOIN</li>
+<li><input type="checkbox"> ALV display using CL_SALV_TABLE</li>
+<li><input type="checkbox"> Inline declarations (<code>DATA(...)</code>)</li>
+<li><input type="checkbox"> Proper error handling</li>
+</ol>
+<h3>Expected Output Structure</h3>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-11')">📋 Copy</button><pre><code id="cb-11" class="language-abap">REPORT z_po_alv_report.
+
+&quot; Selection screen
+PARAMETERS: p_bukrs TYPE bukrs OBLIGATORY.
+SELECT-OPTIONS: s_aedat FOR sy-datum.
+
+START-OF-SELECTION.
+
+  &quot; Data retrieval with JOIN
+  SELECT e~ebeln, e~bukrs, e~aedat, e~lifnr,
+         p~ebelp, p~matnr, p~menge, p~netpr
+    FROM ekko AS e
+    INNER JOIN ekpo AS p ON e~ebeln = p~ebeln
+    WHERE e~bukrs = @p_bukrs
+      AND e~aedat IN @s_aedat
+    INTO TABLE @DATA(lt_po_data).
+
+  &quot; ALV display
+  TRY.
+      cl_salv_table=&gt;factory(
+        IMPORTING r_salv_table = DATA(lo_alv)
+        CHANGING  t_table      = lt_po_data ).
+      lo_alv-&gt;display( ).
+    CATCH cx_salv_msg INTO DATA(lx_msg).
+      MESSAGE lx_msg-&gt;get_text( ) TYPE 'E'.
+  ENDTRY.
+</code></pre></div>
+<h2>Hands-On Lab 2.2: Generate a CDS View</h2>
+<h3>Instructions</h3>
+<ol>
+<li>Enter the following prompt in Amazon Q chat:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-12')">📋 Copy</button><pre><code id="cb-12">Create an ABAP CDS view entity called Z_I_SalesOrderItem that:
+- Joins VBAK (header) and VBAP (items)
+- Exposes: SalesOrder, SalesOrderItem, SalesOrganization, MaterialNumber,
+  OrderQuantity, NetAmount, Currency, CreationDate
+- Includes associations to I_BusinessPartner (via VBAK-KUNNR)
+  and I_Material (via VBAP-MATNR)
+- Has proper annotations for metadata and UI
+</code></pre></div>
+<ol>
+<li>Review the generated CDS view</li>
+<li>Verify it includes:</li>
+<li><input type="checkbox"> <code>@AbapCatalog</code> annotations</li>
+<li><input type="checkbox"> <code>@ObjectModel</code> annotations</li>
+<li><input type="checkbox"> Proper JOIN syntax</li>
+<li><input type="checkbox"> Association definitions</li>
+<li><input type="checkbox"> Field aliases with proper naming</li>
+</ol>
+<h2>Hands-On Lab 2.3: Generate a RAP Business Object</h2>
+<h3>Instructions</h3>
+<ol>
+<li>Enter the following prompt:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-13')">📋 Copy</button><pre><code id="cb-13">Generate a managed RAP business object for a travel booking app with:
+- Root entity: Travel (travel_id, agency_id, customer_id, begin_date,
+  end_date, total_price, currency_code, status)
+- Include: CDS view entity, behavior definition, behavior implementation class,
+  and service definition/binding
+- Use draft handling and managed numbering
+- Add validations for date consistency (begin_date &lt; end_date)
+</code></pre></div>
+<ol>
+<li>Amazon Q will generate multiple artifacts — review each one:</li>
+<li><input type="checkbox"> CDS view entity</li>
+<li><input type="checkbox"> Behavior definition (BDEF)</li>
+<li><input type="checkbox"> Behavior implementation class</li>
+<li><input type="checkbox"> Service definition</li>
+<li><input type="checkbox"> Service binding</li>
+</ol>
+<h2>💡 Tips</h2>
+<ul>
+<li>Use follow-up prompts to refine: <em>"Add sorting by document date descending"</em></li>
+<li>Ask for variations: <em>"Now make a version that uses ABAP Cloud released APIs only"</em></li>
+<li>Request explanations: <em>"Explain why you used CL_SALV_TABLE instead of REUSE_ALV_GRID_DISPLAY"</em></li>
+</ul>
+<h2>✅ Checkpoint</h2>
+<ul>
+<li><input type="checkbox"> Successfully generated an ALV report</li>
+<li><input type="checkbox"> Generated a CDS view with associations</li>
+<li><input type="checkbox"> Generated RAP business object artifacts</li>
+<li><input type="checkbox"> Understand how prompt specificity affects output quality</li>
+</ul>
+<hr />
+<p><a href="#section-0" onclick="showSection('section-0'); return false;">← Module 1</a> | <a href="#section-2" onclick="showSection('section-2'); return false;">Next: Module 3 — Code Explanation →</a></p></div></div>
+<div id="section-2" class="section" style="display:none;"><div class="container"><h1>Module 3: ABAP Code Explanation &amp; Documentation (30 minutes)</h1>
+<h2>Learning Objectives</h2>
+<ul>
+<li>Use Amazon Q to explain legacy ABAP code</li>
+<li>Generate documentation for existing programs</li>
+</ul>
+<h2>3.1 Why Code Explanation Matters</h2>
+<p>SAP systems often contain decades of custom ABAP code with:
+- Minimal or outdated documentation
+- Complex business logic embedded in nested loops
+- Dynamic programming (field symbols, ASSIGN, GENERATE SUBROUTINE POOL)
+- Implicit dependencies on SAP standard behavior</p>
+<p>Amazon Q can analyze ABAP code and explain the business logic, data flow, and potential issues.</p>
+<h2>Hands-On Lab 3.1: Explain Legacy Code</h2>
+<h3>Instructions</h3>
+<ol>
+<li>Copy the following legacy ABAP code into your editor or the Amazon Q chat:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-14')">📋 Copy</button><pre><code id="cb-14" class="language-abap">REPORT z_legacy_sales_report.
+
+TABLES: vbak, vbap, kna1.
+
+DATA: lt_vbak TYPE TABLE OF vbak,
+      ls_vbak TYPE vbak,
+      lt_vbap TYPE TABLE OF vbap,
+      ls_vbap TYPE vbap,
+      lv_total TYPE vbap-netwr,
+      lv_count TYPE i,
+      lt_kna1 TYPE HASHED TABLE OF kna1 WITH UNIQUE KEY kunnr.
+
+SELECT-OPTIONS: s_erdat FOR vbak-erdat,
+                s_vkorg FOR vbak-vkorg.
+
+START-OF-SELECTION.
+
+SELECT * FROM vbak INTO TABLE lt_vbak
+  WHERE erdat IN s_erdat
+    AND vkorg IN s_vkorg
+    AND vbtyp = 'C'.
+
+IF lt_vbak IS NOT INITIAL.
+  SELECT * FROM kna1 INTO TABLE lt_kna1
+    FOR ALL ENTRIES IN lt_vbak
+    WHERE kunnr = lt_vbak-kunnr.
+ENDIF.
+
+LOOP AT lt_vbak INTO ls_vbak.
+  SELECT * FROM vbap INTO TABLE lt_vbap
+    WHERE vbeln = ls_vbak-vbeln.
+  CLEAR lv_total.
+  LOOP AT lt_vbap INTO ls_vbap.
+    lv_total = lv_total + ls_vbap-netwr.
+    lv_count = lv_count + 1.
+  ENDLOOP.
+  READ TABLE lt_kna1 INTO DATA(ls_kna1)
+    WITH TABLE KEY kunnr = ls_vbak-kunnr.
+  WRITE: / ls_vbak-vbeln, ls_vbak-erdat, ls_kna1-name1, lv_total, lv_count.
+  CLEAR lv_count.
+ENDLOOP.
+</code></pre></div>
+<ol>
+<li>Ask Amazon Q:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-15')">📋 Copy</button><pre><code id="cb-15">Explain this ABAP code in detail. Describe:
+1. The business purpose
+2. The data flow
+3. Any performance issues
+4. Suggestions for improvement
+</code></pre></div>
+<ol>
+<li>Review the explanation and verify Amazon Q identifies:</li>
+<li><input type="checkbox"> The report reads sales orders (VBTYP = 'C') filtered by date and sales org</li>
+<li><input type="checkbox"> It performs a nested SELECT inside a LOOP (N+1 query problem)</li>
+<li><input type="checkbox"> Customer names are fetched using a hashed table (good pattern)</li>
+<li><input type="checkbox"> The WRITE statement outputs a flat list</li>
+<li><input type="checkbox"> Performance issue: SELECT inside LOOP for VBAP</li>
+</ol>
+<h2>Hands-On Lab 3.2: Generate Technical Documentation</h2>
+<h3>Instructions</h3>
+<ol>
+<li>Use the same code from Lab 3.1 and prompt:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-16')">📋 Copy</button><pre><code id="cb-16">Generate technical documentation for this ABAP report in the following format:
+- Program Name &amp; Description
+- Selection Screen Parameters
+- Database Tables Used
+- Processing Logic (step by step)
+- Output Description
+- Known Limitations
+- Dependencies
+</code></pre></div>
+<ol>
+<li>Review the generated documentation for accuracy and completeness.</li>
+</ol>
+<h2>Hands-On Lab 3.3: Explain Dynamic ABAP Code</h2>
+<ol>
+<li>Ask Amazon Q to explain this dynamic programming pattern:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-17')">📋 Copy</button><pre><code id="cb-17" class="language-abap">FIELD-SYMBOLS: &lt;lt_table&gt; TYPE STANDARD TABLE,
+               &lt;ls_line&gt;  TYPE any,
+               &lt;lv_field&gt; TYPE any.
+
+DATA: lo_descr  TYPE REF TO cl_abap_structdescr,
+      lt_comp   TYPE abap_compdescr_tab,
+      lr_data   TYPE REF TO data.
+
+lo_descr ?= cl_abap_typedescr=&gt;describe_by_name( iv_table_name ).
+lt_comp = lo_descr-&gt;components.
+
+CREATE DATA lr_data TYPE TABLE OF (iv_table_name).
+ASSIGN lr_data-&gt;* TO &lt;lt_table&gt;.
+
+SELECT * FROM (iv_table_name) INTO TABLE &lt;lt_table&gt; UP TO 100 ROWS.
+
+LOOP AT &lt;lt_table&gt; ASSIGNING &lt;ls_line&gt;.
+  LOOP AT lt_comp INTO DATA(ls_comp).
+    ASSIGN COMPONENT ls_comp-name OF STRUCTURE &lt;ls_line&gt; TO &lt;lv_field&gt;.
+    WRITE: / ls_comp-name, ':', &lt;lv_field&gt;.
+  ENDLOOP.
+ENDLOOP.
+</code></pre></div>
+<ol>
+<li>Prompt:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-18')">📋 Copy</button><pre><code id="cb-18">Explain this dynamic ABAP code. What does it do, and what are the
+security implications of using dynamic table names?
+</code></pre></div>
+<h2>✅ Checkpoint</h2>
+<ul>
+<li><input type="checkbox"> Successfully explained legacy ABAP code</li>
+<li><input type="checkbox"> Generated technical documentation</li>
+<li><input type="checkbox"> Understand how Amazon Q handles dynamic ABAP patterns</li>
+</ul>
+<hr />
+<p><a href="#section-1" onclick="showSection('section-1'); return false;">← Module 2</a> | <a href="#section-3" onclick="showSection('section-3'); return false;">Next: Module 4 — Modernization &amp; Refactoring →</a></p></div></div>
+<div id="section-3" class="section" style="display:none;"><div class="container"><h1>Module 4: ABAP Modernization &amp; Refactoring (45 minutes)</h1>
+<h2>Learning Objectives</h2>
+<ul>
+<li>Modernize legacy ABAP code to Clean ABAP / ABAP Cloud standards</li>
+<li>Refactor classical patterns to modern equivalents</li>
+</ul>
+<h2>4.1 Modernization Targets</h2>
+<table>
+<thead>
+<tr>
+<th>Legacy Pattern</th>
+<th>Modern Replacement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DATA: lv_var TYPE ...</code></td>
+<td><code>DATA(lv_var) = ...</code> (inline declaration)</td>
+</tr>
+<tr>
+<td><code>CONCATENATE a b INTO c</code></td>
+<td><code>c = \|{ a }{ b }\|</code> (string templates)</td>
+</tr>
+<tr>
+<td><code>CREATE OBJECT lo_obj</code></td>
+<td><code>lo_obj = NEW #( )</code></td>
+</tr>
+<tr>
+<td><code>CALL METHOD lo_obj-&gt;method</code></td>
+<td><code>lo_obj-&gt;method( )</code></td>
+</tr>
+<tr>
+<td><code>MOVE a TO b</code></td>
+<td><code>b = a</code></td>
+</tr>
+<tr>
+<td><code>SELECT * FROM ...</code></td>
+<td><code>SELECT field1, field2 FROM ...</code></td>
+</tr>
+<tr>
+<td><code>REUSE_ALV_GRID_DISPLAY</code></td>
+<td><code>CL_SALV_TABLE</code></td>
+</tr>
+<tr>
+<td><code>READ TABLE ... WITH KEY</code></td>
+<td><code>READ TABLE ... WITH TABLE KEY</code> or <code>line_exists( )</code></td>
+</tr>
+<tr>
+<td>Header lines</td>
+<td>Explicit work areas</td>
+</tr>
+<tr>
+<td><code>FORM/PERFORM</code></td>
+<td>Methods in classes</td>
+</tr>
+</tbody>
+</table>
+<h2>4.2 Clean ABAP Principles</h2>
+<ul>
+<li>Use meaningful names (no Hungarian notation for local variables)</li>
+<li>Keep methods small and focused</li>
+<li>Prefer functional over procedural style</li>
+<li>Use exceptions instead of return codes</li>
+<li>Avoid deep nesting</li>
+</ul>
+<h2>Hands-On Lab 4.1: Modernize the Legacy Report</h2>
+<h3>Instructions</h3>
+<ol>
+<li>Take the legacy code from Module 3, Lab 3.1</li>
+<li>Ask Amazon Q:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-19')">📋 Copy</button><pre><code id="cb-19">Refactor this ABAP report to follow Clean ABAP guidelines and modern syntax:
+- Use inline declarations
+- Replace SELECT * with explicit field lists
+- Fix the N+1 SELECT problem (SELECT inside LOOP)
+- Use string templates instead of WRITE
+- Replace the flat list output with CL_SALV_TABLE
+- Use modern ABAP syntax (NEW, VALUE, CORRESPONDING, etc.)
+- Add proper error handling with TRY/CATCH
+</code></pre></div>
+<ol>
+<li>Compare the before and after versions</li>
+<li>Verify the refactored code addresses:</li>
+<li><input type="checkbox"> No more <code>SELECT *</code></li>
+<li><input type="checkbox"> No SELECT inside LOOP — uses JOIN or FOR ALL ENTRIES</li>
+<li><input type="checkbox"> Inline declarations used throughout</li>
+<li><input type="checkbox"> ALV output via CL_SALV_TABLE</li>
+<li><input type="checkbox"> Proper exception handling</li>
+</ol>
+<h3>Expected Transformation</h3>
+<p><strong>Before:</strong> ~40 lines, 3 separate SELECTs (one inside a loop), WRITE output
+<strong>After:</strong> ~30 lines, single JOIN query, CL_SALV_TABLE output, inline declarations</p>
+<h2>Hands-On Lab 4.2: Convert to ABAP Cloud Compatible Code</h2>
+<h3>Instructions</h3>
+<ol>
+<li>Prompt Amazon Q:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-20')">📋 Copy</button><pre><code id="cb-20">Rewrite this ABAP code to be compatible with ABAP Cloud (Tier 1 -
+released APIs only). Replace any unreleased APIs with their released
+equivalents. The code should work in SAP BTP ABAP Environment.
+
+Specifically:
+- Replace direct database table access with CDS view consumption
+- Use released APIs only
+- Follow the ABAP Cloud development model
+</code></pre></div>
+<ol>
+<li>Review what changes Amazon Q suggests:</li>
+<li><input type="checkbox"> Direct table access → CDS view consumption</li>
+<li><input type="checkbox"> Unreleased classes → Released API equivalents</li>
+<li><input type="checkbox"> Classical output → RAP or OData-based approach</li>
+</ol>
+<h2>Hands-On Lab 4.3: Convert Subroutines to OO</h2>
+<ol>
+<li>Provide code with FORM/PERFORM routines:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-21')">📋 Copy</button><pre><code id="cb-21" class="language-abap">FORM calculate_tax USING iv_amount TYPE netwr
+                         iv_country TYPE land1
+                   CHANGING cv_tax TYPE netwr.
+  CASE iv_country.
+    WHEN 'DE'. cv_tax = iv_amount * '0.19'.
+    WHEN 'US'. cv_tax = iv_amount * '0.08'.
+    WHEN 'JP'. cv_tax = iv_amount * '0.10'.
+    WHEN OTHERS. cv_tax = iv_amount * '0.15'.
+  ENDCASE.
+ENDFORM.
+
+FORM get_customer_name USING iv_kunnr TYPE kunnr
+                       CHANGING cv_name TYPE name1_gp.
+  SELECT SINGLE name1 FROM kna1 INTO cv_name
+    WHERE kunnr = iv_kunnr.
+ENDFORM.
+</code></pre></div>
+<ol>
+<li>Prompt:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-22')">📋 Copy</button><pre><code id="cb-22">Convert these FORM routines into a proper ABAP OO class with methods.
+Follow Clean ABAP guidelines, use RETURNING parameters where possible,
+and add appropriate exception handling.
+</code></pre></div>
+<h2>✅ Checkpoint</h2>
+<ul>
+<li><input type="checkbox"> Modernized legacy code to Clean ABAP</li>
+<li><input type="checkbox"> Converted code to ABAP Cloud compatible</li>
+<li><input type="checkbox"> Refactored FORM routines to OO methods</li>
+</ul>
+<hr />
+<p><a href="#section-2" onclick="showSection('section-2'); return false;">← Module 3</a> | <a href="#section-4" onclick="showSection('section-4'); return false;">Next: Module 5 — Debugging &amp; Troubleshooting →</a></p></div></div>
+<div id="section-4" class="section" style="display:none;"><div class="container"><h1>Module 5: Debugging &amp; Troubleshooting ABAP with Amazon Q (30 minutes)</h1>
+<h2>Learning Objectives</h2>
+<ul>
+<li>Use Amazon Q to identify and fix ABAP runtime errors</li>
+<li>Troubleshoot common SAP issues</li>
+<li>Optimize ABAP performance</li>
+</ul>
+<h2>5.1 Common ABAP Issues Amazon Q Can Help With</h2>
+<table>
+<thead>
+<tr>
+<th>Issue Type</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Runtime errors</td>
+<td>GETWA_NOT_ASSIGNED, ITAB_DUPLICATE_KEY, COMPUTE_INT_ZERODIVIDE</td>
+</tr>
+<tr>
+<td>Performance</td>
+<td>SELECT in LOOP, missing indexes, large internal tables</td>
+</tr>
+<tr>
+<td>Type mismatches</td>
+<td>Incompatible types in assignments, conversions</td>
+</tr>
+<tr>
+<td>Logic errors</td>
+<td>Incorrect loop processing, missing CLEAR statements</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>Missing authority checks, SY-SUBRC handling</td>
+</tr>
+</tbody>
+</table>
+<h2>Hands-On Lab 5.1: Fix a Buggy Program</h2>
+<h3>Instructions</h3>
+<ol>
+<li>Review this ABAP program that contains multiple issues:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-23')">📋 Copy</button><pre><code id="cb-23" class="language-abap">REPORT z_buggy_program.
+
+DATA: lt_items TYPE TABLE OF vbap,
+      lt_materials TYPE TABLE OF mara,
+      lv_total TYPE p DECIMALS 2.
+
+&quot; Issue 1: SELECT * without WHERE - reads entire table
+SELECT * FROM vbap INTO TABLE lt_items.
+
+&quot; Issue 2: SELECT inside LOOP (N+1 problem)
+LOOP AT lt_items INTO DATA(ls_item).
+  SELECT SINGLE * FROM mara INTO @DATA(ls_mara)
+    WHERE matnr = @ls_item-matnr.
+
+  &quot; Issue 3: No SY-SUBRC check after SELECT SINGLE
+  lv_total = lv_total + ls_item-netwr * ls_mara-ntgew.
+
+  &quot; Issue 4: READ TABLE without TRANSPORTING NO FIELDS for existence check
+  READ TABLE lt_items INTO DATA(ls_check)
+    WITH KEY vbeln = ls_item-vbeln
+             posnr = ls_item-posnr.
+ENDLOOP.
+
+&quot; Issue 5: Division without zero check
+DATA(lv_avg) = lv_total / lines( lt_items ).
+
+WRITE: / 'Average:', lv_avg.
+</code></pre></div>
+<ol>
+<li>Ask Amazon Q:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-24')">📋 Copy</button><pre><code id="cb-24">This ABAP program has multiple bugs and performance issues.
+Identify all issues and provide a corrected version.
+</code></pre></div>
+<ol>
+<li>Verify Amazon Q identifies all 5 issues:</li>
+<li><input type="checkbox"> SELECT * without WHERE clause</li>
+<li><input type="checkbox"> SELECT inside LOOP</li>
+<li><input type="checkbox"> Missing SY-SUBRC check</li>
+<li><input type="checkbox"> Inefficient READ TABLE</li>
+<li><input type="checkbox"> Division by zero risk</li>
+</ol>
+<h2>Hands-On Lab 5.2: Analyze an ABAP Dump</h2>
+<h3>Instructions</h3>
+<ol>
+<li>Simulate an ST22 dump analysis by providing this error context to Amazon Q:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-25')">📋 Copy</button><pre><code id="cb-25">I got this ABAP runtime error in production:
+
+Runtime Error: GETWA_NOT_ASSIGNED
+Program: Z_PROCESS_ORDERS
+Include: Z_PROCESS_ORDERS
+Line: 42
+
+Source code extract:
+  FIELD-SYMBOLS: &lt;ls_order&gt; TYPE ty_order.
+  READ TABLE lt_orders ASSIGNING &lt;ls_order&gt;
+    WITH KEY order_id = lv_order_id.
+  &lt;ls_order&gt;-status = 'COMPLETED'.    &quot; &lt;-- Line 42
+
+The error occurs intermittently, only for certain order IDs.
+What is the cause and how do I fix it?
+</code></pre></div>
+<ol>
+<li>Verify Amazon Q explains:</li>
+<li><input type="checkbox"> The field symbol is not assigned because READ TABLE didn't find a match</li>
+<li><input type="checkbox"> SY-SUBRC check is missing after READ TABLE</li>
+<li><input type="checkbox"> The fix: add <code>IF sy-subrc = 0</code> or <code>IF &lt;ls_order&gt; IS ASSIGNED</code></li>
+</ol>
+<h2>Hands-On Lab 5.3: Performance Optimization</h2>
+<h3>Instructions</h3>
+<ol>
+<li>Provide this slow-performing code:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-26')">📋 Copy</button><pre><code id="cb-26" class="language-abap">&quot; This report takes 30+ minutes to run in production
+LOOP AT lt_sales_orders INTO DATA(ls_so).
+  LOOP AT lt_deliveries INTO DATA(ls_del)
+    WHERE vbeln = ls_so-vbeln.
+    LOOP AT lt_billing INTO DATA(ls_bill)
+      WHERE vbeln = ls_del-vbeln.
+      SELECT SINGLE * FROM bsad INTO @DATA(ls_cleared)
+        WHERE bukrs = @ls_bill-bukrs
+          AND belnr = @ls_bill-belnr.
+      IF sy-subrc = 0.
+        APPEND VALUE #(
+          vbeln = ls_so-vbeln
+          del_no = ls_del-vbeln
+          bill_no = ls_bill-vbeln
+          cleared = abap_true
+        ) TO lt_result.
+      ENDIF.
+    ENDLOOP.
+  ENDLOOP.
+ENDLOOP.
+</code></pre></div>
+<ol>
+<li>Prompt:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-27')">📋 Copy</button><pre><code id="cb-27">This ABAP code takes 30+ minutes in production. Analyze the performance
+issues and rewrite it to run efficiently. Explain each optimization.
+</code></pre></div>
+<ol>
+<li>Expected optimizations Amazon Q should suggest:</li>
+<li><input type="checkbox"> Replace nested LOOPs with sorted/hashed tables or secondary keys</li>
+<li><input type="checkbox"> Move SELECT out of the loop — use FOR ALL ENTRIES or JOIN</li>
+<li><input type="checkbox"> Consider using a single JOIN query to replace the entire nested structure</li>
+<li><input type="checkbox"> Use PARALLEL CURSOR technique if nested LOOPs are necessary</li>
+</ol>
+<h2>✅ Checkpoint</h2>
+<ul>
+<li><input type="checkbox"> Identified and fixed multiple bugs in ABAP code</li>
+<li><input type="checkbox"> Analyzed a simulated ABAP dump</li>
+<li><input type="checkbox"> Optimized a slow-performing ABAP program</li>
+</ul>
+<hr />
+<p><a href="#section-3" onclick="showSection('section-3'); return false;">← Module 4</a> | <a href="#section-5" onclick="showSection('section-5'); return false;">Next: Module 6 — Real-World Use Cases →</a></p></div></div>
+<div id="section-5" class="section" style="display:none;"><div class="container"><h1>Module 6: Real-World Use Cases &amp; Wrap-Up (30 minutes)</h1>
+<h2>Learning Objectives</h2>
+<ul>
+<li>Apply Amazon Q Developer to real SAP project scenarios</li>
+<li>Understand best practices for AI-assisted ABAP development</li>
+</ul>
+<h2>6.1 Use Case: S/4HANA Migration Preparation</h2>
+<h3>Scenario</h3>
+<p>Your organization is migrating from ECC 6.0 to S/4HANA. You have 500+ custom ABAP programs that need compatibility assessment.</p>
+<h3>Lab Exercise</h3>
+<ol>
+<li>Provide code that uses deprecated APIs:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-28')">📋 Copy</button><pre><code id="cb-28" class="language-abap">&quot; Uses direct BSEG access (not recommended in S/4HANA)
+SELECT * FROM bseg INTO TABLE @DATA(lt_bseg)
+  WHERE bukrs = @p_bukrs
+    AND belnr = @p_belnr
+    AND gjahr = @p_gjahr.
+
+&quot; Uses KONV direct access (replaced in S/4HANA)
+SELECT * FROM konv INTO TABLE @DATA(lt_konv)
+  WHERE knumv = @lv_knumv.
+
+&quot; Uses obsolete BDC approach
+CALL TRANSACTION 'VA01' USING lt_bdcdata MODE 'N'.
+</code></pre></div>
+<ol>
+<li>Prompt:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-29')">📋 Copy</button><pre><code id="cb-29">This ABAP code needs to be migrated to S/4HANA. Identify all
+incompatible or deprecated patterns and provide S/4HANA-compatible
+replacements. Reference the SAP simplification list where applicable.
+</code></pre></div>
+<h2>6.2 Use Case: ABAP Cloud Development on BTP</h2>
+<h3>Scenario</h3>
+<p>You need to build a new application on SAP BTP ABAP Environment using only released (Tier 1) APIs.</p>
+<h3>Lab Exercise</h3>
+<ol>
+<li>Prompt:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-30')">📋 Copy</button><pre><code id="cb-30">Create an ABAP Cloud application that:
+- Reads business partner data using released CDS views
+- Exposes the data as an OData V4 service using RAP
+- Includes basic CRUD operations with draft handling
+- Uses only Tier 1 (released) APIs
+- Follows the ABAP RESTful Application Programming Model
+</code></pre></div>
+<ol>
+<li>Review the generated artifacts for ABAP Cloud compliance.</li>
+</ol>
+<h2>6.3 Use Case: REST API Integration</h2>
+<h3>Lab Exercise</h3>
+<ol>
+<li>Prompt:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-31')">📋 Copy</button><pre><code id="cb-31">Create an ABAP class that:
+- Calls an external REST API endpoint (GET request)
+- Parses the JSON response using /UI2/CL_JSON or XCO_JSON
+- Maps the response to an internal table
+- Handles HTTP errors and timeouts
+- Works in both on-premise (S/4HANA) and ABAP Cloud
+</code></pre></div>
+<h2>6.4 Use Case: Unit Testing</h2>
+<h3>Lab Exercise</h3>
+<ol>
+<li>Take any class created during the workshop and prompt:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-32')">📋 Copy</button><pre><code id="cb-32">Generate ABAP Unit tests for this class including:
+- Test class with risk level harmless
+- Test doubles for database dependencies using CL_OSQL_TEST_ENVIRONMENT
+- Positive and negative test cases
+- Setup and teardown methods
+</code></pre></div>
+<h2>6.5 Best Practices Summary</h2>
+<h3>Effective Prompting for ABAP</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SAP Module</td>
+<td>Specify: MM, SD, FI, PP, etc.</td>
+</tr>
+<tr>
+<td>System Version</td>
+<td>State: ECC 6.0, S/4HANA 2023, ABAP Cloud</td>
+</tr>
+<tr>
+<td>Tables/Objects</td>
+<td>Name specific tables, BAPIs, function modules</td>
+</tr>
+<tr>
+<td>Coding Standard</td>
+<td>Request: Clean ABAP, naming conventions</td>
+</tr>
+<tr>
+<td>Error Context</td>
+<td>Include dump details, error messages, SY-SUBRC values</td>
+</tr>
+<tr>
+<td>Output Format</td>
+<td>Specify: report, class, CDS view, RAP BO</td>
+</tr>
+</tbody>
+</table>
+<h3>When Amazon Q Works Best</h3>
+<ul>
+<li>Generating boilerplate code (ALV, CDS, RAP, selection screens)</li>
+<li>Explaining unfamiliar legacy code</li>
+<li>Modernizing syntax patterns</li>
+<li>Identifying common bugs and performance issues</li>
+<li>Generating unit test scaffolding</li>
+</ul>
+<h3>When to Verify Carefully</h3>
+<ul>
+<li>Business logic specific to your organization</li>
+<li>SAP table relationships and field semantics</li>
+<li>Authorization concepts and security-critical code</li>
+<li>System-specific customizing dependencies</li>
+</ul>
+<h2>Wrap-Up</h2>
+<h3>Key Takeaways</h3>
+<ol>
+<li>Amazon Q Developer accelerates ABAP development across the full lifecycle</li>
+<li>Prompt quality directly impacts output quality — be specific</li>
+<li>Always review and test generated code before deploying</li>
+<li>Combine AI assistance with SAP domain expertise for best results</li>
+</ol>
+<h3>Next Steps</h3>
+<ul>
+<li>Explore Amazon Q Developer in your daily ABAP development</li>
+<li>Share learnings with your SAP development team</li>
+<li>Provide feedback to improve ABAP-specific capabilities</li>
+</ul>
+<h3>Additional Resources</h3>
+<ul>
+<li><a href="https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/">Amazon Q Developer Documentation</a></li>
+<li><a href="https://github.com/SAP/styleguides/blob/main/clean-abap/CleanABAP.md">Clean ABAP Style Guide</a></li>
+<li><a href="https://help.sap.com/docs/abap-cloud">SAP ABAP Cloud Documentation</a></li>
+<li><a href="https://aws.amazon.com/sap/">AWS for SAP</a></li>
+</ul>
+<h2>Q&amp;A Session</h2>
+<p>Open floor for questions and discussion.</p>
+<h2>Feedback</h2>
+<p>Please complete the workshop feedback form to help us improve future sessions.</p>
+<hr />
+<p><a href="#section-4" onclick="showSection('section-4'); return false;">← Module 5</a> | <a href="#landing" onclick="showSection('landing'); return false;">Back to Workshop Home</a></p></div></div>
+<div id="section-6" class="section" style="display:none;"><div class="container"><h1>Lab Instructions — Module 2: ABAP Code Generation</h1>
+<h2>Lab 2.1: Generate an ALV Report</h2>
+<p><strong>Time:</strong> 15 minutes</p>
+<h3>Objective</h3>
+<p>Use Amazon Q to generate a complete ALV report from a natural language prompt.</p>
+<h3>Steps</h3>
+<ol>
+<li>Open your IDE with the Amazon Q plugin active</li>
+<li>Open the Amazon Q chat panel</li>
+<li>Type the following prompt:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-33')">📋 Copy</button><pre><code id="cb-33">Write an ABAP report for S/4HANA that:
+- Has a selection screen with parameters for company code (BUKRS) and
+  a select-option for document date (AEDAT)
+- Reads purchase order headers (EKKO) and items (EKPO) using a JOIN
+- Displays results in an ALV grid using CL_SALV_TABLE
+- Uses modern ABAP syntax (inline declarations, string templates)
+- Follows Clean ABAP naming conventions
+</code></pre></div>
+<ol>
+<li>Review the generated code for:</li>
+<li>Selection screen with PARAMETERS and SELECT-OPTIONS</li>
+<li>SQL JOIN between EKKO and EKPO</li>
+<li>CL_SALV_TABLE for ALV display</li>
+<li>Inline declarations (<code>DATA(...)</code>)</li>
+<li>
+<p>Error handling (TRY/CATCH)</p>
+</li>
+<li>
+<p>(Optional) Copy the code to your SAP system and activate it</p>
+</li>
+</ol>
+<h3>Validation Checklist</h3>
+<ul>
+<li><input type="checkbox"> Report compiles without syntax errors</li>
+<li><input type="checkbox"> Selection screen appears with company code and date fields</li>
+<li><input type="checkbox"> Data is retrieved using a JOIN (not nested SELECTs)</li>
+<li><input type="checkbox"> ALV grid displays correctly</li>
+</ul>
+<h3>Troubleshooting</h3>
+<ul>
+<li>If the generated code uses <code>REUSE_ALV_GRID_DISPLAY</code>, ask: <em>"Replace REUSE_ALV with CL_SALV_TABLE"</em></li>
+<li>If inline declarations are missing, ask: <em>"Rewrite using inline declarations"</em></li>
+</ul>
+<hr />
+<h2>Lab 2.2: Generate a CDS View</h2>
+<p><strong>Time:</strong> 15 minutes</p>
+<h3>Objective</h3>
+<p>Generate a CDS view entity with associations using Amazon Q.</p>
+<h3>Steps</h3>
+<ol>
+<li>In the Amazon Q chat, type:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-34')">📋 Copy</button><pre><code id="cb-34">Create an ABAP CDS view entity called Z_I_SalesOrderItem that:
+- Joins VBAK (header) and VBAP (items)
+- Exposes: SalesOrder, SalesOrderItem, SalesOrganization, MaterialNumber,
+  OrderQuantity, NetAmount, Currency, CreationDate
+- Includes associations to I_BusinessPartner (via VBAK-KUNNR)
+  and I_Material (via VBAP-MATNR)
+- Has proper annotations for metadata and UI
+</code></pre></div>
+<ol>
+<li>Review the output for:</li>
+<li><code>@AbapCatalog.viewEnhancementCategory</code> annotation</li>
+<li><code>@ObjectModel</code> annotations</li>
+<li>Proper <code>composition</code> or <code>association</code> syntax</li>
+<li>
+<p>Field aliases matching SAP naming conventions</p>
+</li>
+<li>
+<p>(Optional) Create the CDS view in your SAP system via ADT</p>
+</li>
+</ol>
+<h3>Validation Checklist</h3>
+<ul>
+<li><input type="checkbox"> CDS syntax is valid</li>
+<li><input type="checkbox"> Annotations are present and correct</li>
+<li><input type="checkbox"> Associations are properly defined</li>
+<li><input type="checkbox"> Field names follow SAP conventions</li>
+</ul>
+<hr />
+<h2>Lab 2.3: Generate a RAP Business Object</h2>
+<p><strong>Time:</strong> 15 minutes</p>
+<h3>Objective</h3>
+<p>Generate a complete RAP business object with all required artifacts.</p>
+<h3>Steps</h3>
+<ol>
+<li>In the Amazon Q chat, type:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-35')">📋 Copy</button><pre><code id="cb-35">Generate a managed RAP business object for a travel booking app with:
+- Root entity: Travel (travel_id, agency_id, customer_id, begin_date,
+  end_date, total_price, currency_code, status)
+- Include: CDS view entity, behavior definition, behavior implementation class,
+  and service definition/binding
+- Use draft handling and managed numbering
+- Add validations for date consistency (begin_date &lt; end_date)
+</code></pre></div>
+<ol>
+<li>Amazon Q should generate multiple files. Review each:</li>
+<li><strong>CDS View Entity</strong> — Data model with annotations</li>
+<li><strong>Behavior Definition</strong> — CRUD operations, validations, draft</li>
+<li><strong>Behavior Implementation</strong> — ABAP class with validation logic</li>
+<li><strong>Service Definition</strong> — Exposes the entity</li>
+<li>
+<p><strong>Service Binding</strong> — OData V4 binding</p>
+</li>
+<li>
+<p>If Amazon Q only generates partial output, use follow-up prompts:</p>
+</li>
+<li><em>"Now generate the behavior definition for this CDS view"</em></li>
+<li><em>"Generate the behavior implementation class"</em></li>
+<li><em>"Create the service definition and binding"</em></li>
+</ol>
+<h3>Validation Checklist</h3>
+<ul>
+<li><input type="checkbox"> All 5 artifacts are generated</li>
+<li><input type="checkbox"> Draft handling is included in BDEF</li>
+<li><input type="checkbox"> Validation method checks begin_date &lt; end_date</li>
+<li><input type="checkbox"> Service binding specifies OData version</li>
+</ul></div></div>
+<div id="section-7" class="section" style="display:none;"><div class="container"><h1>Lab Instructions — Module 3: Code Explanation &amp; Documentation</h1>
+<h2>Lab 3.1: Explain Legacy Code</h2>
+<p><strong>Time:</strong> 10 minutes</p>
+<h3>Objective</h3>
+<p>Use Amazon Q to understand a legacy ABAP program you've never seen before.</p>
+<h3>Steps</h3>
+<ol>
+<li>Copy this code into the Amazon Q chat:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-36')">📋 Copy</button><pre><code id="cb-36" class="language-abap">REPORT z_legacy_sales_report.
+
+TABLES: vbak, vbap, kna1.
+
+DATA: lt_vbak TYPE TABLE OF vbak,
+      ls_vbak TYPE vbak,
+      lt_vbap TYPE TABLE OF vbap,
+      ls_vbap TYPE vbap,
+      lv_total TYPE vbap-netwr,
+      lv_count TYPE i,
+      lt_kna1 TYPE HASHED TABLE OF kna1 WITH UNIQUE KEY kunnr.
+
+SELECT-OPTIONS: s_erdat FOR vbak-erdat,
+                s_vkorg FOR vbak-vkorg.
+
+START-OF-SELECTION.
+
+SELECT * FROM vbak INTO TABLE lt_vbak
+  WHERE erdat IN s_erdat
+    AND vkorg IN s_vkorg
+    AND vbtyp = 'C'.
+
+IF lt_vbak IS NOT INITIAL.
+  SELECT * FROM kna1 INTO TABLE lt_kna1
+    FOR ALL ENTRIES IN lt_vbak
+    WHERE kunnr = lt_vbak-kunnr.
+ENDIF.
+
+LOOP AT lt_vbak INTO ls_vbak.
+  SELECT * FROM vbap INTO TABLE lt_vbap
+    WHERE vbeln = ls_vbak-vbeln.
+  CLEAR lv_total.
+  LOOP AT lt_vbap INTO ls_vbap.
+    lv_total = lv_total + ls_vbap-netwr.
+    lv_count = lv_count + 1.
+  ENDLOOP.
+  READ TABLE lt_kna1 INTO DATA(ls_kna1)
+    WITH TABLE KEY kunnr = ls_vbak-kunnr.
+  WRITE: / ls_vbak-vbeln, ls_vbak-erdat, ls_kna1-name1, lv_total, lv_count.
+  CLEAR lv_count.
+ENDLOOP.
+</code></pre></div>
+<ol>
+<li>Ask:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-37')">📋 Copy</button><pre><code id="cb-37">Explain this ABAP code in detail. Describe:
+1. The business purpose
+2. The data flow
+3. Any performance issues
+4. Suggestions for improvement
+</code></pre></div>
+<ol>
+<li>Verify the explanation covers:</li>
+<li><input type="checkbox"> Purpose: Sales order report filtered by date and sales org</li>
+<li><input type="checkbox"> VBTYP = 'C' means standard sales orders</li>
+<li><input type="checkbox"> N+1 problem: SELECT from VBAP inside LOOP</li>
+<li><input type="checkbox"> Good: Hashed table for customer lookup</li>
+<li><input type="checkbox"> Missing: Error handling, field list optimization</li>
+</ol>
+<hr />
+<h2>Lab 3.2: Generate Technical Documentation</h2>
+<p><strong>Time:</strong> 10 minutes</p>
+<h3>Objective</h3>
+<p>Auto-generate structured technical documentation for the legacy program.</p>
+<h3>Steps</h3>
+<ol>
+<li>Using the same code, prompt:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-38')">📋 Copy</button><pre><code id="cb-38">Generate technical documentation for this ABAP report in the following format:
+- Program Name &amp; Description
+- Selection Screen Parameters
+- Database Tables Used
+- Processing Logic (step by step)
+- Output Description
+- Known Limitations
+- Dependencies
+</code></pre></div>
+<ol>
+<li>Review the documentation for:</li>
+<li><input type="checkbox"> Accurate program description</li>
+<li><input type="checkbox"> All selection screen fields listed</li>
+<li><input type="checkbox"> All 3 tables (VBAK, VBAP, KNA1) mentioned</li>
+<li><input type="checkbox"> Step-by-step logic matches actual code</li>
+<li><input type="checkbox"> Limitations include the performance issue</li>
+</ol>
+<hr />
+<h2>Lab 3.3: Explain Dynamic ABAP</h2>
+<p><strong>Time:</strong> 10 minutes</p>
+<h3>Objective</h3>
+<p>Understand dynamic ABAP programming patterns with Amazon Q's help.</p>
+<h3>Steps</h3>
+<ol>
+<li>Provide this code to Amazon Q:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-39')">📋 Copy</button><pre><code id="cb-39" class="language-abap">FIELD-SYMBOLS: &lt;lt_table&gt; TYPE STANDARD TABLE,
+               &lt;ls_line&gt;  TYPE any,
+               &lt;lv_field&gt; TYPE any.
+
+DATA: lo_descr  TYPE REF TO cl_abap_structdescr,
+      lt_comp   TYPE abap_compdescr_tab,
+      lr_data   TYPE REF TO data.
+
+lo_descr ?= cl_abap_typedescr=&gt;describe_by_name( iv_table_name ).
+lt_comp = lo_descr-&gt;components.
+
+CREATE DATA lr_data TYPE TABLE OF (iv_table_name).
+ASSIGN lr_data-&gt;* TO &lt;lt_table&gt;.
+
+SELECT * FROM (iv_table_name) INTO TABLE &lt;lt_table&gt; UP TO 100 ROWS.
+
+LOOP AT &lt;lt_table&gt; ASSIGNING &lt;ls_line&gt;.
+  LOOP AT lt_comp INTO DATA(ls_comp).
+    ASSIGN COMPONENT ls_comp-name OF STRUCTURE &lt;ls_line&gt; TO &lt;lv_field&gt;.
+    WRITE: / ls_comp-name, ':', &lt;lv_field&gt;.
+  ENDLOOP.
+ENDLOOP.
+</code></pre></div>
+<ol>
+<li>Ask:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-40')">📋 Copy</button><pre><code id="cb-40">Explain this dynamic ABAP code. What does it do, and what are the
+security implications of using dynamic table names?
+</code></pre></div>
+<ol>
+<li>Verify the explanation mentions:</li>
+<li><input type="checkbox"> RTTI (Runtime Type Information) usage</li>
+<li><input type="checkbox"> Dynamic table creation and data retrieval</li>
+<li><input type="checkbox"> SQL injection risk with dynamic table names</li>
+<li><input type="checkbox"> Authority check recommendations</li>
+</ol></div></div>
+<div id="section-8" class="section" style="display:none;"><div class="container"><h1>Lab Instructions — Module 4: Modernization &amp; Refactoring</h1>
+<h2>Lab 4.1: Modernize Legacy Code</h2>
+<p><strong>Time:</strong> 15 minutes</p>
+<h3>Objective</h3>
+<p>Transform the legacy sales report from Module 3 into modern Clean ABAP.</p>
+<h3>Steps</h3>
+<ol>
+<li>Take the legacy code from Lab 3.1</li>
+<li>Prompt Amazon Q:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-41')">📋 Copy</button><pre><code id="cb-41">Refactor this ABAP report to follow Clean ABAP guidelines and modern syntax:
+- Use inline declarations
+- Replace SELECT * with explicit field lists
+- Fix the N+1 SELECT problem (SELECT inside LOOP)
+- Use string templates instead of WRITE
+- Replace the flat list output with CL_SALV_TABLE
+- Use modern ABAP syntax (NEW, VALUE, CORRESPONDING, etc.)
+- Add proper error handling with TRY/CATCH
+</code></pre></div>
+<ol>
+<li>Compare the output against this checklist:</li>
+<li><input type="checkbox"> All <code>SELECT *</code> replaced with field lists</li>
+<li><input type="checkbox"> VBAP data retrieved via JOIN or FOR ALL ENTRIES (not inside LOOP)</li>
+<li><input type="checkbox"> <code>DATA(...)</code> inline declarations used</li>
+<li><input type="checkbox"> <code>CL_SALV_TABLE</code> for output</li>
+<li><input type="checkbox"> <code>TRY/CATCH</code> for error handling</li>
+<li><input type="checkbox"> No <code>TABLES</code> statement</li>
+<li>
+<p><input type="checkbox"> No <code>WRITE</code> statements</p>
+</li>
+<li>
+<p>Ask follow-up: <em>"Can you show me a diff summary of what changed and why?"</em></p>
+</li>
+</ol>
+<hr />
+<h2>Lab 4.2: ABAP Cloud Conversion</h2>
+<p><strong>Time:</strong> 15 minutes</p>
+<h3>Objective</h3>
+<p>Convert code to use only released APIs for ABAP Cloud / SAP BTP.</p>
+<h3>Steps</h3>
+<ol>
+<li>Prompt:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-42')">📋 Copy</button><pre><code id="cb-42">Rewrite this ABAP code to be compatible with ABAP Cloud (Tier 1 -
+released APIs only). Replace any unreleased APIs with their released
+equivalents. The code should work in SAP BTP ABAP Environment.
+
+Specifically:
+- Replace direct database table access with CDS view consumption
+- Use released APIs only
+- Follow the ABAP Cloud development model
+</code></pre></div>
+<ol>
+<li>Note the key changes:</li>
+<li><input type="checkbox"> <code>VBAK/VBAP/KNA1</code> → CDS views like <code>I_SalesOrder</code>, <code>I_SalesOrderItem</code></li>
+<li><input type="checkbox"> <code>CL_SALV_TABLE</code> → May need alternative (check released status)</li>
+<li><input type="checkbox"> <code>WRITE</code> → Not available in ABAP Cloud</li>
+<li><input type="checkbox"> <code>TABLES</code> statement → Removed entirely</li>
+</ol>
+<hr />
+<h2>Lab 4.3: FORM to OO Conversion</h2>
+<p><strong>Time:</strong> 15 minutes</p>
+<h3>Objective</h3>
+<p>Convert procedural FORM routines to object-oriented methods.</p>
+<h3>Steps</h3>
+<ol>
+<li>Provide this code:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-43')">📋 Copy</button><pre><code id="cb-43" class="language-abap">FORM calculate_tax USING iv_amount TYPE netwr
+                         iv_country TYPE land1
+                   CHANGING cv_tax TYPE netwr.
+  CASE iv_country.
+    WHEN 'DE'. cv_tax = iv_amount * '0.19'.
+    WHEN 'US'. cv_tax = iv_amount * '0.08'.
+    WHEN 'JP'. cv_tax = iv_amount * '0.10'.
+    WHEN OTHERS. cv_tax = iv_amount * '0.15'.
+  ENDCASE.
+ENDFORM.
+
+FORM get_customer_name USING iv_kunnr TYPE kunnr
+                       CHANGING cv_name TYPE name1_gp.
+  SELECT SINGLE name1 FROM kna1 INTO cv_name
+    WHERE kunnr = iv_kunnr.
+ENDFORM.
+</code></pre></div>
+<ol>
+<li>Prompt:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-44')">📋 Copy</button><pre><code id="cb-44">Convert these FORM routines into a proper ABAP OO class with methods.
+Follow Clean ABAP guidelines, use RETURNING parameters where possible,
+and add appropriate exception handling.
+</code></pre></div>
+<ol>
+<li>Verify the output:</li>
+<li><input type="checkbox"> Class definition with proper visibility sections</li>
+<li><input type="checkbox"> <code>RETURNING</code> parameters instead of <code>CHANGING</code> where possible</li>
+<li><input type="checkbox"> Exception class for error handling</li>
+<li><input type="checkbox"> No <code>FORM/PERFORM</code> statements remain</li>
+</ol></div></div>
+<div id="section-9" class="section" style="display:none;"><div class="container"><h1>Lab Instructions — Module 5: Debugging &amp; Troubleshooting</h1>
+<h2>Lab 5.1: Fix a Buggy Program</h2>
+<p><strong>Time:</strong> 10 minutes</p>
+<h3>Objective</h3>
+<p>Use Amazon Q to identify and fix multiple issues in an ABAP program.</p>
+<h3>Steps</h3>
+<ol>
+<li>Provide this buggy code to Amazon Q:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-45')">📋 Copy</button><pre><code id="cb-45" class="language-abap">REPORT z_buggy_program.
+
+DATA: lt_items TYPE TABLE OF vbap,
+      lt_materials TYPE TABLE OF mara,
+      lv_total TYPE p DECIMALS 2.
+
+&quot; Issue 1: SELECT * without WHERE - reads entire table
+SELECT * FROM vbap INTO TABLE lt_items.
+
+&quot; Issue 2: SELECT inside LOOP (N+1 problem)
+LOOP AT lt_items INTO DATA(ls_item).
+  SELECT SINGLE * FROM mara INTO @DATA(ls_mara)
+    WHERE matnr = @ls_item-matnr.
+
+  &quot; Issue 3: No SY-SUBRC check after SELECT SINGLE
+  lv_total = lv_total + ls_item-netwr * ls_mara-ntgew.
+
+  &quot; Issue 4: READ TABLE without TRANSPORTING NO FIELDS for existence check
+  READ TABLE lt_items INTO DATA(ls_check)
+    WITH KEY vbeln = ls_item-vbeln
+             posnr = ls_item-posnr.
+ENDLOOP.
+
+&quot; Issue 5: Division without zero check
+DATA(lv_avg) = lv_total / lines( lt_items ).
+
+WRITE: / 'Average:', lv_avg.
+</code></pre></div>
+<ol>
+<li>Prompt:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-46')">📋 Copy</button><pre><code id="cb-46">This ABAP program has multiple bugs and performance issues.
+Identify all issues and provide a corrected version.
+</code></pre></div>
+<ol>
+<li>Verify Amazon Q finds all 5 issues:</li>
+<li><input type="checkbox"> <strong>Issue 1:</strong> SELECT * without WHERE reads entire VBAP table</li>
+<li><input type="checkbox"> <strong>Issue 2:</strong> SELECT SINGLE inside LOOP (N+1 query)</li>
+<li><input type="checkbox"> <strong>Issue 3:</strong> No SY-SUBRC check — ls_mara may have initial values</li>
+<li><input type="checkbox"> <strong>Issue 4:</strong> READ TABLE copies data unnecessarily</li>
+<li><input type="checkbox"> <strong>Issue 5:</strong> Division by zero if lt_items is empty</li>
+</ol>
+<hr />
+<h2>Lab 5.2: Analyze an ABAP Dump</h2>
+<p><strong>Time:</strong> 10 minutes</p>
+<h3>Objective</h3>
+<p>Use Amazon Q to diagnose a runtime error from ST22.</p>
+<h3>Steps</h3>
+<ol>
+<li>Provide this dump context:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-47')">📋 Copy</button><pre><code id="cb-47">I got this ABAP runtime error in production:
+
+Runtime Error: GETWA_NOT_ASSIGNED
+Program: Z_PROCESS_ORDERS
+Include: Z_PROCESS_ORDERS
+Line: 42
+
+Source code extract:
+  FIELD-SYMBOLS: &lt;ls_order&gt; TYPE ty_order.
+  READ TABLE lt_orders ASSIGNING &lt;ls_order&gt;
+    WITH KEY order_id = lv_order_id.
+  &lt;ls_order&gt;-status = 'COMPLETED'.    &quot; &lt;-- Line 42
+
+The error occurs intermittently, only for certain order IDs.
+What is the cause and how do I fix it?
+</code></pre></div>
+<ol>
+<li>Verify the response explains:</li>
+<li><input type="checkbox"> READ TABLE didn't find a matching entry</li>
+<li><input type="checkbox"> Field symbol <code>&lt;ls_order&gt;</code> is unassigned</li>
+<li><input type="checkbox"> Accessing an unassigned field symbol causes the dump</li>
+<li><input type="checkbox"> Fix: check <code>IF sy-subrc = 0</code> or <code>IF &lt;ls_order&gt; IS ASSIGNED</code></li>
+</ol>
+<hr />
+<h2>Lab 5.3: Performance Optimization</h2>
+<p><strong>Time:</strong> 10 minutes</p>
+<h3>Objective</h3>
+<p>Optimize a slow-running ABAP program with Amazon Q's help.</p>
+<h3>Steps</h3>
+<ol>
+<li>Provide this code:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-48')">📋 Copy</button><pre><code id="cb-48" class="language-abap">&quot; This report takes 30+ minutes to run in production
+LOOP AT lt_sales_orders INTO DATA(ls_so).
+  LOOP AT lt_deliveries INTO DATA(ls_del)
+    WHERE vbeln = ls_so-vbeln.
+    LOOP AT lt_billing INTO DATA(ls_bill)
+      WHERE vbeln = ls_del-vbeln.
+      SELECT SINGLE * FROM bsad INTO @DATA(ls_cleared)
+        WHERE bukrs = @ls_bill-bukrs
+          AND belnr = @ls_bill-belnr.
+      IF sy-subrc = 0.
+        APPEND VALUE #(
+          vbeln = ls_so-vbeln
+          del_no = ls_del-vbeln
+          bill_no = ls_bill-vbeln
+          cleared = abap_true
+        ) TO lt_result.
+      ENDIF.
+    ENDLOOP.
+  ENDLOOP.
+ENDLOOP.
+</code></pre></div>
+<ol>
+<li>Prompt:</li>
+</ol>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-49')">📋 Copy</button><pre><code id="cb-49">This ABAP code takes 30+ minutes in production. Analyze the performance
+issues and rewrite it to run efficiently. Explain each optimization.
+</code></pre></div>
+<ol>
+<li>Expected optimizations:</li>
+<li><input type="checkbox"> Replace nested LOOPs with sorted tables or secondary keys</li>
+<li><input type="checkbox"> Move SELECT out of loop — use FOR ALL ENTRIES or JOIN</li>
+<li><input type="checkbox"> Consider replacing entire structure with a single SQL JOIN</li>
+<li><input type="checkbox"> Use parallel cursor technique if nested LOOPs remain</li>
+</ol></div></div>
+<div id="section-10" class="section" style="display:none;"><div class="container"><h1>Participant Handout — Amazon Q Developer for SAP ABAP Workshop</h1>
+<h2>Workshop Quick Reference</h2>
+<h3>Setup Checklist</h3>
+<ul>
+<li><input type="checkbox"> IDE installed (VS Code / SAP ADT / JetBrains)</li>
+<li><input type="checkbox"> Amazon Q Developer plugin installed</li>
+<li><input type="checkbox"> Authenticated (Builder ID or IAM Identity Center)</li>
+<li><input type="checkbox"> SAP system access available (optional for hands-on)</li>
+</ul>
+<h3>Useful Prompt Templates</h3>
+<h4>Generate an ALV Report</h4>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-50')">📋 Copy</button><pre><code id="cb-50">Write an ABAP report for [ECC/S/4HANA] that reads [table(s)] filtered by
+[criteria] using selection screen parameters and displays results in an
+ALV grid using CL_SALV_TABLE. Use modern ABAP syntax.
+</code></pre></div>
+<h4>Generate a CDS View</h4>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-51')">📋 Copy</button><pre><code id="cb-51">Create a CDS view entity called [name] that joins [table1] and [table2],
+exposes [field list], includes associations to [standard CDS views],
+and has proper annotations for [metadata/UI/analytics].
+</code></pre></div>
+<h4>Generate a RAP Business Object</h4>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-52')">📋 Copy</button><pre><code id="cb-52">Generate a managed RAP business object for [use case] with root entity
+[name] containing fields: [field list]. Include CDS view entity, behavior
+definition, implementation class, and service definition/binding.
+</code></pre></div>
+<h4>Explain Legacy Code</h4>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-53')">📋 Copy</button><pre><code id="cb-53">Explain this ABAP code in detail: the business purpose, data flow,
+performance issues, and suggestions for improvement.
+</code></pre></div>
+<h4>Modernize Code</h4>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-54')">📋 Copy</button><pre><code id="cb-54">Refactor this ABAP code to follow Clean ABAP guidelines: use inline
+declarations, replace SELECT * with field lists, fix N+1 queries,
+use CL_SALV_TABLE for output, and add proper error handling.
+</code></pre></div>
+<h4>Fix Bugs</h4>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-55')">📋 Copy</button><pre><code id="cb-55">This ABAP program has bugs/performance issues. Identify all issues
+and provide a corrected version with explanations.
+</code></pre></div>
+<h4>S/4HANA Migration</h4>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-56')">📋 Copy</button><pre><code id="cb-56">This ABAP code needs S/4HANA migration. Identify deprecated patterns
+and provide compatible replacements per the simplification list.
+</code></pre></div>
+<h4>ABAP Cloud Compliance</h4>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-57')">📋 Copy</button><pre><code id="cb-57">Rewrite this code using only released (Tier 1) APIs compatible with
+SAP BTP ABAP Environment / ABAP Cloud.
+</code></pre></div>
+<h3>Modernization Quick Reference</h3>
+<table>
+<thead>
+<tr>
+<th>Legacy</th>
+<th>Modern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DATA: lv TYPE ...</code> then assign</td>
+<td><code>DATA(lv) = ...</code></td>
+</tr>
+<tr>
+<td><code>CONCATENATE a b INTO c</code></td>
+<td><code>c = \|{ a }{ b }\|</code></td>
+</tr>
+<tr>
+<td><code>CREATE OBJECT lo</code></td>
+<td><code>lo = NEW #( )</code></td>
+</tr>
+<tr>
+<td><code>CALL METHOD lo-&gt;m</code></td>
+<td><code>lo-&gt;m( )</code></td>
+</tr>
+<tr>
+<td><code>SELECT *</code></td>
+<td><code>SELECT field1, field2</code></td>
+</tr>
+<tr>
+<td><code>REUSE_ALV_*</code></td>
+<td><code>CL_SALV_TABLE</code></td>
+</tr>
+<tr>
+<td><code>FORM/PERFORM</code></td>
+<td>Class methods</td>
+</tr>
+<tr>
+<td><code>MOVE a TO b</code></td>
+<td><code>b = a</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Common ABAP Dumps &amp; Fixes</h3>
+<table>
+<thead>
+<tr>
+<th>Dump</th>
+<th>Cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GETWA_NOT_ASSIGNED</td>
+<td>Field symbol not assigned</td>
+<td>Check <code>IS ASSIGNED</code> after READ TABLE</td>
+</tr>
+<tr>
+<td>ITAB_DUPLICATE_KEY</td>
+<td>Duplicate key in hashed/sorted table</td>
+<td>Check before INSERT or use STANDARD TABLE</td>
+</tr>
+<tr>
+<td>COMPUTE_INT_ZERODIVIDE</td>
+<td>Division by zero</td>
+<td>Check divisor ≠ 0 before dividing</td>
+</tr>
+<tr>
+<td>DBIF_RSQL_SQL_ERROR</td>
+<td>SQL error</td>
+<td>Check SQL syntax, field types</td>
+</tr>
+<tr>
+<td>TSV_TNEW_PAGE_ALLOC_FAILED</td>
+<td>Out of memory</td>
+<td>Reduce data volume, use pagination</td>
+</tr>
+</tbody>
+</table>
+<h3>Key SAP Tables Reference</h3>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Header Table</th>
+<th>Item Table</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sales Orders</td>
+<td>VBAK</td>
+<td>VBAP</td>
+</tr>
+<tr>
+<td>Purchase Orders</td>
+<td>EKKO</td>
+<td>EKPO</td>
+</tr>
+<tr>
+<td>Deliveries</td>
+<td>LIKP</td>
+<td>LIPS</td>
+</tr>
+<tr>
+<td>Billing</td>
+<td>VBRK</td>
+<td>VBRP</td>
+</tr>
+<tr>
+<td>Material Master</td>
+<td>MARA</td>
+<td>MARC, MARD</td>
+</tr>
+<tr>
+<td>Business Partner</td>
+<td>BUT000</td>
+<td>BUT020</td>
+</tr>
+<tr>
+<td>Accounting</td>
+<td>BKPF</td>
+<td>BSEG (use CDS in S/4)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>Workshop Date:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><em>
+<strong>Instructor:</strong> <strong><em>_</em></strong><strong><em>_</em></strong></em>
+<strong>Notes:</strong></p>
+<hr />
+<hr />
+<hr />
+<hr />
+<hr /></div></div>
+<div id="section-11" class="section" style="display:none;"><div class="container"><h1>Slide Deck Outline — Amazon Q Developer for SAP ABAP</h1>
+<blockquote>
+<p>Use this outline to build your presentation slides (PowerPoint, Google Slides, etc.)</p>
+</blockquote>
+<hr />
+<h2>Slide 1: Title</h2>
+<ul>
+<li><strong>Amazon Q Developer for SAP ABAP</strong></li>
+<li>Workshop: Accelerating ABAP Development with Generative AI</li>
+<li>Date / Presenter Name / Organization</li>
+</ul>
+<h2>Slide 2: Agenda</h2>
+<ul>
+<li>Module 1: Introduction &amp; Setup (30 min)</li>
+<li>Module 2: ABAP Code Generation (45 min)</li>
+<li>Module 3: Code Explanation &amp; Documentation (30 min)</li>
+<li>Module 4: Modernization &amp; Refactoring (45 min)</li>
+<li>Module 5: Debugging &amp; Troubleshooting (30 min)</li>
+<li>Module 6: Real-World Use Cases &amp; Wrap-Up (30 min)</li>
+</ul>
+<h2>Slide 3: What is Amazon Q Developer?</h2>
+<ul>
+<li>AI-powered coding assistant by AWS</li>
+<li>Understands ABAP syntax, SAP tables, business logic</li>
+<li>Available in VS Code, JetBrains, Eclipse (SAP ADT)</li>
+<li>Capabilities: generate, explain, transform, debug</li>
+</ul>
+<h2>Slide 4: Why AI for ABAP?</h2>
+<ul>
+<li>SAP systems contain decades of custom code</li>
+<li>Shortage of experienced ABAP developers</li>
+<li>S/4HANA migration requires massive code adaptation</li>
+<li>ABAP Cloud introduces new development paradigm</li>
+<li>AI accelerates all of these workstreams</li>
+</ul>
+<h2>Slide 5: Supported ABAP Patterns</h2>
+<ul>
+<li>Classical ABAP (reports, module pools, FMs)</li>
+<li>ABAP Objects (classes, interfaces)</li>
+<li>CDS views &amp; annotations</li>
+<li>RAP (RESTful ABAP Programming Model)</li>
+<li>ALV, BAPIs, IDocs, enhancements</li>
+</ul>
+<h2>Slide 6: Setup &amp; Authentication</h2>
+<ul>
+<li>Install Amazon Q Developer plugin</li>
+<li>Authenticate via Builder ID or IAM Identity Center</li>
+<li>Demo: live setup walkthrough</li>
+</ul>
+<h2>Slide 7: Prompting Best Practices</h2>
+<ul>
+<li>Be specific: SAP module, version, tables, standards</li>
+<li>Good vs. bad prompt comparison</li>
+<li>Iterative refinement with follow-up prompts</li>
+</ul>
+<h2>Slide 8: Demo — Code Generation</h2>
+<ul>
+<li>Live demo: ALV report from natural language</li>
+<li>Live demo: CDS view generation</li>
+<li>Live demo: RAP business object</li>
+</ul>
+<h2>Slide 9: Demo — Code Explanation</h2>
+<ul>
+<li>Feed legacy ABAP code to Amazon Q</li>
+<li>Show business logic explanation</li>
+<li>Show auto-generated documentation</li>
+</ul>
+<h2>Slide 10: Modernization Targets</h2>
+<ul>
+<li>Table of legacy → modern patterns</li>
+<li>Clean ABAP principles overview</li>
+</ul>
+<h2>Slide 11: Demo — Modernization</h2>
+<ul>
+<li>Before/after code comparison</li>
+<li>SELECT inside LOOP → JOIN</li>
+<li>WRITE → CL_SALV_TABLE</li>
+<li>FORM → Class methods</li>
+</ul>
+<h2>Slide 12: ABAP Cloud Readiness</h2>
+<ul>
+<li>Tier 1 (released) APIs only</li>
+<li>Direct table access → CDS views</li>
+<li>Classical output → RAP/OData</li>
+</ul>
+<h2>Slide 13: Demo — Debugging</h2>
+<ul>
+<li>Buggy code identification</li>
+<li>ABAP dump analysis</li>
+<li>Performance optimization</li>
+</ul>
+<h2>Slide 14: S/4HANA Migration</h2>
+<ul>
+<li>Deprecated API identification</li>
+<li>Simplification list compliance</li>
+<li>BSEG, KONV, and other table changes</li>
+</ul>
+<h2>Slide 15: Real-World Use Cases</h2>
+<ul>
+<li>S/4HANA migration preparation</li>
+<li>ABAP Cloud development on BTP</li>
+<li>REST API integration</li>
+<li>Unit test generation</li>
+</ul>
+<h2>Slide 16: Best Practices Summary</h2>
+<ul>
+<li>Always review generated code</li>
+<li>Combine AI with SAP domain expertise</li>
+<li>Use specific prompts for better results</li>
+<li>Test thoroughly before deploying</li>
+</ul>
+<h2>Slide 17: Key Takeaways</h2>
+<ol>
+<li>Amazon Q accelerates ABAP development across the full lifecycle</li>
+<li>Prompt quality = output quality</li>
+<li>Especially powerful for modernization and legacy code understanding</li>
+<li>Not a replacement for SAP expertise — an amplifier</li>
+</ol>
+<h2>Slide 18: Resources</h2>
+<ul>
+<li>Amazon Q Developer docs</li>
+<li>Clean ABAP style guide</li>
+<li>SAP ABAP Cloud documentation</li>
+<li>AWS for SAP</li>
+</ul>
+<h2>Slide 19: Q&amp;A</h2>
+<ul>
+<li>Open floor for questions</li>
+</ul>
+<h2>Slide 20: Thank You</h2>
+<ul>
+<li>Contact information</li>
+<li>Feedback form link</li>
+<li>Next steps</li>
+</ul></div></div>
+
+</div>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(function(s) { s.style.display = 'none'; });
+  document.getElementById(id).style.display = 'block';
+  document.querySelectorAll('.sidebar a').forEach(function(a) { a.classList.remove('active'); });
+  var links = document.querySelectorAll('.sidebar a');
+  for (var i = 0; i < links.length; i++) {
+    if (links[i].getAttribute('onclick') && links[i].getAttribute('onclick').indexOf(id) !== -1) {
+      links[i].classList.add('active');
+      break;
+    }
+  }
+  window.scrollTo(0, 0);
+}
+
+function copyCode(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var text = el.textContent;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() {
+      showCopied(el);
+    }).catch(function() {
+      fallbackCopy(text, el);
+    });
+  } else {
+    fallbackCopy(text, el);
+  }
+}
+
+function fallbackCopy(text, el) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  document.body.removeChild(ta);
+  showCopied(el);
+}
+
+function showCopied(el) {
+  var btn = el.closest('.code-wrap').querySelector('.copy-btn');
+  btn.textContent = '✅ Copied!';
+  btn.classList.add('copied');
+  setTimeout(function() { btn.textContent = '📋 Copy'; btn.classList.remove('copied'); }, 2000);
+}
+
+showSection('landing');
+</script>
+
 </body>
 </html>
