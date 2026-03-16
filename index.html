@@ -52,6 +52,44 @@ hr { border: none; border-top: 2px solid #d5dbdb; margin: 2.5rem 0; }
 .copy-btn:hover { background: #ec7211; }
 .copy-btn.copied { background: #1b660f; color: white; opacity: 1; }
 
+
+.ui-mockup { border: 2px solid #ccc; border-radius: 8px; margin: 1rem 0; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.mockup-titlebar { padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.8rem; }
+.mockup-title { color: white; font-size: 0.82rem; font-weight: 600; }
+.mockup-dots { display: flex; gap: 5px; }
+.mockup-dots span { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.mockup-body { padding: 1.5rem; background: #fafbfc; display: flex; align-items: flex-start; gap: 1rem; min-height: 80px; }
+.mockup-icon { font-size: 2rem; }
+.mockup-content { font-family: -apple-system, monospace; font-size: 0.88rem; color: #232f3e; line-height: 1.6; }
+
+
+.ui-mockup { border: 2px solid #ccc; border-radius: 8px; margin: 1rem 0; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.mockup-titlebar { padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.8rem; }
+.mockup-title { color: white; font-size: 0.82rem; font-weight: 600; }
+.mockup-dots { display: flex; gap: 5px; }
+.mockup-dots span { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.mockup-body { padding: 1.5rem; background: #fafbfc; display: flex; align-items: flex-start; gap: 1rem; min-height: 80px; }
+.mockup-icon { font-size: 2rem; }
+.mockup-content { font-family: -apple-system, monospace; font-size: 0.88rem; color: #232f3e; line-height: 1.6; }
+
+.screenshot-placeholder {
+  background: linear-gradient(135deg, #eef1f6 0%, #e3e8f0 100%);
+  border: 2px dashed #879596;
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 1rem 0;
+  text-align: center;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+.screenshot-icon { font-size: 2rem; }
+.screenshot-label { font-size: 0.95rem; color: #232f3e; font-weight: 600; }
+.screenshot-hint { font-size: 0.78rem; color: #879596; font-style: italic; }
+
 .landing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin: 1.5rem 0; }
 .card { background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-left: 4px solid #ff9900; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
 .card:hover { transform: translateY(-3px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
@@ -107,7 +145,7 @@ hr { border: none; border-top: 2px solid #d5dbdb; margin: 2.5rem 0; }
   <div class="container">
     <h2 class="section-title">📚 Modules</h2>
     <div class="landing-grid">
-      <div class="card" onclick="showSection('section-0')"><div class="num">Module 1</div><h3>Introduction & Setup</h3><p>Install VS Code or Kiro, create AWS Builder ID, set up your AI assistant.</p><div class="dur">⏱ 30 min</div></div>
+      <div class="card" onclick="showSection('section-0')"><div class="num">Module 1</div><h3>Introduction & Setup</h3><p>Install VS Code, Kiro, or Eclipse ADT. Create AWS Builder ID. Set up Amazon Q.</p><div class="dur">⏱ 30 min</div></div>
       <div class="card" onclick="showSection('section-1')"><div class="num">Module 2</div><h3>ABAP Code Generation</h3><p>Generate ALV reports, CDS views, and RAP business objects.</p><div class="dur">⏱ 45 min</div></div>
       <div class="card" onclick="showSection('section-2')"><div class="num">Module 3</div><h3>Code Explanation & Documentation</h3><p>Understand legacy code and auto-generate documentation.</p><div class="dur">⏱ 30 min</div></div>
       <div class="card" onclick="showSection('section-3')"><div class="num">Module 4</div><h3>Modernization & Refactoring</h3><p>Convert to Clean ABAP, ABAP Cloud, and OO patterns.</p><div class="dur">⏱ 45 min</div></div>
@@ -134,8 +172,11 @@ hr { border: none; border-top: 2px solid #d5dbdb; margin: 2.5rem 0; }
 <ul>
 <li>Understand what Amazon Q Developer is and how it supports SAP ABAP</li>
 <li>Set up the complete development environment from scratch</li>
-<li>Choose your preferred IDE: VS Code or Kiro</li>
+<li>Choose your preferred IDE: VS Code, Kiro, or Eclipse (SAP ADT)</li>
 </ul>
+<blockquote>
+<p>📘 <strong>Reference Workshop:</strong> For additional visual guidance with screenshots, see the official AWS workshop: <a href="https://catalog.us-east-1.prod.workshops.aws/workshops/d01697ea-1e3c-4b38-934b-859884fdb406/en-US/lab-1-q-dev-with-eclipse/1-2-amazon-q-developer-installation">Amazon Q Developer for SAP ABAP on Eclipse</a></p>
+</blockquote>
 <h2>1.1 What is Amazon Q Developer?</h2>
 <p>Amazon Q Developer is a generative AI-powered assistant that helps developers build, transform, and operate applications on AWS. For SAP ABAP developers, it provides:</p>
 <ul>
@@ -154,11 +195,8 @@ hr { border: none; border-top: 2px solid #d5dbdb; margin: 2.5rem 0; }
 <li><strong>Built on Code OSS</strong> — Familiar VS Code experience, import your existing settings and extensions</li>
 <li><strong>Native MCP support</strong> — Connect to docs, databases, APIs, and more</li>
 </ul>
-<blockquote>
-<p>💡 <strong>Kiro vs. VS Code + Amazon Q:</strong> VS Code with the Amazon Q extension gives you AI chat and inline suggestions. Kiro takes it further with spec-driven workflows, autonomous agents, and agent hooks — ideal for building structured, production-ready code.</p>
-</blockquote>
 <h2>1.3 Supported ABAP Patterns</h2>
-<p>Both Amazon Q and Kiro understand:
+<p>Amazon Q and Kiro understand:
 - Classical ABAP (reports, module pools, function modules)
 - ABAP Objects (classes, interfaces)
 - CDS views and ABAP annotations
@@ -172,6 +210,7 @@ hr { border: none; border-top: 2px solid #d5dbdb; margin: 2.5rem 0; }
 <th>Feature</th>
 <th>VS Code + Amazon Q</th>
 <th>Kiro</th>
+<th>Eclipse (SAP ADT) + Amazon Q</th>
 </tr>
 </thead>
 <tbody>
@@ -179,51 +218,64 @@ hr { border: none; border-top: 2px solid #d5dbdb; margin: 2.5rem 0; }
 <td>AI Chat &amp; Code Suggestions</td>
 <td>✅</td>
 <td>✅</td>
+<td>✅</td>
 </tr>
 <tr>
 <td>Spec-Driven Development</td>
 <td>❌</td>
 <td>✅</td>
+<td>❌</td>
 </tr>
 <tr>
 <td>Agent Hooks (auto-tasks)</td>
 <td>❌</td>
 <td>✅</td>
+<td>❌</td>
 </tr>
 <tr>
-<td>Steering Files</td>
+<td>Native SAP System Connection</td>
+<td>❌</td>
 <td>❌</td>
 <td>✅</td>
 </tr>
 <tr>
-<td>Autonomous Agent Mode</td>
-<td>❌</td>
-<td>✅</td>
+<td>CDS View Editor</td>
+<td>Via extensions</td>
+<td>Via extensions</td>
+<td>✅ Native</td>
 </tr>
 <tr>
-<td>VS Code Extensions Compatible</td>
-<td>✅</td>
-<td>✅ (Open VSX)</td>
+<td>ABAP Debugger</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅ Native</td>
+</tr>
+<tr>
+<td>Transport Management</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅ Native</td>
 </tr>
 <tr>
 <td>Price</td>
-<td>Free tier available</td>
-<td>Free tier available</td>
-</tr>
-<tr>
-<td>Auth Options</td>
-<td>AWS Builder ID, IAM Identity Center</td>
-<td>GitHub, Google, AWS Builder ID, IAM Identity Center</td>
+<td>Free tier</td>
+<td>Free tier</td>
+<td>Free (Eclipse + ADT)</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p>Choose <strong>Option A (VS Code)</strong> if you want a familiar setup with AI assistance.
-Choose <strong>Option B (Kiro)</strong> if you want the full agentic AI experience with spec-driven development.</p>
+<p>💡 <strong>Recommendation:</strong>
+- Choose <strong>Option A (VS Code)</strong> for a lightweight setup focused on AI-assisted coding
+- Choose <strong>Option B (Kiro)</strong> for the full agentic AI experience with spec-driven development
+- Choose <strong>Option C (Eclipse/ADT)</strong> if you need direct SAP system connection, debugging, and transport management — best for on-premise SAP developers</p>
 </blockquote>
 <hr />
 <h2>Option A: VS Code Setup</h2>
 <h3>Hands-On Lab 1A.1: Install Visual Studio Code</h3>
+<blockquote>
+<p>ℹ️ <strong>Info:</strong> Skip this lab if you already have VS Code installed (version 1.85+).</p>
+</blockquote>
 <h4>Step 1: Download VS Code</h4>
 <ol>
 <li>Open your browser and go to <a href="https://code.visualstudio.com">https://code.visualstudio.com</a></li>
@@ -233,182 +285,101 @@ Choose <strong>Option B (Kiro)</strong> if you want the full agentic AI experien
 <li><strong>Linux</strong>: Choose .deb (Ubuntu/Debian) or .rpm (Fedora/RHEL)</li>
 <li>Wait for the download to complete</li>
 </ol>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">VS Code download page showing the Download button </span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">VS Code download page showing the Download button for your OS</div></div></div></p>
 <h4>Step 2: Install VS Code</h4>
 <p><strong>macOS:</strong>
 1. Open the downloaded <code>.zip</code> file
 2. Drag <strong>Visual Studio Code.app</strong> to your <strong>Applications</strong> folder
 3. Open VS Code from Applications or Spotlight (Cmd+Space, type "Visual Studio Code")</p>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Dragging VS Code to Applications folder on macOS</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Dragging VS Code to Applications folder on macOS</div></div></div></p>
 <p><strong>Windows:</strong>
 1. Run the downloaded <code>.exe</code> installer
 2. Accept the license agreement
-3. Choose the installation location (default is fine)
-4. Check these options:
-   - ✅ Add "Open with Code" action to file context menu
-   - ✅ Add "Open with Code" action to directory context menu
-   - ✅ Add to PATH
-5. Click <strong>Install</strong>, then <strong>Finish</strong>
-6. VS Code will open automatically</p>
-<p><strong>Linux (Ubuntu/Debian):</strong></p>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-1')">📋 Copy</button><pre><code id="cb-1" class="language-bash">sudo dpkg -i code_*.deb
-sudo apt-get install -f
-</code></pre></div>
+3. Check: ✅ Add "Open with Code" to context menu, ✅ Add to PATH
+4. Click <strong>Install</strong>, then <strong>Finish</strong></p>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">VS Code Windows installer with recommended checkbo</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">VS Code Windows installer with recommended checkboxes</div></div></div></p>
 <h4>Step 3: Verify Installation</h4>
 <ol>
 <li>Open VS Code</li>
 <li>You should see the Welcome tab</li>
-<li>Verify the version: <strong>Help → About</strong> (should be 1.80+)</li>
+<li>Verify the version: <strong>Help → About</strong> (should be 1.85+)</li>
 </ol>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">VS Code Welcome tab after first launch</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">VS Code Welcome tab after first launch</div></div></div></p>
+<hr />
 <h3>Hands-On Lab 1A.2: Create an AWS Builder ID</h3>
-<p>AWS Builder ID is a free personal profile that gives you access to Amazon Q Developer.</p>
-<h4>Step 1: Start the Sign-Up</h4>
-<ol>
-<li>Open your browser and go to <a href="https://profile.aws.amazon.com/">https://profile.aws.amazon.com/</a></li>
-<li>Click <strong>Create AWS Builder ID</strong></li>
-</ol>
-<h4>Step 2: Enter Your Email</h4>
-<ol>
-<li>Enter your <strong>email address</strong> (personal or work email)</li>
-<li>Enter your <strong>name</strong> (this will be your display name)</li>
-<li>Click <strong>Next</strong></li>
-</ol>
-<h4>Step 3: Verify Your Email</h4>
-<ol>
-<li>Check your email inbox for a verification code from AWS</li>
-<li>The subject line will be: <strong>"Verify your AWS Builder ID email"</strong></li>
-<li>Copy the <strong>6-digit verification code</strong></li>
-<li>Paste it into the verification field on the sign-up page</li>
-<li>Click <strong>Verify</strong></li>
-</ol>
-<h4>Step 4: Set Your Password</h4>
-<ol>
-<li>Create a password (minimum 8 characters, must include uppercase, lowercase, number, and special character)</li>
-<li>Confirm the password</li>
-<li>Click <strong>Create AWS Builder ID</strong></li>
-</ol>
-<h4>Step 5: Verify Your Builder ID</h4>
-<ol>
-<li>You should see a confirmation page: <strong>"AWS Builder ID created successfully"</strong></li>
-<li>Note down your email — you'll use this to sign in to Amazon Q</li>
-</ol>
 <blockquote>
-<p>💡 <strong>Tip:</strong> If you already have an AWS Builder ID (e.g., from AWS re:Post or Amazon CodeCatalyst), you can use the same one. No need to create a new one.</p>
+<p>ℹ️ <strong>Info:</strong> AWS Builder ID is free and does not require an AWS account. Skip this if you already have one.</p>
 </blockquote>
-<h3>Hands-On Lab 1A.3: Install Amazon Q Developer Extension</h3>
-<h4>Step 1: Open the Extensions Panel</h4>
-<ol>
-<li>Open VS Code</li>
-<li>Click the <strong>Extensions</strong> icon in the left sidebar (or press <code>Ctrl+Shift+X</code> / <code>Cmd+Shift+X</code> on Mac)</li>
-</ol>
-<h4>Step 2: Search and Install</h4>
-<ol>
-<li>In the search box, type: <strong>Amazon Q</strong></li>
-<li>Find <strong>"Amazon Q"</strong> by Amazon Web Services (look for the official AWS publisher badge ✓)</li>
-<li>Click the <strong>Install</strong> button</li>
-<li>Wait for the installation to complete (usually 10-20 seconds)</li>
-<li>You may see a prompt to reload VS Code — click <strong>Reload</strong> if prompted</li>
-</ol>
-<h4>Step 3: Verify the Extension</h4>
-<ol>
-<li>After installation, you should see the <strong>Amazon Q icon</strong> (Q logo) in the left sidebar</li>
-<li>You should also see the Amazon Q status bar item at the bottom of VS Code</li>
-</ol>
-<h3>Hands-On Lab 1A.4: Authenticate Amazon Q with Your Builder ID</h3>
-<h4>Step 1: Open Amazon Q</h4>
-<ol>
-<li>Click the <strong>Amazon Q icon</strong> (Q logo) in the VS Code left sidebar</li>
-<li>The Amazon Q panel will open</li>
-</ol>
-<h4>Step 2: Start Authentication</h4>
-<ol>
-<li>Click <strong>"Use for Free"</strong> (this uses AWS Builder ID — the free tier)</li>
-<li>A dialog will appear: <strong>"Amazon Q would like to sign in using AWS"</strong></li>
-<li>Click <strong>Allow</strong></li>
-</ol>
-<h4>Step 3: Browser Authentication</h4>
-<ol>
-<li>Your default browser will open automatically</li>
-<li>You'll see a page asking to <strong>"Confirm request from VS Code"</strong></li>
-<li>Click <strong>Confirm and continue</strong></li>
-<li>Sign in with your <strong>AWS Builder ID</strong> (the email and password from Lab 1A.2)</li>
-<li>If prompted, enter the verification code sent to your email</li>
-<li>You'll see: <strong>"Successfully authorized"</strong> — you can close the browser tab</li>
-</ol>
-<h4>Step 4: Verify Connection</h4>
-<ol>
-<li>Go back to VS Code</li>
-<li>The Amazon Q panel should now show the <strong>chat interface</strong></li>
-<li>The status bar at the bottom should show <strong>"Amazon Q"</strong> (not "Amazon Q: Not Connected")</li>
-</ol>
+<h4>Step 1: Go to <a href="https://profile.aws.amazon.com/">https://profile.aws.amazon.com/</a> and click <strong>Create AWS Builder ID</strong></h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">AWS Builder ID sign-up page with Create AWS Builde</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">AWS Builder ID sign-up page with Create AWS Builder ID button</div></div></div></p>
+<h4>Step 2: Enter your <strong>email address</strong> and <strong>name</strong>, then click <strong>Next</strong></h4>
+<p><div class="ui-mockup" style="border-color:#232f3e"><div class="mockup-titlebar" style="background:#232f3e"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">AWS Builder ID — Step 1</span></div><div class="mockup-body"><div class="mockup-icon">📧</div><div class="mockup-content">Email: [________]  Name: [________]  →  [Next]</div></div></div></p>
+<h4>Step 3: Check your email for a <strong>6-digit verification code</strong>, enter it, and click <strong>Verify</strong></h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Email verification code entry screen</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Email verification code entry screen</div></div></div></p>
+<h4>Step 4: Create a <strong>password</strong> (min 8 chars, uppercase, lowercase, number, special char) and click <strong>Create AWS Builder ID</strong></h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Password creation screen with requirements</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Password creation screen with requirements</div></div></div></p>
+<h4>Step 5: You should see <strong>"AWS Builder ID created successfully"</strong> — note down your email</h4>
+<p><div class="ui-mockup" style="border-color:#1b660f"><div class="mockup-titlebar" style="background:#1b660f"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">AWS Builder ID — Complete</span></div><div class="mockup-body"><div class="mockup-icon">✅</div><div class="mockup-content">✓ AWS Builder ID created successfully!</div></div></div></p>
+<blockquote>
+<p>⚠️ <strong>Note:</strong> If you already have an AWS Builder ID from AWS re:Post, CodeCatalyst, or any other AWS service, you can reuse it.</p>
+</blockquote>
+<hr />
+<h3>Hands-On Lab 1A.3: Install and Authenticate Amazon Q in VS Code</h3>
+<h4>Step 1: Open Extensions panel (<code>Cmd+Shift+X</code>) → search <strong>"Amazon Q"</strong> → click <strong>Install</strong></h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">VS Code Extensions marketplace showing Amazon Q wi</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">VS Code Extensions marketplace showing Amazon Q with Install button</div></div></div></p>
+<h4>Step 2: After install, click the <strong>Amazon Q icon</strong> (Q logo) in the left sidebar</h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">VS Code showing Amazon Q icon in sidebar and statu</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">VS Code showing Amazon Q icon in sidebar and status bar</div></div></div></p>
+<h4>Step 3: Click <strong>"Use for Free"</strong> → click <strong>Allow</strong> when prompted</h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Amazon Q panel with Use for Free option</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Amazon Q panel with Use for Free option</div></div></div></p>
+<h4>Step 4: Browser opens → click <strong>"Confirm and continue"</strong> → sign in with your Builder ID</h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Browser showing Confirm request from VS Code page</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Browser showing Confirm request from VS Code page</div></div></div></p>
+<h4>Step 5: You'll see <strong>"Successfully authorized"</strong> → close the browser tab</h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Browser showing Successfully authorized message</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Browser showing Successfully authorized message</div></div></div></p>
+<h4>Step 6: Back in VS Code — verify the chat panel is active and status bar shows <strong>"Amazon Q"</strong></h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">VS Code with Amazon Q chat panel active and connec</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">VS Code with Amazon Q chat panel active and connected</div></div></div></p>
 <blockquote>
 <p>⚠️ <strong>Troubleshooting:</strong>
-- If the browser doesn't open, copy the URL from the VS Code dialog and paste it manually
-- If you see "expired" error, restart the process — the auth code expires after a few minutes
-- If you're behind a corporate proxy, you may need to configure VS Code proxy settings first: <strong>File → Preferences → Settings → search "proxy"</strong></p>
+- Browser doesn't open? Copy the URL from the VS Code dialog and paste it manually
+- "Expired" error? Restart the process — the auth code expires after a few minutes
+- Behind a corporate proxy? Configure VS Code proxy: <strong>File → Preferences → Settings → search "proxy"</strong></p>
 </blockquote>
 <hr />
 <h2>Option B: Kiro Setup</h2>
 <h3>Hands-On Lab 1B.1: Download and Install Kiro</h3>
-<h4>Step 1: Download Kiro</h4>
-<ol>
-<li>Open your browser and go to <a href="https://kiro.dev/downloads/">https://kiro.dev/downloads/</a></li>
-<li>Download the installer for your operating system:</li>
-<li><strong>macOS</strong>: Download the <code>.dmg</code> file (Apple Silicon or Intel)</li>
-<li><strong>Windows</strong>: Download the <code>.exe</code> installer</li>
-<li><strong>Linux</strong>: Download the <code>.deb</code> or <code>.AppImage</code> file</li>
-</ol>
-<p><strong>Alternative — Install Kiro CLI (macOS/Linux):</strong></p>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-2')">📋 Copy</button><pre><code id="cb-2" class="language-bash">curl -fsSL https://cli.kiro.dev/install | bash
+<blockquote>
+<p>ℹ️ <strong>Info:</strong> Kiro is built on Code OSS (same foundation as VS Code). You can import your VS Code settings, themes, and extensions.</p>
+</blockquote>
+<h4>Step 1: Go to <a href="https://kiro.dev/downloads/">https://kiro.dev/downloads/</a> and download for your OS</h4>
+<p><div class="ui-mockup" style="border-color:#ff9900"><div class="mockup-titlebar" style="background:#ff9900"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Kiro — kiro.dev/downloads</span></div><div class="mockup-body"><div class="mockup-icon">⚡</div><div class="mockup-content">Download for macOS / Windows / Linux</div></div></div></p>
+<p><strong>Alternative — Install via CLI (macOS/Linux):</strong></p>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-1')">📋 Copy</button><pre><code id="cb-1" class="language-bash">curl -fsSL https://cli.kiro.dev/install | bash
 </code></pre></div>
 <h4>Step 2: Install Kiro</h4>
-<p><strong>macOS:</strong>
-1. Open the downloaded <code>.dmg</code> file
-2. Drag <strong>Kiro</strong> to your <strong>Applications</strong> folder
-3. Open Kiro from Applications or Spotlight (Cmd+Space, type "Kiro")
-4. If you see a security warning ("Kiro can't be opened"), go to <strong>System Settings → Privacy &amp; Security</strong> and click <strong>Open Anyway</strong></p>
-<p><strong>Windows:</strong>
-1. Run the downloaded <code>.exe</code> installer
-2. Follow the installation wizard
-3. Click <strong>Install</strong>, then <strong>Finish</strong>
-4. Kiro will open automatically</p>
-<p><strong>Linux:</strong></p>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-3')">📋 Copy</button><pre><code id="cb-3" class="language-bash">sudo dpkg -i kiro_*.deb
-</code></pre></div>
-<h4>Step 3: First Launch</h4>
-<ol>
-<li>Open Kiro</li>
-<li>You'll see the Welcome screen</li>
-<li>If you're coming from VS Code, Kiro will offer to <strong>import your VS Code settings, themes, and extensions</strong> — click <strong>Import</strong> if you want to keep your familiar setup</li>
-</ol>
+<p><strong>macOS:</strong> Open <code>.dmg</code> → drag <strong>Kiro</strong> to <strong>Applications</strong> → open from Applications</p>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Dragging Kiro to Applications folder on macOS</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Dragging Kiro to Applications folder on macOS</div></div></div></p>
+<p><strong>Windows:</strong> Run <code>.exe</code> installer → follow wizard → click <strong>Install</strong></p>
+<p><strong>Linux:</strong> <code>sudo dpkg -i kiro_*.deb</code></p>
+<h4>Step 3: On first launch, optionally <strong>import your VS Code settings</strong></h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Kiro Welcome screen with option to import VS Code </span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Kiro Welcome screen with option to import VS Code settings</div></div></div></p>
+<hr />
 <h3>Hands-On Lab 1B.2: Sign In to Kiro</h3>
-<p>Kiro supports multiple sign-in options. You do NOT need an AWS account.</p>
-<h4>Step 1: Choose Sign-In Method</h4>
-<p>On the Kiro welcome screen, choose one of:
-- <strong>Sign in with GitHub</strong> — Use your existing GitHub account
-- <strong>Sign in with Google</strong> — Use your Google account
-- <strong>Sign in with AWS Builder ID</strong> — Use your Builder ID (see Lab 1A.2 if you need to create one)
-- <strong>Sign in with IAM Identity Center</strong> — For enterprise/organization-managed access</p>
-<h4>Step 2: Browser Authentication</h4>
-<ol>
-<li>Your browser will open automatically</li>
-<li>Sign in with your chosen provider</li>
-<li>Authorize Kiro when prompted</li>
-<li>You'll see <strong>"Successfully signed in"</strong> — you can close the browser tab</li>
-</ol>
-<h4>Step 3: Verify Sign-In</h4>
-<ol>
-<li>Go back to Kiro</li>
-<li>The chat panel should be active and ready</li>
-<li>You should see your account name in the bottom-left corner</li>
-</ol>
+<blockquote>
+<p>ℹ️ <strong>Info:</strong> Kiro does NOT require an AWS account. You can sign in with GitHub, Google, AWS Builder ID, IAM Identity Center, or an external identity provider (e.g., Microsoft Entra ID, Okta). See <a href="https://kiro.dev/docs/cli/authentication">Kiro authentication docs</a>.</p>
+</blockquote>
+<h4>Step 1: Choose your sign-in method on the welcome screen</h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Kiro sign-in screen showing GitHub, Google, AWS Bu</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Kiro sign-in screen showing GitHub, Google, AWS Builder ID, and IAM Identity Center options</div></div></div></p>
+<h4>Step 2: Browser opens → sign in with your chosen provider → authorize Kiro</h4>
+<p><div class="ui-mockup" style="border-color:#ff9900"><div class="mockup-titlebar" style="background:#ff9900"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Browser — Kiro Authorization</span></div><div class="mockup-body"><div class="mockup-icon">🌐</div><div class="mockup-content">Authorize Kiro  →  [Authorize]</div></div></div></p>
+<h4>Step 3: Back in Kiro — verify chat panel is active and account name is visible</h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Kiro IDE with chat panel active and user signed in</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Kiro IDE with chat panel active and user signed in</div></div></div></p>
+<hr />
 <h3>Hands-On Lab 1B.3: Configure Kiro for ABAP Development</h3>
-<h4>Step 1: Set Up a Steering File (Optional but Recommended)</h4>
-<p>Steering files tell Kiro how to behave in your project. Create one for ABAP:</p>
+<h4>Step 1: Create a steering file for ABAP standards</h4>
 <ol>
-<li>Open your ABAP project folder in Kiro</li>
-<li>Create a folder: <code>.kiro/</code> in your project root</li>
-<li>Create a file: <code>.kiro/steering/abap.md</code> with this content:</li>
+<li>Open your project folder in Kiro</li>
+<li>Create <code>.kiro/steering/abap.md</code> with this content:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-4')">📋 Copy</button><pre><code id="cb-4" class="language-markdown"># ABAP Development Standards
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-2')">📋 Copy</button><pre><code id="cb-2" class="language-markdown"># ABAP Development Standards
 
 ## Coding Standards
 - Follow Clean ABAP guidelines
@@ -429,102 +400,125 @@ sudo apt-get install -f
 - Target: S/4HANA 2023 or later
 - Use released APIs where possible
 </code></pre></div>
-<ol>
-<li>Kiro will now follow these standards when generating ABAP code for this project</li>
-</ol>
-<h4>Step 2: Test the Chat</h4>
-<ol>
-<li>Open the Kiro chat panel</li>
-<li>Type a test question:</li>
-</ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-5')">📋 Copy</button><pre><code id="cb-5">What is the difference between VBAK and VBAP tables in SAP?
-</code></pre></div>
-<ol>
-<li>Verify you get a meaningful response</li>
-</ol>
+<p><div class="ui-mockup" style="border-color:#ff9900"><div class="mockup-titlebar" style="background:#ff9900"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Kiro — File Explorer</span></div><div class="mockup-body"><div class="mockup-icon">📂</div><div class="mockup-content">project/<br>  └─ .kiro/steering/abap.md</div></div></div></p>
+<hr />
 <h3>Hands-On Lab 1B.4: Try Spec-Driven Development (Kiro Exclusive)</h3>
-<p>This is what makes Kiro different — let's try it with an ABAP scenario.</p>
-<h4>Step 1: Create a New Spec</h4>
-<ol>
-<li>In the Kiro chat, type:</li>
-</ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-6')">📋 Copy</button><pre><code id="cb-6">Create a spec for an ABAP report that displays purchase orders with
+<h4>Step 1: In the Kiro chat, type:</h4>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-3')">📋 Copy</button><pre><code id="cb-3">Create a spec for an ABAP report that displays purchase orders with
 ALV grid, filtered by company code and date range
 </code></pre></div>
-<ol>
-<li>Kiro will generate:</li>
-<li><strong>Requirements</strong> — User stories with acceptance criteria in EARS notation</li>
-<li><strong>Design</strong> — Architecture decisions, data model, component design</li>
-<li>
-<p><strong>Tasks</strong> — Sequenced implementation steps</p>
-</li>
-<li>
-<p>Review each section and edit if needed</p>
-</li>
-<li>Once satisfied, ask Kiro to implement each task</li>
-</ol>
+<h4>Step 2: Kiro generates Requirements, Design, and Tasks</h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Kiro showing generated spec with Requirements, Des</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Kiro showing generated spec with Requirements, Design, and Tasks sections</div></div></div></p>
+<h4>Step 3: Review the spec, then ask Kiro to implement each task</h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Kiro implementing a task from the spec with code d</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Kiro implementing a task from the spec with code diff view</div></div></div></p>
 <blockquote>
-<p>💡 <strong>This is the key difference:</strong> Instead of just generating code from a prompt, Kiro first creates a structured spec that documents all decisions, then implements against that spec. This produces more accurate, production-ready code.</p>
+<p>💡 <strong>Key difference:</strong> Instead of generating code directly from a prompt, Kiro first creates a structured spec documenting all decisions, then implements against that spec — producing more accurate, production-ready code.</p>
 </blockquote>
 <hr />
-<h2>Test Your Setup (Both Options)</h2>
-<h3>Hands-On Lab 1.5: Test with ABAP</h3>
-<h4>Step 1: Test the Chat</h4>
-<ol>
-<li>In the chat panel (Amazon Q or Kiro), type:</li>
-</ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-7')">📋 Copy</button><pre><code id="cb-7">What is the difference between VBAK and VBAP tables in SAP?
+<h2>Option C: Eclipse (SAP ADT) Setup</h2>
+<blockquote>
+<p>📘 <strong>Detailed visual guide:</strong> The official AWS workshop has step-by-step screenshots for this setup: <a href="https://catalog.us-east-1.prod.workshops.aws/workshops/d01697ea-1e3c-4b38-934b-859884fdb406/en-US/lab-1-q-dev-with-eclipse/1-2-amazon-q-developer-installation">Amazon Q Developer Installation on Eclipse</a></p>
+</blockquote>
+<h3>Hands-On Lab 1C.1: Install Eclipse IDE</h3>
+<blockquote>
+<p>ℹ️ <strong>Info:</strong> The minimum Eclipse version for Amazon Q GA is <strong>2025-03 (4.35.0)</strong> or later. Earlier versions (2024-06+) may work with the preview plugin but are not officially supported for GA. See <a href="https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/q-in-IDE-setup.html">AWS docs</a>.</p>
+</blockquote>
+<h4>Step 1: Go to <a href="https://www.eclipse.org/downloads/">https://www.eclipse.org/downloads/</a> and download <strong>Eclipse IDE for Java Developers</strong></h4>
+<p><div class="ui-mockup" style="border-color:#41205f"><div class="mockup-titlebar" style="background:#41205f"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Eclipse — eclipse.org/downloads</span></div><div class="mockup-body"><div class="mockup-icon">🟣</div><div class="mockup-content">Eclipse IDE for Java Developers  →  [Download]</div></div></div></p>
+<h4>Step 2: Install Eclipse</h4>
+<p><strong>macOS:</strong> Extract the archive → drag <strong>Eclipse.app</strong> to <strong>Applications</strong></p>
+<p><strong>Windows:</strong> Run the installer → choose "Eclipse IDE for Java Developers" → click <strong>Install</strong></p>
+<p><strong>Linux:</strong> Extract the tar.gz → run <code>./eclipse</code></p>
+<h4>Step 3: Launch Eclipse and select a <strong>workspace directory</strong> when prompted</h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Eclipse workspace directory selection dialog</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Eclipse workspace directory selection dialog</div></div></div></p>
+<hr />
+<h3>Hands-On Lab 1C.2: Install ABAP Development Tools (ADT)</h3>
+<h4>Step 1: In Eclipse, go to <strong>Help → Install New Software...</strong></h4>
+<h4>Step 2: In the <strong>"Work with"</strong> field, enter:</h4>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-4')">📋 Copy</button><pre><code id="cb-4">https://tools.hana.ondemand.com/latest
 </code></pre></div>
-<ol>
-<li>Press Enter and wait for the response</li>
-<li>Verify you get a meaningful answer about sales document header (VBAK) and item (VBAP) tables</li>
-</ol>
-<h4>Step 2: Test Inline Code Suggestions</h4>
-<ol>
-<li>Create a new file and save it as <code>test.abap</code></li>
-<li>Start typing:</li>
-</ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-8')">📋 Copy</button><pre><code id="cb-8" class="language-abap">REPORT z_test_workshop.
+<blockquote>
+<p>⚠️ <strong>Fallback:</strong> If the <code>/latest</code> URL doesn't work, use a version-specific URL matching your Eclipse version, e.g., <code>https://tools.hana.ondemand.com/2025-03</code>. See <a href="https://tools.hana.ondemand.com/">SAP Development Tools</a> for all available versions.</p>
+</blockquote>
+<h4>Step 3: Press Enter → check <strong>"ABAP Development Tools"</strong> → click <strong>Next</strong></h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Eclipse Install New Software dialog with ADT URL a</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Eclipse Install New Software dialog with ADT URL and ABAP Development Tools checked</div></div></div></p>
+<h4>Step 4: Accept the license agreement → click <strong>Finish</strong> → restart Eclipse when prompted</h4>
+<h4>Step 5: After restart, switch to the ABAP perspective: <strong>Window → Perspective → Open Perspective → Other → ABAP</strong></h4>
+<p><div class="ui-mockup" style="border-color:#41205f"><div class="mockup-titlebar" style="background:#41205f"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Eclipse — ABAP Perspective</span></div><div class="mockup-body"><div class="mockup-icon">🖥️</div><div class="mockup-content">Project Explorer  |  Editor  |  Outline  |  Properties</div></div></div></p>
+<hr />
+<h3>Hands-On Lab 1C.3: Install Amazon Q Plugin for Eclipse</h3>
+<h4>Step 1: Go to <strong>Help → Eclipse Marketplace...</strong></h4>
+<h4>Step 2: Search for <strong>"Amazon Q"</strong> → click <strong>Install</strong> on the Amazon Q plugin</h4>
+<p><div class="ui-mockup" style="border-color:#ff9900"><div class="mockup-titlebar" style="background:#ff9900"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Eclipse — Marketplace</span></div><div class="mockup-body"><div class="mockup-icon">🔍</div><div class="mockup-content">Search: "Amazon Q"  →  Amazon Q by AWS  →  [Install]</div></div></div></p>
+<blockquote>
+<p>ℹ️ <strong>Alternative:</strong> You can also install directly from <a href="https://marketplace.eclipse.org/content/amazon-q">Eclipse Marketplace website</a> by dragging the Install button into your Eclipse workspace. Or go to <strong>Help → Install New Software</strong> and use the Amazon Q update site URL.</p>
+</blockquote>
+<h4>Step 3: Accept the license → click <strong>Finish</strong> → restart Eclipse when prompted</h4>
+<hr />
+<h3>Hands-On Lab 1C.4: Authenticate Amazon Q in Eclipse</h3>
+<h4>Step 1: Click the <strong>Amazon Q icon</strong> in the top right corner of Eclipse</h4>
+<h4>Step 2: An Amazon Q tab opens at the bottom. Under <strong>"Choose a sign-in option"</strong>, choose <strong>Personal account</strong>, then choose <strong>Continue</strong></h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Eclipse Amazon Q tab showing sign-in options with </span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Eclipse Amazon Q tab showing sign-in options with Personal account selected</div></div></div></p>
+<h4>Step 3: Browser opens → authenticate with your <strong>AWS Builder ID</strong> (create one if needed — see Lab 1A.2). If you don't have a Builder ID yet, you can create one during the sign-in process.</h4>
+<h4>Step 4: After authentication, return to Eclipse. Choose the <strong>Amazon Q icon</strong> to open the chat panel and begin using Amazon Q.</h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Eclipse with Amazon Q chat panel active at the bot</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Eclipse with Amazon Q chat panel active at the bottom</div></div></div></p>
+<hr />
+<h3>Hands-On Lab 1C.5: Connect to Your SAP System (Optional)</h3>
+<blockquote>
+<p>ℹ️ <strong>Info:</strong> This step requires access to an SAP system. Skip if you don't have one available.</p>
+</blockquote>
+<h4>Step 1: Go to <strong>File → New → ABAP Project</strong></h4>
+<h4>Step 2: Enter your SAP system connection details:</h4>
+<ul>
+<li><strong>System ID</strong> (SID)</li>
+<li><strong>Application Server</strong> hostname</li>
+<li><strong>Instance Number</strong></li>
+<li><strong>Client</strong></li>
+</ul>
+<h4>Step 3: Enter your SAP <strong>username</strong> and <strong>password</strong> → click <strong>Finish</strong></h4>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Eclipse New ABAP Project wizard with system connec</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Eclipse New ABAP Project wizard with system connection fields</div></div></div></p>
+<h4>Step 4: Your SAP system appears in the <strong>Project Explorer</strong> — you can now browse and edit ABAP objects</h4>
+<p><div class="ui-mockup" style="border-color:#41205f"><div class="mockup-titlebar" style="background:#41205f"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Eclipse — Project Explorer</span></div><div class="mockup-body"><div class="mockup-icon">📂</div><div class="mockup-content">SAP System<br>  └─ $TMP → Programs</div></div></div></p>
+<hr />
+<h2>Test Your Setup (All Options)</h2>
+<h3>Hands-On Lab 1.5: Test with ABAP</h3>
+<h4>Step 1: In the chat panel (Amazon Q, Kiro, or Eclipse), type:</h4>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-5')">📋 Copy</button><pre><code id="cb-5">What is the difference between VBAK and VBAP tables in SAP?
+</code></pre></div>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Chat panel showing the VBAK/VBAP question and AI r</span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Chat panel showing the VBAK/VBAP question and AI response</div></div></div></p>
+<h4>Step 2: Create a new file <code>test.abap</code> and type:</h4>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-6')">📋 Copy</button><pre><code id="cb-6" class="language-abap">REPORT z_test_workshop.
 
 DATA lt_
 </code></pre></div>
-<ol>
-<li>Pause after typing <code>DATA lt_</code> — you should see a gray inline suggestion</li>
-<li>Press <strong>Tab</strong> to accept the suggestion, or <strong>Esc</strong> to dismiss it</li>
-</ol>
-<h4>Step 3: Test Code Generation via Chat</h4>
-<ol>
-<li>In the chat, type:</li>
-</ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-9')">📋 Copy</button><pre><code id="cb-9">Write a simple ABAP report that selects the first 10 entries from
+<p>Pause — you should see a gray inline suggestion. Press <strong>Tab</strong> to accept.</p>
+<p><div class="ui-mockup" style="border-color:#545b64"><div class="mockup-titlebar" style="background:#545b64"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Editor — test.abap</span></div><div class="mockup-body"><div class="mockup-icon">✨</div><div class="mockup-content">DATA lt_|scarr TYPE TABLE OF scarr.  ← ghost text</div></div></div></p>
+<h4>Step 3: In the chat, ask:</h4>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-7')">📋 Copy</button><pre><code id="cb-7">Write a simple ABAP report that selects the first 10 entries from
 the SCARR (airline carrier) table and displays them using WRITE statements.
 Use modern ABAP syntax with inline declarations.
 </code></pre></div>
-<ol>
-<li>Review the generated code</li>
-<li>Verify it includes:</li>
-<li><code>SELECT</code> with <code>INTO TABLE @DATA(...)</code></li>
-<li><code>LOOP AT</code> with <code>INTO DATA(...)</code></li>
-<li><code>WRITE</code> statements for output</li>
-</ol>
+<p><div class="ui-mockup" style="border-color:#879596"><div class="mockup-titlebar" style="background:#879596"><span class="mockup-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></span><span class="mockup-title">Chat panel showing generated ABAP report code for </span></div><div class="mockup-body"><div class="mockup-icon">📸</div><div class="mockup-content">Chat panel showing generated ABAP report code for SCARR table</div></div></div></p>
+<hr />
 <h2>✅ Checkpoint</h2>
-<p>Before proceeding to Module 2, confirm ALL of the following:</p>
-<p><strong>If using VS Code + Amazon Q:</strong>
-- <input type="checkbox"> VS Code is installed and running
-- <input type="checkbox"> AWS Builder ID is created
-- <input type="checkbox"> Amazon Q Developer extension is installed
-- <input type="checkbox"> Authentication is successful (chat panel is active)
+<p>Before proceeding to Module 2, confirm ALL of the following for your chosen IDE:</p>
+<p><strong>VS Code + Amazon Q:</strong>
+- <input type="checkbox"> VS Code installed (1.85+)
+- <input type="checkbox"> AWS Builder ID created
+- <input type="checkbox"> Amazon Q extension installed and authenticated
+- <input type="checkbox"> Chat responds to ABAP questions</p>
+<p><strong>Kiro:</strong>
+- <input type="checkbox"> Kiro installed and signed in
 - <input type="checkbox"> Chat responds to ABAP questions
-- <input type="checkbox"> Inline code suggestions appear when typing ABAP code</p>
-<p><strong>If using Kiro:</strong>
-- <input type="checkbox"> Kiro is installed and running
-- <input type="checkbox"> Signed in (GitHub, Google, or AWS Builder ID)
-- <input type="checkbox"> Chat responds to ABAP questions
-- <input type="checkbox"> Inline code suggestions appear when typing ABAP code
-- <input type="checkbox"> (Optional) Steering file created for ABAP standards
+- <input type="checkbox"> (Optional) Steering file created
 - <input type="checkbox"> (Optional) Tested spec-driven development</p>
+<p><strong>Eclipse (SAP ADT) + Amazon Q:</strong>
+- <input type="checkbox"> Eclipse installed (2025-03 / 4.35.0+)
+- <input type="checkbox"> ADT plugin installed
+- <input type="checkbox"> Amazon Q plugin installed and authenticated
+- <input type="checkbox"> (Optional) Connected to SAP system</p>
 <blockquote>
-<p>🎉 <strong>Congratulations!</strong> Your environment is ready. You can now use AI to assist with ABAP development.</p>
+<p>🎉 <strong>Congratulations!</strong> Your environment is ready. Proceed to Module 2.</p>
 </blockquote>
 <hr />
 <p><a href="#section-1" onclick="showSection('section-1'); return false;">Next: Module 2 — ABAP Code Generation →</a></p></div></div>
@@ -568,7 +562,7 @@ Use modern ABAP syntax with inline declarations.
 <li>Open the Amazon Q chat panel</li>
 <li>Enter the following prompt:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-10')">📋 Copy</button><pre><code id="cb-10">Write an ABAP report for S/4HANA that:
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-8')">📋 Copy</button><pre><code id="cb-8">Write an ABAP report for S/4HANA that:
 - Has a selection screen with parameters for company code (BUKRS) and
   a select-option for document date (AEDAT)
 - Reads purchase order headers (EKKO) and items (EKPO) using a JOIN
@@ -587,7 +581,7 @@ Use modern ABAP syntax with inline declarations.
 <li><input type="checkbox"> Proper error handling</li>
 </ol>
 <h3>Expected Output Structure</h3>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-11')">📋 Copy</button><pre><code id="cb-11" class="language-abap">REPORT z_po_alv_report.
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-9')">📋 Copy</button><pre><code id="cb-9" class="language-abap">REPORT z_po_alv_report.
 
 &quot; Selection screen
 PARAMETERS: p_bukrs TYPE bukrs OBLIGATORY.
@@ -619,7 +613,7 @@ START-OF-SELECTION.
 <ol>
 <li>Enter the following prompt in Amazon Q chat:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-12')">📋 Copy</button><pre><code id="cb-12">Create an ABAP CDS view entity called Z_I_SalesOrderItem that:
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-10')">📋 Copy</button><pre><code id="cb-10">Create an ABAP CDS view entity called Z_I_SalesOrderItem that:
 - Joins VBAK (header) and VBAP (items)
 - Exposes: SalesOrder, SalesOrderItem, SalesOrganization, MaterialNumber,
   OrderQuantity, NetAmount, Currency, CreationDate
@@ -641,7 +635,7 @@ START-OF-SELECTION.
 <ol>
 <li>Enter the following prompt:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-13')">📋 Copy</button><pre><code id="cb-13">Generate a managed RAP business object for a travel booking app with:
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-11')">📋 Copy</button><pre><code id="cb-11">Generate a managed RAP business object for a travel booking app with:
 - Root entity: Travel (travel_id, agency_id, customer_id, begin_date,
   end_date, total_price, currency_code, status)
 - Include: CDS view entity, behavior definition, behavior implementation class,
@@ -690,7 +684,7 @@ START-OF-SELECTION.
 <ol>
 <li>Copy the following legacy ABAP code into your editor or the Amazon Q chat:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-14')">📋 Copy</button><pre><code id="cb-14" class="language-abap">REPORT z_legacy_sales_report.
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-12')">📋 Copy</button><pre><code id="cb-12" class="language-abap">REPORT z_legacy_sales_report.
 
 TABLES: vbak, vbap, kna1.
 
@@ -735,7 +729,7 @@ ENDLOOP.
 <ol>
 <li>Ask Amazon Q:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-15')">📋 Copy</button><pre><code id="cb-15">Explain this ABAP code in detail. Describe:
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-13')">📋 Copy</button><pre><code id="cb-13">Explain this ABAP code in detail. Describe:
 1. The business purpose
 2. The data flow
 3. Any performance issues
@@ -754,7 +748,7 @@ ENDLOOP.
 <ol>
 <li>Use the same code from Lab 3.1 and prompt:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-16')">📋 Copy</button><pre><code id="cb-16">Generate technical documentation for this ABAP report in the following format:
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-14')">📋 Copy</button><pre><code id="cb-14">Generate technical documentation for this ABAP report in the following format:
 - Program Name &amp; Description
 - Selection Screen Parameters
 - Database Tables Used
@@ -770,7 +764,7 @@ ENDLOOP.
 <ol>
 <li>Ask Amazon Q to explain this dynamic programming pattern:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-17')">📋 Copy</button><pre><code id="cb-17" class="language-abap">FIELD-SYMBOLS: &lt;lt_table&gt; TYPE STANDARD TABLE,
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-15')">📋 Copy</button><pre><code id="cb-15" class="language-abap">FIELD-SYMBOLS: &lt;lt_table&gt; TYPE STANDARD TABLE,
                &lt;ls_line&gt;  TYPE any,
                &lt;lv_field&gt; TYPE any.
 
@@ -796,7 +790,7 @@ ENDLOOP.
 <ol>
 <li>Prompt:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-18')">📋 Copy</button><pre><code id="cb-18">Explain this dynamic ABAP code. What does it do, and what are the
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-16')">📋 Copy</button><pre><code id="cb-16">Explain this dynamic ABAP code. What does it do, and what are the
 security implications of using dynamic table names?
 </code></pre></div>
 <h2>✅ Checkpoint</h2>
@@ -878,7 +872,7 @@ security implications of using dynamic table names?
 <li>Take the legacy code from Module 3, Lab 3.1</li>
 <li>Ask Amazon Q:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-19')">📋 Copy</button><pre><code id="cb-19">Refactor this ABAP report to follow Clean ABAP guidelines and modern syntax:
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-17')">📋 Copy</button><pre><code id="cb-17">Refactor this ABAP report to follow Clean ABAP guidelines and modern syntax:
 - Use inline declarations
 - Replace SELECT * with explicit field lists
 - Fix the N+1 SELECT problem (SELECT inside LOOP)
@@ -904,7 +898,7 @@ security implications of using dynamic table names?
 <ol>
 <li>Prompt Amazon Q:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-20')">📋 Copy</button><pre><code id="cb-20">Rewrite this ABAP code to be compatible with ABAP Cloud (Tier 1 -
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-18')">📋 Copy</button><pre><code id="cb-18">Rewrite this ABAP code to be compatible with ABAP Cloud (Tier 1 -
 released APIs only). Replace any unreleased APIs with their released
 equivalents. The code should work in SAP BTP ABAP Environment.
 
@@ -923,7 +917,7 @@ Specifically:
 <ol>
 <li>Provide code with FORM/PERFORM routines:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-21')">📋 Copy</button><pre><code id="cb-21" class="language-abap">FORM calculate_tax USING iv_amount TYPE netwr
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-19')">📋 Copy</button><pre><code id="cb-19" class="language-abap">FORM calculate_tax USING iv_amount TYPE netwr
                          iv_country TYPE land1
                    CHANGING cv_tax TYPE netwr.
   CASE iv_country.
@@ -943,7 +937,7 @@ ENDFORM.
 <ol>
 <li>Prompt:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-22')">📋 Copy</button><pre><code id="cb-22">Convert these FORM routines into a proper ABAP OO class with methods.
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-20')">📋 Copy</button><pre><code id="cb-20">Convert these FORM routines into a proper ABAP OO class with methods.
 Follow Clean ABAP guidelines, use RETURNING parameters where possible,
 and add appropriate exception handling.
 </code></pre></div>
@@ -998,7 +992,7 @@ and add appropriate exception handling.
 <ol>
 <li>Review this ABAP program that contains multiple issues:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-23')">📋 Copy</button><pre><code id="cb-23" class="language-abap">REPORT z_buggy_program.
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-21')">📋 Copy</button><pre><code id="cb-21" class="language-abap">REPORT z_buggy_program.
 
 DATA: lt_items TYPE TABLE OF vbap,
       lt_materials TYPE TABLE OF mara,
@@ -1029,7 +1023,7 @@ WRITE: / 'Average:', lv_avg.
 <ol>
 <li>Ask Amazon Q:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-24')">📋 Copy</button><pre><code id="cb-24">This ABAP program has multiple bugs and performance issues.
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-22')">📋 Copy</button><pre><code id="cb-22">This ABAP program has multiple bugs and performance issues.
 Identify all issues and provide a corrected version.
 </code></pre></div>
 <ol>
@@ -1045,7 +1039,7 @@ Identify all issues and provide a corrected version.
 <ol>
 <li>Simulate an ST22 dump analysis by providing this error context to Amazon Q:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-25')">📋 Copy</button><pre><code id="cb-25">I got this ABAP runtime error in production:
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-23')">📋 Copy</button><pre><code id="cb-23">I got this ABAP runtime error in production:
 
 Runtime Error: GETWA_NOT_ASSIGNED
 Program: Z_PROCESS_ORDERS
@@ -1072,7 +1066,7 @@ What is the cause and how do I fix it?
 <ol>
 <li>Provide this slow-performing code:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-26')">📋 Copy</button><pre><code id="cb-26" class="language-abap">&quot; This report takes 30+ minutes to run in production
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-24')">📋 Copy</button><pre><code id="cb-24" class="language-abap">&quot; This report takes 30+ minutes to run in production
 LOOP AT lt_sales_orders INTO DATA(ls_so).
   LOOP AT lt_deliveries INTO DATA(ls_del)
     WHERE vbeln = ls_so-vbeln.
@@ -1096,7 +1090,7 @@ ENDLOOP.
 <ol>
 <li>Prompt:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-27')">📋 Copy</button><pre><code id="cb-27">This ABAP code takes 30+ minutes in production. Analyze the performance
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-25')">📋 Copy</button><pre><code id="cb-25">This ABAP code takes 30+ minutes in production. Analyze the performance
 issues and rewrite it to run efficiently. Explain each optimization.
 </code></pre></div>
 <ol>
@@ -1127,7 +1121,7 @@ issues and rewrite it to run efficiently. Explain each optimization.
 <ol>
 <li>Provide code that uses deprecated APIs:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-28')">📋 Copy</button><pre><code id="cb-28" class="language-abap">&quot; Uses direct BSEG access (not recommended in S/4HANA)
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-26')">📋 Copy</button><pre><code id="cb-26" class="language-abap">&quot; Uses direct BSEG access (not recommended in S/4HANA)
 SELECT * FROM bseg INTO TABLE @DATA(lt_bseg)
   WHERE bukrs = @p_bukrs
     AND belnr = @p_belnr
@@ -1143,7 +1137,7 @@ CALL TRANSACTION 'VA01' USING lt_bdcdata MODE 'N'.
 <ol>
 <li>Prompt:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-29')">📋 Copy</button><pre><code id="cb-29">This ABAP code needs to be migrated to S/4HANA. Identify all
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-27')">📋 Copy</button><pre><code id="cb-27">This ABAP code needs to be migrated to S/4HANA. Identify all
 incompatible or deprecated patterns and provide S/4HANA-compatible
 replacements. Reference the SAP simplification list where applicable.
 </code></pre></div>
@@ -1154,7 +1148,7 @@ replacements. Reference the SAP simplification list where applicable.
 <ol>
 <li>Prompt:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-30')">📋 Copy</button><pre><code id="cb-30">Create an ABAP Cloud application that:
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-28')">📋 Copy</button><pre><code id="cb-28">Create an ABAP Cloud application that:
 - Reads business partner data using released CDS views
 - Exposes the data as an OData V4 service using RAP
 - Includes basic CRUD operations with draft handling
@@ -1169,7 +1163,7 @@ replacements. Reference the SAP simplification list where applicable.
 <ol>
 <li>Prompt:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-31')">📋 Copy</button><pre><code id="cb-31">Create an ABAP class that:
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-29')">📋 Copy</button><pre><code id="cb-29">Create an ABAP class that:
 - Calls an external REST API endpoint (GET request)
 - Parses the JSON response using /UI2/CL_JSON or XCO_JSON
 - Maps the response to an internal table
@@ -1181,7 +1175,7 @@ replacements. Reference the SAP simplification list where applicable.
 <ol>
 <li>Take any class created during the workshop and prompt:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-32')">📋 Copy</button><pre><code id="cb-32">Generate ABAP Unit tests for this class including:
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-30')">📋 Copy</button><pre><code id="cb-30">Generate ABAP Unit tests for this class including:
 - Test class with risk level harmless
 - Test doubles for database dependencies using CL_OSQL_TEST_ENVIRONMENT
 - Positive and negative test cases
@@ -1276,7 +1270,7 @@ replacements. Reference the SAP simplification list where applicable.
 <li>Open the Amazon Q chat panel</li>
 <li>Type the following prompt:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-33')">📋 Copy</button><pre><code id="cb-33">Write an ABAP report for S/4HANA that:
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-31')">📋 Copy</button><pre><code id="cb-31">Write an ABAP report for S/4HANA that:
 - Has a selection screen with parameters for company code (BUKRS) and
   a select-option for document date (AEDAT)
 - Reads purchase order headers (EKKO) and items (EKPO) using a JOIN
@@ -1318,7 +1312,7 @@ replacements. Reference the SAP simplification list where applicable.
 <ol>
 <li>In the Amazon Q chat, type:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-34')">📋 Copy</button><pre><code id="cb-34">Create an ABAP CDS view entity called Z_I_SalesOrderItem that:
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-32')">📋 Copy</button><pre><code id="cb-32">Create an ABAP CDS view entity called Z_I_SalesOrderItem that:
 - Joins VBAK (header) and VBAP (items)
 - Exposes: SalesOrder, SalesOrderItem, SalesOrganization, MaterialNumber,
   OrderQuantity, NetAmount, Currency, CreationDate
@@ -1354,7 +1348,7 @@ replacements. Reference the SAP simplification list where applicable.
 <ol>
 <li>In the Amazon Q chat, type:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-35')">📋 Copy</button><pre><code id="cb-35">Generate a managed RAP business object for a travel booking app with:
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-33')">📋 Copy</button><pre><code id="cb-33">Generate a managed RAP business object for a travel booking app with:
 - Root entity: Travel (travel_id, agency_id, customer_id, begin_date,
   end_date, total_price, currency_code, status)
 - Include: CDS view entity, behavior definition, behavior implementation class,
@@ -1394,7 +1388,7 @@ replacements. Reference the SAP simplification list where applicable.
 <ol>
 <li>Copy this code into the Amazon Q chat:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-36')">📋 Copy</button><pre><code id="cb-36" class="language-abap">REPORT z_legacy_sales_report.
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-34')">📋 Copy</button><pre><code id="cb-34" class="language-abap">REPORT z_legacy_sales_report.
 
 TABLES: vbak, vbap, kna1.
 
@@ -1439,7 +1433,7 @@ ENDLOOP.
 <ol>
 <li>Ask:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-37')">📋 Copy</button><pre><code id="cb-37">Explain this ABAP code in detail. Describe:
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-35')">📋 Copy</button><pre><code id="cb-35">Explain this ABAP code in detail. Describe:
 1. The business purpose
 2. The data flow
 3. Any performance issues
@@ -1462,7 +1456,7 @@ ENDLOOP.
 <ol>
 <li>Using the same code, prompt:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-38')">📋 Copy</button><pre><code id="cb-38">Generate technical documentation for this ABAP report in the following format:
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-36')">📋 Copy</button><pre><code id="cb-36">Generate technical documentation for this ABAP report in the following format:
 - Program Name &amp; Description
 - Selection Screen Parameters
 - Database Tables Used
@@ -1488,7 +1482,7 @@ ENDLOOP.
 <ol>
 <li>Provide this code to Amazon Q:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-39')">📋 Copy</button><pre><code id="cb-39" class="language-abap">FIELD-SYMBOLS: &lt;lt_table&gt; TYPE STANDARD TABLE,
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-37')">📋 Copy</button><pre><code id="cb-37" class="language-abap">FIELD-SYMBOLS: &lt;lt_table&gt; TYPE STANDARD TABLE,
                &lt;ls_line&gt;  TYPE any,
                &lt;lv_field&gt; TYPE any.
 
@@ -1514,7 +1508,7 @@ ENDLOOP.
 <ol>
 <li>Ask:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-40')">📋 Copy</button><pre><code id="cb-40">Explain this dynamic ABAP code. What does it do, and what are the
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-38')">📋 Copy</button><pre><code id="cb-38">Explain this dynamic ABAP code. What does it do, and what are the
 security implications of using dynamic table names?
 </code></pre></div>
 <ol>
@@ -1534,7 +1528,7 @@ security implications of using dynamic table names?
 <li>Take the legacy code from Lab 3.1</li>
 <li>Prompt Amazon Q:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-41')">📋 Copy</button><pre><code id="cb-41">Refactor this ABAP report to follow Clean ABAP guidelines and modern syntax:
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-39')">📋 Copy</button><pre><code id="cb-39">Refactor this ABAP report to follow Clean ABAP guidelines and modern syntax:
 - Use inline declarations
 - Replace SELECT * with explicit field lists
 - Fix the N+1 SELECT problem (SELECT inside LOOP)
@@ -1567,7 +1561,7 @@ security implications of using dynamic table names?
 <ol>
 <li>Prompt:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-42')">📋 Copy</button><pre><code id="cb-42">Rewrite this ABAP code to be compatible with ABAP Cloud (Tier 1 -
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-40')">📋 Copy</button><pre><code id="cb-40">Rewrite this ABAP code to be compatible with ABAP Cloud (Tier 1 -
 released APIs only). Replace any unreleased APIs with their released
 equivalents. The code should work in SAP BTP ABAP Environment.
 
@@ -1592,7 +1586,7 @@ Specifically:
 <ol>
 <li>Provide this code:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-43')">📋 Copy</button><pre><code id="cb-43" class="language-abap">FORM calculate_tax USING iv_amount TYPE netwr
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-41')">📋 Copy</button><pre><code id="cb-41" class="language-abap">FORM calculate_tax USING iv_amount TYPE netwr
                          iv_country TYPE land1
                    CHANGING cv_tax TYPE netwr.
   CASE iv_country.
@@ -1612,7 +1606,7 @@ ENDFORM.
 <ol>
 <li>Prompt:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-44')">📋 Copy</button><pre><code id="cb-44">Convert these FORM routines into a proper ABAP OO class with methods.
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-42')">📋 Copy</button><pre><code id="cb-42">Convert these FORM routines into a proper ABAP OO class with methods.
 Follow Clean ABAP guidelines, use RETURNING parameters where possible,
 and add appropriate exception handling.
 </code></pre></div>
@@ -1632,7 +1626,7 @@ and add appropriate exception handling.
 <ol>
 <li>Provide this buggy code to Amazon Q:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-45')">📋 Copy</button><pre><code id="cb-45" class="language-abap">REPORT z_buggy_program.
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-43')">📋 Copy</button><pre><code id="cb-43" class="language-abap">REPORT z_buggy_program.
 
 DATA: lt_items TYPE TABLE OF vbap,
       lt_materials TYPE TABLE OF mara,
@@ -1663,7 +1657,7 @@ WRITE: / 'Average:', lv_avg.
 <ol>
 <li>Prompt:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-46')">📋 Copy</button><pre><code id="cb-46">This ABAP program has multiple bugs and performance issues.
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-44')">📋 Copy</button><pre><code id="cb-44">This ABAP program has multiple bugs and performance issues.
 Identify all issues and provide a corrected version.
 </code></pre></div>
 <ol>
@@ -1683,7 +1677,7 @@ Identify all issues and provide a corrected version.
 <ol>
 <li>Provide this dump context:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-47')">📋 Copy</button><pre><code id="cb-47">I got this ABAP runtime error in production:
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-45')">📋 Copy</button><pre><code id="cb-45">I got this ABAP runtime error in production:
 
 Runtime Error: GETWA_NOT_ASSIGNED
 Program: Z_PROCESS_ORDERS
@@ -1715,7 +1709,7 @@ What is the cause and how do I fix it?
 <ol>
 <li>Provide this code:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-48')">📋 Copy</button><pre><code id="cb-48" class="language-abap">&quot; This report takes 30+ minutes to run in production
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-46')">📋 Copy</button><pre><code id="cb-46" class="language-abap">&quot; This report takes 30+ minutes to run in production
 LOOP AT lt_sales_orders INTO DATA(ls_so).
   LOOP AT lt_deliveries INTO DATA(ls_del)
     WHERE vbeln = ls_so-vbeln.
@@ -1739,7 +1733,7 @@ ENDLOOP.
 <ol>
 <li>Prompt:</li>
 </ol>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-49')">📋 Copy</button><pre><code id="cb-49">This ABAP code takes 30+ minutes in production. Analyze the performance
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-47')">📋 Copy</button><pre><code id="cb-47">This ABAP code takes 30+ minutes in production. Analyze the performance
 issues and rewrite it to run efficiently. Explain each optimization.
 </code></pre></div>
 <ol>
@@ -1760,39 +1754,39 @@ issues and rewrite it to run efficiently. Explain each optimization.
 </ul>
 <h3>Useful Prompt Templates</h3>
 <h4>Generate an ALV Report</h4>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-50')">📋 Copy</button><pre><code id="cb-50">Write an ABAP report for [ECC/S/4HANA] that reads [table(s)] filtered by
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-48')">📋 Copy</button><pre><code id="cb-48">Write an ABAP report for [ECC/S/4HANA] that reads [table(s)] filtered by
 [criteria] using selection screen parameters and displays results in an
 ALV grid using CL_SALV_TABLE. Use modern ABAP syntax.
 </code></pre></div>
 <h4>Generate a CDS View</h4>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-51')">📋 Copy</button><pre><code id="cb-51">Create a CDS view entity called [name] that joins [table1] and [table2],
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-49')">📋 Copy</button><pre><code id="cb-49">Create a CDS view entity called [name] that joins [table1] and [table2],
 exposes [field list], includes associations to [standard CDS views],
 and has proper annotations for [metadata/UI/analytics].
 </code></pre></div>
 <h4>Generate a RAP Business Object</h4>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-52')">📋 Copy</button><pre><code id="cb-52">Generate a managed RAP business object for [use case] with root entity
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-50')">📋 Copy</button><pre><code id="cb-50">Generate a managed RAP business object for [use case] with root entity
 [name] containing fields: [field list]. Include CDS view entity, behavior
 definition, implementation class, and service definition/binding.
 </code></pre></div>
 <h4>Explain Legacy Code</h4>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-53')">📋 Copy</button><pre><code id="cb-53">Explain this ABAP code in detail: the business purpose, data flow,
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-51')">📋 Copy</button><pre><code id="cb-51">Explain this ABAP code in detail: the business purpose, data flow,
 performance issues, and suggestions for improvement.
 </code></pre></div>
 <h4>Modernize Code</h4>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-54')">📋 Copy</button><pre><code id="cb-54">Refactor this ABAP code to follow Clean ABAP guidelines: use inline
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-52')">📋 Copy</button><pre><code id="cb-52">Refactor this ABAP code to follow Clean ABAP guidelines: use inline
 declarations, replace SELECT * with field lists, fix N+1 queries,
 use CL_SALV_TABLE for output, and add proper error handling.
 </code></pre></div>
 <h4>Fix Bugs</h4>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-55')">📋 Copy</button><pre><code id="cb-55">This ABAP program has bugs/performance issues. Identify all issues
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-53')">📋 Copy</button><pre><code id="cb-53">This ABAP program has bugs/performance issues. Identify all issues
 and provide a corrected version with explanations.
 </code></pre></div>
 <h4>S/4HANA Migration</h4>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-56')">📋 Copy</button><pre><code id="cb-56">This ABAP code needs S/4HANA migration. Identify deprecated patterns
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-54')">📋 Copy</button><pre><code id="cb-54">This ABAP code needs S/4HANA migration. Identify deprecated patterns
 and provide compatible replacements per the simplification list.
 </code></pre></div>
 <h4>ABAP Cloud Compliance</h4>
-<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-57')">📋 Copy</button><pre><code id="cb-57">Rewrite this code using only released (Tier 1) APIs compatible with
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-55')">📋 Copy</button><pre><code id="cb-55">Rewrite this code using only released (Tier 1) APIs compatible with
 SAP BTP ABAP Environment / ABAP Cloud.
 </code></pre></div>
 <h3>Modernization Quick Reference</h3>
