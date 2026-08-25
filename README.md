@@ -1,2 +1,2 @@
-# QDEV-SAP
-Amazon Q dev for SAP ABAP
+# Kiro-SAP
+Kiro for SAP ABAP
