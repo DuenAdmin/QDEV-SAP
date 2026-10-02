@@ -30594,18 +30594,63 @@ curl -u your_username:your_password https://your-sap-system:443/sap/bc/adt/disco
 
 <div style="background:#fff8e1;border:1px solid #f0d98a;border-radius:8px;padding:1rem 1.2rem;margin:1rem 0">
 <strong style="color:#a63f00;">Recommended: AWS ABAP Accelerator (official)</strong>
-<p style="margin:0.5rem 0 0;">In January 2026, AWS launched <strong>ABAP Accelerator</strong> — an official, dedicated MCP server for SAP ABAP development that works with Amazon Q Developer and Kiro. It is a <strong>free downloadable Docker image</strong> that connects to your SAP system via standard ADT, and integrates directly with the <strong>SAP ABAP Test Cockpit (ATC)</strong> to validate generated code and reduce AI "hallucinations". <a href="https://aws.amazon.com/blogs/awsforsap/introducing-abap-accelerator-for-ai-assisted-development/" target="_blank">Read the announcement ↗</a> · <a href="https://github.com/aws-solutions-library-samples/guidance-for-deploying-sap-abap-accelerator-for-amazon-q-developer/tree/main" target="_blank">GitHub repo ↗</a></p>
+<p style="margin:0.5rem 0 0;">In January 2026, AWS launched <strong>ABAP Accelerator</strong> — an official MCP server for SAP ABAP development that works with Amazon Q Developer and Kiro <strong>across the entire software-development lifecycle</strong>: create, test, document, and transform ABAP. It is a <strong>free downloadable Docker image</strong> that connects to your SAP system via standard ADT, and integrates directly with the <strong>SAP ABAP Test Cockpit (ATC)</strong> to validate generated code, fetch included custom code, and reduce AI "hallucinations". <a href="https://aws.amazon.com/blogs/awsforsap/introducing-abap-accelerator-for-ai-assisted-development/" target="_blank">Read the announcement ↗</a> · <a href="https://github.com/aws-solutions-library-samples/guidance-for-deploying-sap-abap-accelerator-for-amazon-q-developer/tree/main" target="_blank">GitHub repo ↗</a></p>
 <ul style="margin:0.6rem 0 0 1.2rem;">
 <li><strong>Automated ECC → S/4HANA code conversion</strong> — converts legacy ABAP while preserving business logic, validated against ATC</li>
-<li><strong>ATC-validated generation</strong> — runs syntax checks, ATC with your custom variants, and object activation; iterates until issues (syntax, security, performance, naming) are resolved</li>
+<li><strong>ATC-validated generation</strong> — runs syntax checks, ATC with your custom variants, object activation, and transport-request management; iterates until issues (syntax, security, performance, naming) are resolved</li>
 <li><strong>Test-Driven Development</strong> — generates unit tests to baseline current behavior before changing code, de-risking transformations</li>
 <li><strong>Clean core development</strong> — generates RAP artifacts (CDS views, behavior definitions, service definitions/bindings) and even full Fiori apps from a single prompt</li>
 <li><strong>Always-current documentation</strong> — embeds docs directly in the SAP objects it creates or modifies</li>
 <li><strong>AI-assisted error resolution</strong> — analyzes ST22 dumps, job logs, and error messages to find root causes</li>
 </ul>
+<p style="margin:0.6rem 0 0;"><strong>Why it matters (business bottom line):</strong> fewer manual hours on S/4HANA conversions, higher first-time code quality (fewer debugging cycles), lower transformation risk through permanent regression test suites, faster clean-core / RAP adoption, documentation that never drifts from the code, and faster incident resolution with fewer escalations. <a href="https://aws.amazon.com/blogs/awsforsap/introducing-abap-accelerator-for-ai-assisted-development/" target="_blank">Source: AWS for SAP blog, Jan 2026</a>.</p>
 <p style="margin:0.6rem 0 0;">Within <a href="https://kiro.dev/cli/" target="_blank">Kiro CLI</a>, ABAP Accelerator can perform <strong>mass code analysis and conversion</strong> across many objects at once — ideal for clean core cleanup at scale.</p>
 </div>
 
+<h3>Set up the ABAP Accelerator MCP server (hands-on)</h3>
+<p>These are the concrete steps to connect Kiro to the official <strong>ABAP Accelerator</strong> from the <a href="https://github.com/aws-solutions-library-samples/guidance-for-deploying-sap-abap-accelerator-for-amazon-q-developer" target="_blank">AWS Solutions Library guidance repo</a>. The repo runs as a local <strong>Python HTTP (streamable-http) MCP server</strong> on <code>localhost:8000</code> and connects to your SAP system over ADT. (The same project is also published as a container image &mdash; this hands-on uses the Python path, which is handy on a laptop.)</p>
+<p><strong>Prerequisites:</strong> Python 3.10+ (macOS system Python 3.9 is too old &mdash; install a newer one, e.g. <code>brew install python@3.13</code>), <code>git</code>, network access to your SAP system, and an SAP developer user.</p>
+<h4>1 &mdash; Clone the repo</h4>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('accel-clone')">Copy</button><pre><code id="accel-clone">git clone https://github.com/aws-solutions-library-samples/guidance-for-deploying-sap-abap-accelerator-for-amazon-q-developer.git abap-accelerator
+cd abap-accelerator</code></pre></div>
+<h4>2 &mdash; Create a Python 3.10+ virtual environment &amp; install</h4>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('accel-venv')">Copy</button><pre><code id="accel-venv">python3.13 -m venv .venv              # use any Python &gt;= 3.10
+.venv/bin/python -m pip install --upgrade pip
+.venv/bin/pip install -r requirements.txt</code></pre></div>
+<h4>3 &mdash; Create the <code>.env</code> (replace the placeholders)</h4>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('accel-env')">Copy</button><pre><code id="accel-env">SAP_HOST=YOUR_SAP_HOST            # bare host or IP &mdash; no https:// and no port
+SAP_INSTANCE_NUMBER=00            # secure URL = 44300 + instance, so port 44300 &rarr; instance 00
+SAP_CLIENT=100
+SAP_USERNAME=YOUR_USER
+SAP_PASSWORD='YOUR_PASSWORD'      # single-quote if it contains $ or other shell-special chars
+SAP_LANGUAGE=EN
+SAP_SECURE=true
+SERVER_HOST=localhost
+SERVER_PORT=8000
+SSL_VERIFY=false                  # self-signed cert on a demo system; set true in production
+LOG_LEVEL=INFO</code></pre></div>
+<div class="setup-note"><strong><svg class="icon ico-info"><use href="#i-info"></use></svg>Three things that silently break auth:</strong> (1) a password containing <code>$</code> must be single-quoted or the shell truncates it; (2) a demo SAP on EC2 usually presents a <strong>self-signed cert</strong> &mdash; set <code>SSL_VERIFY=false</code> or the connection fails on cert verification; (3) the server rebuilds the URL as <code>44300 + SAP_INSTANCE_NUMBER</code> when secure, so match the instance to your port. Keep <code>.env</code> out of git (it is in the repo&rsquo;s <code>.gitignore</code>).</div>
+<h4>4 &mdash; Start the server (keep it running)</h4>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('accel-start')">Copy</button><pre><code id="accel-start">.venv/bin/python src/aws_abap_accelerator/main.py</code></pre></div>
+<div style="background:#fff3e0;border:1px solid #f0d98a;padding:0.6rem 0.8rem;border-radius:0 6px 6px 0;margin:0.8rem 0;font-size:0.9rem;"><svg class="icon ico-warn"><use href="#i-warn"></use></svg>This is a long-running HTTP server on <code>localhost:8000</code>, not a stdio process &mdash; leave it up for the whole session and restart it after a reboot. Right after starting, make one call (e.g. ask Kiro for <code>connection_status</code>) to warm the SAP session; a long-idle session expires (&ldquo;Session Timed Out&rdquo;) and needs a restart.</div>
+<h4>5 &mdash; Register it in Kiro</h4>
+<p>Add inside <code>mcpServers</code> in <code>~/.kiro/settings/mcp.json</code> (back the file up first). This server connects <strong>by URL</strong>, not by launching a command:</p>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode('accel-reg')">Copy</button><pre><code id="accel-reg">{
+  "mcpServers": {
+    "abap-accelerator": {
+      "url": "http://localhost:8000/mcp",
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}</code></pre></div>
+<h4>6 &mdash; Verify</h4>
+<p>Ask Kiro to call <code>connection_status</code>.</p>
+<div class="expected-output"><div class="expected-output-header">Expected: &ldquo;SAP Connection Status: Connected&rdquo; with your host, instance, client, language, and user &mdash; the Accelerator tools are now available in Kiro.</div></div>
+<p style="margin:0.6rem 0 0;"><strong>Tools it exposes:</strong> <code>connection_status</code>, <code>get_objects</code>, <code>create_object</code>, <code>get_source</code>, <code>update_source</code>, <code>check_syntax</code>, <code>activate_object</code>, <code>activate_objects_batch</code>, <code>run_atc_check</code>, <code>run_unit_tests</code>, <code>create_or_update_test_class</code>, <code>get_test_classes</code>, <code>search_object</code>, <code>get_migration_analysis</code>, <code>get_transport_requests</code>.</p>
+<h4>Running ABAP from the IDE &mdash; the unit-test harness pattern</h4>
+<div style="background:#fff3e0;border:1px solid #f0d98a;padding:0.6rem 0.8rem;border-radius:0 6px 6px 0;margin:0.8rem 0;font-size:0.9rem;"><svg class="icon ico-warn"><use href="#i-warn"></use></svg>The Accelerator is a <strong>development server, not an execution engine</strong>: it reads, writes, syntax-checks, activates, and ATC/unit-tests ABAP, but has <strong>no &ldquo;run report / run transaction&rdquo; tool</strong>, so it cannot directly run a classic report and return its ALV output.</div>
+<p>To actually execute ABAP and see real output, use <code>run_unit_tests</code> as a runner: put the logic in a class method, call it from a test method, and surface the computed values through a <em>tolerable</em>-level assertion &mdash; <code>cl_abap_unit_assert=&gt;fail( msg = lv_output level = if_aunit_constants=&gt;tolerable )</code>. ABAP Unit only returns a message when an assertion fires, so the &ldquo;failure&rdquo; is simply the delivery vehicle for your output; the runner executes the ABAP on SAP and returns the real values. (Create the class in <code>$TMP</code> so no transport is needed.)</p>
 <h3>Quick pick: which MCP server for this workshop?</h3>
 <table>
 <tbody><tr><th>Server</th><th>Read or write?</th><th>Best for</th><th>Runs where</th></tr>
