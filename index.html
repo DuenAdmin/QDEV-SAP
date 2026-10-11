@@ -2,10 +2,10 @@
 <html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-<meta name="build" content="2026-10-06T16:16+07:00">
+
+
+
+<meta name="build" content="2026-10-11T08:15+07:00">
 <meta name="description" content="Hands-on SAP ABAP workshop: clean-core code generation, modernization, and troubleshooting with Kiro and the ABAP Accelerator MCP server on AWS.">
 <title>Kiro &amp; ABAP Accelerator for SAP (ABAP) Workshop</title>
 <style>
@@ -278,6 +278,42 @@ td .icon, th .icon { vertical-align: -0.12em; }
 .hero h1 { border-bottom: none; padding-bottom: 0; margin-bottom: 0.8rem; }
 .hero-rule { height: 3px; width: 100%; max-width: 900px; background: #ff9900; border-radius: 2px; margin: 0 0 1.4rem; }
 </style>
+<!-- relocated from body for strict HTML validity -->
+<style id="afxalt-style">
+.afxalt{max-width:1060px;margin:0 auto 40px;border:1px solid #d7dbe2;border-radius:12px;background:#fff;overflow:hidden}
+.afxalt>.afxalt-sum{cursor:pointer;list-style:none;padding:12px 14px;font-weight:600;font-size:.9rem;color:#B35900;background:#FFF8F2}
+.afxalt>.afxalt-sum::-webkit-details-marker{display:none}
+.afxalt>.afxalt-sum::before{content:'\25B8';margin-right:8px;color:#B35900;display:inline-block;transition:transform .15s ease}
+.afxalt[open]>.afxalt-sum::before{transform:rotate(90deg)}
+.afxalt-note{font-size:.82rem;color:#5a6270;line-height:1.55;margin:12px 14px 6px}
+.afxalt-frame{padding:0 10px 12px}
+.afxalt-iframe{width:100%;height:720px;border:1px solid #e2e4ea;border-radius:10px;background:#f4f6f9;display:block}
+@media (max-width:640px){.afxalt-iframe{height:900px}}
+</style>
+<style>
+.setup-note{background:#fff8e1;border:1px solid #e0b877;border-radius:8px;padding:.7rem .95rem;margin:.9rem 0;font-size:.92rem;color:#1f2430}
+.setup-note strong{color:#7a5c00}
+@media (max-width:640px){
+  .uc-table thead{display:none}
+  .uc-table, .uc-table tbody{display:block;width:100%}
+  .uc-table tr{display:block;width:100%;margin:0 0 12px;border:1px solid #d7dbe2;border-radius:10px;overflow:hidden;background:#fff}
+  .uc-table td{display:block;width:100%;box-sizing:border-box;padding:8px 12px;border:0;border-bottom:1px solid #eef0f4}
+  .uc-table tr td:last-child{border-bottom:0}
+  .uc-table td::before{content:attr(data-label);display:block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:#6b6b78;margin-bottom:2px}
+}
+</style>
+<style>#sm-fig{margin:12px 0 4px}#sm-fig .sm-card{background:#fff;border:1px solid #d7dbe2;border-radius:14px;padding:10px}#sm-fig svg{display:block;width:100%;height:auto;cursor:zoom-in}</style>
+<style id="l71alt-style">
+.l71alt{margin:14px 0 4px;border:1px solid #d7dbe2;border-radius:12px;background:#fff;overflow:hidden}
+.l71alt>.l71alt-sum{cursor:pointer;list-style:none;padding:12px 14px;font-weight:600;font-size:.9rem;color:#B35900;background:#FFF8F2}
+.l71alt>.l71alt-sum::-webkit-details-marker{display:none}
+.l71alt>.l71alt-sum::before{content:'\25B8';margin-right:8px;color:#B35900;display:inline-block;transition:transform .15s ease}
+.l71alt[open]>.l71alt-sum::before{transform:rotate(90deg)}
+.l71alt-note{font-size:.82rem;color:#5a6270;line-height:1.55;margin:12px 14px 6px}
+.l71alt-frame{padding:0 10px 12px}
+.l71alt-iframe{width:100%;height:1180px;border:1px solid #e2e4ea;border-radius:10px;background:#f5f7fa;display:block}
+@media (max-width:640px){.l71alt-iframe{height:1480px}}
+</style>
 </head>
 <body>
 <a href="#content" class="skip-link">Skip to content</a>
@@ -419,24 +455,14 @@ td .icon, th .icon { vertical-align: -0.12em; }
         <span><svg class="icon"><use href="#i-chart"></use></svg>Intermediate</span>
         <span><svg class="icon"><use href="#i-usercode"></use></svg>8 Modules</span>
         <span><svg class="icon"><use href="#i-labs"></use></svg>15 Labs</span>
-        <span title="Content version. If this date looks old, hard-refresh with Cmd/Ctrl+Shift+R or reopen the file."><svg class="icon"><use href="#i-clock"></use></svg>Updated 2026-10-06</span>
+        <span title="Content version. If this date looks old, hard-refresh with Cmd/Ctrl+Shift+R or reopen the file."><svg class="icon"><use href="#i-clock"></use></svg>Updated 2026-10-11</span>
       </div>
     </div>
   </div>
   <div class="container">
     <h2 class="section-title"><svg class="icon"><use href="#i-modules"></use></svg>How it works</h2>
     <p style="max-width:900px;margin:0 auto 18px;color:#4a4a5e;text-align:center;">Kiro never edits your SAP system directly. It talks to it through the open <strong>Model Context Protocol</strong>: the <strong>ABAP Accelerator</strong> MCP server (a free Docker image) exposes ~15 tools that use the <strong>ADT APIs</strong> to browse, create, syntax-check, run <strong>ATC</strong>, and activate objects — so generated code is checked and remediated <em>before</em> it lands. <span style="display:block;margin-top:8px;">Your SAP system can run in a <strong>customer-managed AWS account</strong> (you own and operate it) or a <strong>SAP-managed account under RISE with SAP</strong> — either way Kiro reaches it only through the Accelerator over ADT, never directly.</span><span style="display:block;margin-top:6px;">In <strong>RISE with SAP</strong>, developers still write ABAP in <strong>ADT (ABAP Development Tools)</strong> over that same ADT connection &mdash; Kiro and the Accelerator sit alongside it, not in place of it.</span><span style="display:block;font-size:0.85em;color:#6b6b78;margin-top:6px;">Source: AWS for SAP blog, “Introducing the ABAP Accelerator”, Jan 2026.</span></p>
-    <style id="afxalt-style">
-.afxalt{max-width:1060px;margin:0 auto 40px;border:1px solid #d7dbe2;border-radius:12px;background:#fff;overflow:hidden}
-.afxalt>.afxalt-sum{cursor:pointer;list-style:none;padding:12px 14px;font-weight:600;font-size:.9rem;color:#B35900;background:#FFF8F2}
-.afxalt>.afxalt-sum::-webkit-details-marker{display:none}
-.afxalt>.afxalt-sum::before{content:'\25B8';margin-right:8px;color:#B35900;display:inline-block;transition:transform .15s ease}
-.afxalt[open]>.afxalt-sum::before{transform:rotate(90deg)}
-.afxalt-note{font-size:.82rem;color:#5a6270;line-height:1.55;margin:12px 14px 6px}
-.afxalt-frame{padding:0 10px 12px}
-.afxalt-iframe{width:100%;height:720px;border:1px solid #e2e4ea;border-radius:10px;background:#f4f6f9;display:block}
-@media (max-width:640px){.afxalt-iframe{height:900px}}
-</style>
+    
 <!--ARCHALT-START-->
 <details class="afxalt" open>
   <summary class="afxalt-sum">Interactive architecture diagram (Archify · click to collapse)</summary>
@@ -14812,7 +14838,7 @@ When generating or changing ABAP in this project:
 4. Run ATC variant Z_AI_GATE and fix P1/P2 before proposing activation.</code></pre></div><hr>
 <h2>1. Enforce, don&rsquo;t suggest &mdash; block unsafe writes with a PreToolUse hook</h2>
 <p>Putting &ldquo;never activate without ATC&rdquo; in a steering file is a <em>suggestion</em>. The model follows suggestions <em>most</em> of the time. A hook is an <em>enforcement</em> point: it runs deterministic code around a tool call and can <strong>veto</strong> it.</p>
-<div class="setup-note"><strong><svg class="icon ico-info"><use href="#i-info"></use></svg>Why not a file-save hook?</strong> On a normal project you&rsquo;d hook &ldquo;on file save&rdquo;. But the ABAP Accelerator doesn&rsquo;t save local files &mdash; it writes <em>straight into SAP over ADT</em> through its MCP tools. So the event you must gate is the <strong>MCP write tool call itself</strong> (create / update / activate / release), not a file save.</p></div>
+<div class="setup-note"><strong><svg class="icon ico-info"><use href="#i-info"></use></svg>Why not a file-save hook?</strong> On a normal project you&rsquo;d hook &ldquo;on file save&rdquo;. But the ABAP Accelerator doesn&rsquo;t save local files &mdash; it writes <em>straight into SAP over ADT</em> through its MCP tools. So the event you must gate is the <strong>MCP write tool call itself</strong> (create / update / activate / release), not a file save.</div>
 <p>Add a <code>PreToolUse</code> hook that matches the Accelerator&rsquo;s write tools and runs a gate script. A non-zero exit (<strong>exit code 2</strong>) <strong>blocks</strong> the tool call and feeds the reason back to the agent. (Schema below is the current Kiro hooks <code>v1</code> format; see the Kiro hooks docs for the full trigger list.)</p>
 <div class="code-wrap"><button class="copy-btn" onclick="copyCode('gov-1')">Copy</button><pre><code id="gov-1" class="language-json">{
   "version": "v1",
@@ -15629,14 +15655,7 @@ Follow Clean ABAP guidelines, use RETURNING parameters where possible,
 and add appropriate exception handling.
 </code></pre></div>
 
-<div class="expected-output"><div class="expected-output-header">Expected: A <code>ZCL_</code> class whose methods replace the FORM routines, using RETURNING parameters where possible and proper exception handling per Clean ABAP.</div></div><h2><svg class="icon ico-ok"><use href="#i-check"></use></svg> Checkpoint</h2>
-<ul>
-<li><input type="checkbox"> Modernized legacy code to Clean ABAP</li>
-<li><input type="checkbox"> Converted code to ABAP Cloud compatible</li>
-<li><input type="checkbox"> Refactored FORM routines to OO methods</li>
-</ul>
-<hr>
-<h2>Hands-On Lab 5.4: Migrate an Excel VBA Macro from ECC 6.0 to S/4 (OData)</h2>
+<div class="expected-output"><div class="expected-output-header">Expected: A <code>ZCL_</code> class whose methods replace the FORM routines, using RETURNING parameters where possible and proper exception handling per Clean ABAP.</div></div><h2>Hands-On Lab 5.4: Migrate an Excel VBA Macro from ECC 6.0 to S/4 (OData)</h2>
 <p>Real customer scenario: an Excel macro talks to SAP <strong>ECC 6.0</strong>; migrate it to work against <strong>S/4HANA</strong> over Fiori/OData. This is a two-sided job &mdash; a released service on SAP, and a rewritten macro on the client.</p>
 <h3>Instructions</h3>
 <ol><li>Enter the following prompt in Kiro chat:</li></ol>
@@ -15750,6 +15769,13 @@ with no console errors before finishing.</code></pre></div>
 </details>
 <p style="margin:0.5rem 0 0;font-size:0.9rem;">Governance from <a href="#section-gov" onclick="showSection('section-gov'); return false;">Module 2</a> still applies: this app only <strong>reads</strong> SAP via the <code>sap-odata</code> MCP, bakes a snapshot, and writes nothing back &mdash; keep business data out of prompts where you can.</p>
 </div>
+<hr>
+<h2><svg class="icon ico-ok"><use href="#i-check"></use></svg> Checkpoint</h2>
+<ul>
+<li><input type="checkbox"> Modernized legacy code to Clean ABAP</li>
+<li><input type="checkbox"> Converted code to ABAP Cloud compatible</li>
+<li><input type="checkbox"> Refactored FORM routines to OO methods</li>
+</ul>
 <p><a href="#section-2" onclick="showSection('section-2'); return false;">← Module 4</a> | <a href="#section-4" onclick="showSection('section-4'); return false;">Next: Module 6 — Debugging &amp; Troubleshooting →</a></p></div></div>
 <div id="section-4" class="section" style="display:none;"><div class="container"><div class="module-banner" style="background-image:url('assets/img-167ea5e5d2a6.png')"><h1>Module 6: Debugging &amp; Troubleshooting ABAP (30 minutes)</h1></div>
 <h2>Learning Objectives</h2>
@@ -16045,18 +16071,7 @@ replacements. Reference the SAP simplification list where applicable.
 <hr>
 <h2>7.7 Customer Automation Scenarios</h2>
 <p>Real requests from SAP customers, mapped to how you&rsquo;d approach each with Kiro + the ABAP Accelerator, and which module&rsquo;s techniques apply.</p>
-<style>
-.setup-note{background:#fff8e1;border:1px solid #e0b877;border-radius:8px;padding:.7rem .95rem;margin:.9rem 0;font-size:.92rem;color:#1f2430}
-.setup-note strong{color:#7a5c00}
-@media (max-width:640px){
-  .uc-table thead{display:none}
-  .uc-table, .uc-table tbody{display:block;width:100%}
-  .uc-table tr{display:block;width:100%;margin:0 0 12px;border:1px solid #d7dbe2;border-radius:10px;overflow:hidden;background:#fff}
-  .uc-table td{display:block;width:100%;box-sizing:border-box;padding:8px 12px;border:0;border-bottom:1px solid #eef0f4}
-  .uc-table tr td:last-child{border-bottom:0}
-  .uc-table td::before{content:attr(data-label);display:block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:#6b6b78;margin-bottom:2px}
-}
-</style>
+
 <table class="uc-table">
 <thead><tr><th>Customer scenario</th><th>Approach with Kiro + ABAP Accelerator</th><th>Uses</th></tr></thead>
 <tbody>
@@ -16097,7 +16112,7 @@ replacements. Reference the SAP simplification list where applicable.
 <h3>Setup map</h3>
 <p>What connects to what, and which use cases need each SAP touchpoint. Click the diagram to zoom.</p>
 <!--SETUPMAP-START-->
-<style>#sm-fig{margin:12px 0 4px}#sm-fig .sm-card{background:#fff;border:1px solid #d7dbe2;border-radius:14px;padding:10px}#sm-fig svg{display:block;width:100%;height:auto;cursor:zoom-in}</style>
+
 <div id="sm-fig"><div class="sm-card"><svg id="sm-svg" viewBox="0 0 1200 600" role="img" aria-label="Setup map for the customer use cases. On the developer workstation: Kiro, the ABAP Accelerator container, and Amazon Bedrock (Claude) for model calls; this baseline applies to all use cases. The workstation connects to SAP S/4HANA over ADT via HTTPS. Inside SAP, touchpoints are tagged with the use cases that need them: ADT and ATC for all; SICF OData activation for Labs 5.4 and 7.8; SAPconnect SCOT email for 3.6 and 3.8; Business Workflow SWU3 and SWETYPV for 3.8; a file directory and mounted share for 3.6; a spreadsheet API XCO or abap2xlsx for 3.6 and 3.7; a RAP behavior or released BAPI for 5.4 and 7.8. An Excel client calls SAP over OData HTTPS for 5.4 and 7.8. Optional AWS services, only if you choose: SES for email, FSx EFS or S3 for the share drive, ALB plus WAF for public OData. If S/4 runs on AWS, add VPC, security groups, and VPN or Direct Connect for reachability."><style>.sm-panel{fill-opacity:1}.sm-t{font-size:13px;font-weight:700}.sm-sub{font-size:12px;fill:#5a6270}.sm-b{font-size:12px;font-weight:600;fill:#1f2430}.sm-ct{font-size:12px;font-weight:600;fill:#1f2430}.sm-tag{font-size:10px;font-weight:400;fill:#7a5c00}.sm-note{font-size:12px;fill:#5a6270}.sm-flow{fill:none;stroke:#C7671F;stroke-width:2.2}.sm-flow-t{fill:none;stroke:#12A19A;stroke-width:2.2}.sm-dash{fill:none;stroke:#5a6270;stroke-width:1.8;stroke-dasharray:6 5}.sm-lbl{font-size:12px;fill:#444}</style><defs><marker id="SMAH" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#C7671F"/></marker><marker id="SMAHT" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#12A19A"/></marker><marker id="SMAHG" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#5a6270"/></marker></defs><rect x="30" y="70" width="300" height="360" rx="12" fill="#F3F7FC" stroke="#2F6FB0" stroke-width="1.4"/><text x="180" y="94" text-anchor="middle" class="sm-t" fill="#2F6FB0">Developer workstation</text><text x="180" y="110" text-anchor="middle" class="sm-sub">baseline &mdash; all use cases</text><g class="sm-step"><rect x="55" y="126" width="250" height="46" rx="8" fill="#fff" stroke="#2F6FB0" stroke-width="1.3"/><text x="180" y="153" text-anchor="middle" class="sm-b">Kiro IDE</text></g><g class="sm-step"><rect x="55" y="184" width="250" height="46" rx="8" fill="#fff" stroke="#2F6FB0" stroke-width="1.3"/><text x="180" y="205" text-anchor="middle" class="sm-b">ABAP Accelerator</text><text x="180" y="221" text-anchor="middle" class="sm-sub">container &middot; MCP server</text></g><g class="sm-step"><rect x="55" y="250" width="250" height="46" rx="8" fill="#EAF6F5" stroke="#12A19A" stroke-width="1.4"/><text x="180" y="277" text-anchor="middle" class="sm-b" fill="#12A19A">Amazon Bedrock (Claude)</text></g><path class="sm-flow-t" marker-end="url(#SMAHT)" d="M180,230 L180,248"/><path class="sm-flow-t" marker-end="url(#SMAHT)" d="M205,250 L205,232"/><text x="180" y="316" text-anchor="middle" class="sm-note">runs locally or on AWS</text><text x="180" y="352" text-anchor="middle" class="sm-note">model calls &rarr; Bedrock (teal)</text><rect x="370" y="40" width="440" height="500" rx="12" fill="#FFF3E9" stroke="#C7671F" stroke-width="1.4"/><text x="590" y="64" text-anchor="middle" class="sm-t" fill="#C7671F">SAP S/4HANA (non-prod)</text><g class="sm-step"><rect x="390" y="84" width="400" height="44" rx="8" fill="#fff" stroke="#C7671F" stroke-width="1.3"/><text x="406" y="111" class="sm-ct">ADT + ATC <tspan class="sm-tag">&mdash; baseline (all)</tspan></text></g><g class="sm-step"><rect x="390" y="136" width="400" height="44" rx="8" fill="#fff" stroke="#C7671F" stroke-width="1.3"/><text x="406" y="163" class="sm-ct">SICF &middot; OData / REST activation <tspan class="sm-tag">&mdash; Labs 5.4, 7.8</tspan></text></g><g class="sm-step"><rect x="390" y="188" width="400" height="44" rx="8" fill="#fff" stroke="#C7671F" stroke-width="1.3"/><text x="406" y="215" class="sm-ct">SAPconnect (SCOT) &middot; email <tspan class="sm-tag">&mdash; Labs 3.6, 3.8</tspan></text></g><g class="sm-step"><rect x="390" y="240" width="400" height="44" rx="8" fill="#fff" stroke="#C7671F" stroke-width="1.3"/><text x="406" y="267" class="sm-ct">Business Workflow &middot; SWU3 / SWETYPV <tspan class="sm-tag">&mdash; Lab 3.8</tspan></text></g><g class="sm-step"><rect x="390" y="292" width="400" height="44" rx="8" fill="#fff" stroke="#C7671F" stroke-width="1.3"/><text x="406" y="319" class="sm-ct">File dir (FILE) + mounted share <tspan class="sm-tag">&mdash; Lab 3.6</tspan></text></g><g class="sm-step"><rect x="390" y="344" width="400" height="44" rx="8" fill="#fff" stroke="#C7671F" stroke-width="1.3"/><text x="406" y="371" class="sm-ct">Spreadsheet API &middot; XCO / abap2xlsx <tspan class="sm-tag">&mdash; Labs 3.6, 3.7</tspan></text></g><g class="sm-step"><rect x="390" y="396" width="400" height="44" rx="8" fill="#fff" stroke="#C7671F" stroke-width="1.3"/><text x="406" y="423" class="sm-ct">RAP behavior / released BAPI <tspan class="sm-tag">&mdash; Labs 5.4, 7.8</tspan></text></g><text x="590" y="470" text-anchor="middle" class="sm-note">ATC runs via the ABAP Accelerator &middot; ICF/SCOT/Workflow wired by Basis</text><rect x="850" y="70" width="320" height="150" rx="12" fill="#F0FAF4" stroke="#2E9E5B" stroke-width="1.4"/><text x="1010" y="96" text-anchor="middle" class="sm-t" fill="#2E9E5B">Excel client</text><text x="1010" y="122" text-anchor="middle" class="sm-b">VBA / OData over HTTPS</text><text x="1010" y="144" text-anchor="middle" class="sm-sub">auth (OAuth2 / basic) + TLS trust</text><text x="1010" y="182" text-anchor="middle" class="sm-tag" font-size="11">used by Labs 5.4, 7.8</text><rect x="850" y="270" width="320" height="200" rx="12" fill="#f7f8fa" stroke="#5a6270" stroke-width="1.4" stroke-dasharray="7 5"/><text x="1010" y="296" text-anchor="middle" class="sm-t" fill="#5a6270">Optional AWS &mdash; only if you choose</text><text x="1010" y="330" text-anchor="middle" class="sm-b">SES &mdash; email relay <tspan class="sm-tag">(3.6, 3.8)</tspan></text><text x="1010" y="360" text-anchor="middle" class="sm-b">FSx / EFS / S3 &mdash; share drive <tspan class="sm-tag">(3.6)</tspan></text><text x="1010" y="390" text-anchor="middle" class="sm-b">ALB + WAF &mdash; public OData <tspan class="sm-tag">(5.4, 7.8)</tspan></text><text x="1010" y="430" text-anchor="middle" class="sm-note">not required for the labs themselves</text><path class="sm-flow" marker-end="url(#SMAH)" d="M330,209 L368,209"/><text x="349" y="200" text-anchor="middle" class="sm-lbl">ADT</text><text x="349" y="228" text-anchor="middle" class="sm-lbl">HTTPS</text><path class="sm-flow" marker-end="url(#SMAH)" d="M792,158 L848,140"/><text x="820" y="130" text-anchor="middle" class="sm-lbl">OData</text><path class="sm-dash" marker-end="url(#SMAHG)" d="M792,418 L830,418 L830,360 L848,360"/><text x="822" y="446" text-anchor="middle" class="sm-lbl">optional</text><text x="600" y="576" text-anchor="middle" class="sm-note">If S/4 runs on AWS: add VPC + security groups + VPN / Direct Connect so ADT &amp; OData are reachable.</text></svg></div></div>
 <script>(function(){var s=document.getElementById("sm-svg");if(!s)return;s.addEventListener("click",function(){var o=document.createElement("div");o.setAttribute("style","position:fixed;inset:0;background:rgba(15,18,28,.92);z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;cursor:zoom-out");var c=s.cloneNode(true);c.removeAttribute("id");c.setAttribute("style","width:auto;height:auto;max-width:98vw;max-height:96vh");o.appendChild(c);document.body.appendChild(o);o.addEventListener("click",function(){o.remove();});});})();</script>
 <!--SETUPMAP-END-->
@@ -16274,17 +16289,7 @@ with no console errors before finishing.</code></pre></div>
 <p>Each phase builds on the context of the previous one, and Kiro maintains an <code>audit.md</code> file recording every decision — a persistent trail for review.</p>
 
 <h2>Hands-On Lab 8.1: Build a Stock / Inventory Management App from Business Intent</h2>
-<style id="l71alt-style">
-.l71alt{margin:14px 0 4px;border:1px solid #d7dbe2;border-radius:12px;background:#fff;overflow:hidden}
-.l71alt>.l71alt-sum{cursor:pointer;list-style:none;padding:12px 14px;font-weight:600;font-size:.9rem;color:#B35900;background:#FFF8F2}
-.l71alt>.l71alt-sum::-webkit-details-marker{display:none}
-.l71alt>.l71alt-sum::before{content:'\25B8';margin-right:8px;color:#B35900;display:inline-block;transition:transform .15s ease}
-.l71alt[open]>.l71alt-sum::before{transform:rotate(90deg)}
-.l71alt-note{font-size:.82rem;color:#5a6270;line-height:1.55;margin:12px 14px 6px}
-.l71alt-frame{padding:0 10px 12px}
-.l71alt-iframe{width:100%;height:1180px;border:1px solid #e2e4ea;border-radius:10px;background:#f5f7fa;display:block}
-@media (max-width:640px){.l71alt-iframe{height:1480px}}
-</style>
+
 <!--LAB71ALT-START-->
 <details class="l71alt" open>
   <summary class="l71alt-sum">Interactive AI-DLC walkthrough (Archify · click to collapse)</summary>
@@ -30408,7 +30413,7 @@ with no console errors before finishing.</code></pre></div>
 <li><input type="checkbox"> Draft handling is included in BDEF</li>
 <li><input type="checkbox"> Validation method checks begin_date &lt; end_date</li>
 <li><input type="checkbox"> Service binding specifies OData version</li>
-</ul></div></div>
+</ul><p><a href="#landing" onclick="showSection('landing'); return false;">← Back to Workshop Home</a> | <a href="#section-7" onclick="showSection('section-7'); return false;">Next: Lab: Code Explanation →</a></p></div></div>
 <div id="section-7" class="section" style="display:none;"><div class="container"><div class="module-banner" style="background-image:url('assets/img-102b3deb84d0.png')"><h1>Lab Instructions — Module 4: Code Explanation &amp; Documentation</h1></div>
 <h2>Lab 4.1: Explain Legacy Code</h2>
 <p><strong>Time:</strong> 10 minutes</p>
@@ -30533,7 +30538,7 @@ security implications of using dynamic table names?
 </code></pre></div>
 <ol>
 <li>Verify the explanation mentions:<ul class="verify-list"><li><input type="checkbox"> RTTI (Runtime Type Information) usage</li><li><input type="checkbox"> Dynamic table creation and data retrieval</li><li><input type="checkbox"> SQL injection risk with dynamic table names</li><li><input type="checkbox"> Authority check recommendations</li></ul></li>
-</ol></div></div>
+</ol><p><a href="#section-6" onclick="showSection('section-6'); return false;">← Lab: Code Generation</a> | <a href="#section-8" onclick="showSection('section-8'); return false;">Next: Lab: Modernization →</a></p></div></div>
 <div id="section-8" class="section" style="display:none;"><div class="container"><div class="module-banner" style="background-image:url('assets/img-102b3deb84d0.png')"><h1>Lab Instructions — Module 5: Modernization &amp; Refactoring</h1></div>
 <h2>Lab 5.1: Modernize Legacy Code</h2>
 <p><strong>Time:</strong> 15 minutes</p>
@@ -30618,7 +30623,7 @@ and add appropriate exception handling.
 </code></pre></div>
 <ol>
 <li>Verify the output:<ul class="verify-list"><li><input type="checkbox"> Class definition with proper visibility sections</li><li><input type="checkbox"> <code>RETURNING</code> parameters instead of <code>CHANGING</code> where possible</li><li><input type="checkbox"> Exception class for error handling</li><li><input type="checkbox"> No <code>FORM/PERFORM</code> statements remain</li></ul></li>
-</ol></div></div>
+</ol><p><a href="#section-7" onclick="showSection('section-7'); return false;">← Lab: Code Explanation</a> | <a href="#section-9" onclick="showSection('section-9'); return false;">Next: Lab: Debugging →</a></p></div></div>
 <div id="section-9" class="section" style="display:none;"><div class="container"><div class="module-banner" style="background-image:url('assets/img-102b3deb84d0.png')"><h1>Lab Instructions — Module 6: Debugging &amp; Troubleshooting</h1></div>
 <h2>Lab 6.1: Fix a Buggy Program</h2>
 <p><strong>Time:</strong> 10 minutes</p>
@@ -30731,7 +30736,7 @@ issues and rewrite it to run efficiently. Explain each optimization.
 </code></pre></div>
 <ol>
 <li>Expected optimizations:<ul class="verify-list"><li><input type="checkbox"> Replace nested LOOPs with sorted tables or secondary keys</li><li><input type="checkbox"> Move SELECT out of loop — use FOR ALL ENTRIES or JOIN</li><li><input type="checkbox"> Consider replacing entire structure with a single SQL JOIN</li><li><input type="checkbox"> Use parallel cursor technique if nested LOOPs remain</li></ul></li>
-</ol></div></div>
+</ol><p><a href="#section-8" onclick="showSection('section-8'); return false;">← Lab: Modernization</a> | <a href="#section-14" onclick="showSection('section-14'); return false;">Next: Lab: MCP for SAP ABAP →</a></p></div></div>
 <div id="section-10" class="section" style="display:none;"><div class="container"><div class="module-banner" style="background-image:url('assets/img-e7b35da286ef.png')"><h1>Participant Handout — Kiro for SAP Workshop</h1></div>
 <h2>Workshop Quick Reference</h2>
 <h3>Setup Checklist</h3>
@@ -30916,7 +30921,7 @@ ABAP Environment / ABAP Cloud.
 <hr>
 <hr>
 <hr>
-<hr></div></div>
+<hr><p><a href="#landing" onclick="showSection('landing'); return false;">← Back to Workshop Home</a> | <a href="#section-12" onclick="showSection('section-12'); return false;">Next: Glossary &amp; Cheat Sheet →</a></p></div></div>
 <div id="section-14" class="section" style="display:none;"><div class="container">
 <div class="module-banner" style="background-image:url('assets/img-cedcf5f21189.png')"><h1>Lab Instructions — MCP for SAP ABAP</h1></div>
 
@@ -31000,7 +31005,7 @@ ABAP Environment / ABAP Cloud.
 <div class="faq-item"><div class="faq-q">Authorization error on where-used</div><div class="faq-a">Where-used analysis requires additional ADT authorizations. Ask your Basis admin to check S_ADT_RES and S_DEVELOP authorization objects.</div></div>
 </div>
 
-</div></div>
+<p><a href="#section-9" onclick="showSection('section-9'); return false;">← Lab: Debugging</a> | <a href="#landing" onclick="showSection('landing'); return false;">Back to Workshop Home →</a></p></div></div>
 
 <div id="section-13" class="section" style="display:none;"><div class="container">
 <div class="module-banner" style="background-image:url('assets/img-cedcf5f21189.png')"><h1>MCP for SAP ABAP — Connect Your IDE to SAP</h1></div>
@@ -31025,8 +31030,8 @@ ABAP Environment / ABAP Cloud.
 <table style="margin:0.8rem 0 0;">
 <tbody><tr><th>MCP server</th><th>Purpose</th><th>Setup</th></tr>
 <tr><td><strong>ABAP Accelerator</strong><br>(Jan 2026)</td><td><strong>System-aware development.</strong> Connects to <em>your</em> SAP system via ADT to read/generate/validate ABAP, run ATC checks, activate objects, and convert ECC→S/4HANA.</td><td>Free Docker image you run locally; needs SAP connection + credentials</td></tr>
-<tr><td><strong>AWS SDK for SAP ABAP Knowledge MCP Server</strong><br>(GA Apr 2026)</td><td><strong>AWS-integration know-how.</strong> Feeds your IDE the authoritative AWS SDK for SAP ABAP docs (130,000+ pages) so it writes correct ABAP to call AWS services like Amazon S3, Bedrock, and Textract.</td><td>Hosted HTTPS endpoint — no auth, no AWS account, no local install; just add the URL</td></tr>
-<tr><td><strong>AWS for SAP MCP Server</strong><br>(GA May 2026)</td><td><strong>Runtime business-data agents (not a dev tool).</strong> Lets an AI agent read and write SAP <em>business data</em> (orders, invoices, materials) via OData — for building agentic apps on top of SAP, not for writing ABAP.</td><td>Managed on Amazon Bedrock AgentCore Runtime; deploy via CloudFormation (OAuth 2.0 auth)</td></tr>
+<tr><td><strong>AWS SDK for SAP ABAP Knowledge MCP Server</strong><br>(GA Apr 2026)</td><td><strong>AWS-integration know-how.</strong> Feeds your IDE the authoritative AWS SDK for SAP ABAP docs (covering 200+ AWS services) so it writes correct ABAP to call AWS services like Amazon S3, Bedrock, and Textract.</td><td>Hosted HTTPS endpoint — no auth, no AWS account, no local install; just add the URL</td></tr>
+<tr><td><strong>AWS for SAP MCP Server</strong><br>(GA May 2026)</td><td><strong>Runtime business-data agents (not a dev tool).</strong> Lets an AI agent read and write SAP <em>business data</em> (orders, invoices, materials) via OData — for building agentic apps on top of SAP, not for writing ABAP.</td><td>Managed on Amazon Bedrock AgentCore Runtime; deploy via CloudFormation. Four outbound auth flows to SAP: <code>BASIC</code>, <code>M2M</code>, <code>USER_FEDERATION</code>, <code>ON_BEHALF_OF_TOKEN_EXCHANGE</code> (OAuth 2.0; credentials in AWS Secrets Manager)</td></tr>
 </tbody></table>
 <p style="margin:0.6rem 0 0;">Rule of thumb: use <strong>ABAP Accelerator</strong> to write and validate ABAP against your live system; add the <strong>SDK Knowledge MCP Server</strong> whenever that ABAP needs to call an AWS service; reach for the managed <strong>AWS for SAP MCP Server</strong> only when you're building an AI agent that reads/writes SAP business data at runtime. This workshop focuses on the first two (developer tooling). <a href="https://aws.amazon.com/blogs/awsforsap/extend-agentic-ides-with-aws-sdk-for-sap-abap-documentation/" target="_blank">SDK Knowledge MCP announcement ↗</a> · <a href="https://docs.aws.amazon.com/mcp-sap/latest/awsforsapmcp/introduction.html" target="_blank">AWS for SAP MCP Server docs ↗</a></p>
 </div>
@@ -31093,7 +31098,7 @@ LOG_LEVEL=INFO</code></pre></div>
     }
   }
 }</code></pre></div>
-<div style="background:#FFF8F2;border:1px solid #f0d9c4;border-radius:8px;padding:1rem 1.1rem;margin:1rem 0;"><p style="margin:0 0 .55rem;font-weight:700;color:#B35900;">Wait &mdash; if the URL says <code>localhost</code>, how does Kiro reach my SAP system?</p><p style="margin:0 0 .6rem;"><code>localhost:8000</code> is <strong>not</strong> your SAP system &mdash; it is the ABAP Accelerator MCP server running on your own machine. There are <strong>two separate hops</strong>, and Kiro only ever makes the first one:</p><pre style="background:#fff;border:1px solid #f0d9c4;border-radius:6px;padding:.6rem .75rem;margin:.2rem 0 .5rem;overflow-x:auto;font-size:.82rem;line-height:1.5;color:#1f2430;"><code>Kiro  --MCP over HTTP-->  ABAP Accelerator MCP server  --HTTPS / ADT-->  Your SAP system
+<div style="background:#FFF8F2;border:1px solid #f0d9c4;border-radius:8px;padding:1rem 1.1rem;margin:1rem 0;"><p style="margin:0 0 .55rem;font-weight:700;color:#B35900;">Wait &mdash; if the URL says localhost, how does Kiro reach my SAP system?</p><p style="margin:0 0 .6rem;"><code>localhost:8000</code> is <strong>not</strong> your SAP system &mdash; it is the ABAP Accelerator MCP server running on your own machine. There are <strong>two separate hops</strong>, and Kiro only ever makes the first one:</p><pre style="background:#fff;border:1px solid #f0d9c4;border-radius:6px;padding:.6rem .75rem;margin:.2rem 0 .5rem;overflow-x:auto;font-size:.82rem;line-height:1.5;color:#1f2430;"><code>Kiro  --MCP over HTTP-->  ABAP Accelerator MCP server  --HTTPS / ADT-->  Your SAP system
 (the AI)                 (local bridge &middot; localhost:8000)              (e.g. your-s4h:44300)</code></pre><ul style="margin:.5rem 0 0;padding-left:1.25rem;line-height:1.55;"><li><strong>Hop 1 &mdash; Kiro &rarr; MCP server.</strong> <code>mcp.json</code> only tells Kiro <em>where the MCP server is</em> (<code>http://localhost:8000/mcp</code>). Nothing about SAP &mdash; no host, no password &mdash; is in this file.</li><li><strong>Hop 2 &mdash; MCP server &rarr; SAP.</strong> The server holds the SAP target and credentials in its own <code>.env</code> (host, instance/port, client, user, auth) and makes authenticated <abbr title="ABAP Development Tools">ADT</abbr> calls over HTTPS. The SAP password lives here, never in <code>mcp.json</code> &mdash; <strong>Kiro never sees it</strong>.</li></ul><p style="margin:.65rem 0 0;font-size:.92rem;color:#5a5550;">So the MCP server is a local <strong>bridge</strong>: Kiro speaks MCP to it over loopback, and it translates that into authenticated ADT/HTTPS calls to SAP and relays results back. Stop that local process and your <code>abap-accelerator</code> tools go dead even though <code>mcp.json</code> is unchanged &mdash; hop&nbsp;1 has nothing listening behind it. A <em>managed</em> deployment follows the same client&nbsp;&rarr;&nbsp;server&nbsp;&rarr;&nbsp;SAP split, except the server runs on Amazon Bedrock AgentCore Runtime instead of <code>localhost</code> (<a href="https://docs.aws.amazon.com/mcp-sap/latest/awsforsapmcp/introduction.html" target="_blank" rel="noopener">AWS for SAP MCP Server docs</a>).</p></div>
 <h4>6 &mdash; Verify</h4>
 <p>Ask Kiro to call <code>connection_status</code>.</p>
@@ -31106,10 +31111,11 @@ LOG_LEVEL=INFO</code></pre></div>
 <table>
 <tbody><tr><th>Server</th><th>Read or write?</th><th>Best for</th><th>Runs where</th></tr>
 <tr><td><strong>ABAP Accelerator</strong> (AWS)</td><td>Write &mdash; create, syntax, ATC, activate</td><td>The full system-aware ABAP dev loop from any MCP IDE (Kiro)</td><td>AWS Docker image you run locally; connects to SAP via ADT</td></tr>
+<tr><td><strong>AWS for SAP MCP Server</strong> (AWS)</td><td>Read + optional write (OData CRUD &amp; function imports)</td><td>Runtime agents consuming live SAP business data over OData (not a dev tool)</td><td>Managed on Amazon Bedrock AgentCore Runtime (CloudFormation); connects via OData V2/V4</td></tr>
 <tr><td><strong>SAP ADT MCP Server</strong> (SAP)</td><td>Write &mdash; create, ATC, RAP, activate</td><td>Teams already working in ADT for VS Code (native, no extra container)</td><td>Built into the ADT for VS Code extension (port 2236); experimental</td></tr>
 <tr><td><strong><code>sap-odata</code></strong> (local)</td><td>Read / query only</td><td>Showing live SAP business data (materials, stock, OData) in chat</td><td>Local Node server calling your SAP OData services</td></tr>
 </tbody></table>
-<p>Details for each are below. All three connect to <em>your</em> SAP system and never reach the database directly.</p>
+<p>Details for each are below. All four connect to <em>your</em> SAP system and never reach the database directly.</p>
 
 <h3>Official SAP MCP servers &amp; the wider ecosystem</h3>
 <p><strong>SAP now publishes its own MCP servers</strong> too. The one most relevant to ABAP teams is SAP&rsquo;s <strong>ADT MCP Server</strong>, which exposes the ADT capabilities of <em>ABAP Development Tools for VS Code</em> to MCP clients (setup via the SAP Help Portal). SAP also ships MCP servers for Fiori app generation, CAP, UI5 / UI5 Web Components, the Mobile Development Kit, BTP administration, and SAP LeanIX.</p>
@@ -31152,6 +31158,8 @@ LOG_LEVEL=INFO</code></pre></div>
 <h3>Read SAP business data via a local OData MCP (<code>sap-odata</code>)</h3>
 <p>A lightweight alternative for <strong>reading SAP business data</strong> (materials, stock, any OData entity) straight into your IDE chat is a small self-hosted MCP server that calls your SAP OData services. In this workshop's demo environment it is registered in <code>~/.kiro/settings/mcp.json</code> as <code>sap-odata</code> (a local Node server, <code>node .../sap-odata-mcp-setup/server.mjs</code>).</p>
 <p>It is <strong>read/query oriented</strong> over OData &mdash; distinct from the ABAP Accelerator, which writes and activates ABAP objects via ADT. Use it to show live SAP data alongside AI-assisted development.</p>
+<div style="background:#FFF8F2;border:1px solid #f0d9c4;border-radius:8px;padding:1rem 1.1rem;margin:1rem 0;"><p style="margin:0 0 .55rem;font-weight:700;color:#B35900;">If sap-odata runs locally, how does it reach my SAP system?</p><p style="margin:0 0 .6rem;">Same <strong>two-hop</strong> pattern as the ABAP Accelerator &mdash; the only differences are the protocol (OData reads, not ADT) and that this server is launched as a local command rather than reached by URL:</p><pre style="background:#fff;border:1px solid #f0d9c4;border-radius:6px;padding:.6rem .75rem;margin:.2rem 0 .5rem;overflow-x:auto;font-size:.82rem;line-height:1.5;color:#1f2430;"><code>Kiro  --MCP (stdio)-->  sap-odata MCP server  --OData / HTTPS-->  Your SAP system
+(the AI)                (local Node process)                     (released OData services)</code></pre><ul style="margin:.5rem 0 0;padding-left:1.25rem;line-height:1.55;"><li><strong>Hop 1 &mdash; Kiro &rarr; MCP server.</strong> <code>mcp.json</code> registers it as a <em>command</em> (<code>node &hellip;/server.mjs</code>); Kiro launches that local Node process and speaks MCP to it over stdio. No SAP host or password is in <code>mcp.json</code>.</li><li><strong>Hop 2 &mdash; MCP server &rarr; SAP.</strong> The Node server holds the SAP target and credentials in its own config/<code>.env</code> and calls <strong>released OData services</strong> over HTTPS. It is <strong>read/query only</strong> &mdash; it never writes, and <strong>Kiro never sees the password</strong>.</li></ul><p style="margin:.65rem 0 0;font-size:.92rem;color:#5a5550;">So this is the same local <strong>bridge</strong> idea: Kiro talks MCP to a local server, and that server makes the authenticated call to SAP and relays rows back. Stop the Node process and the <code>sap-odata</code> tools go dead even though <code>mcp.json</code> is unchanged.</p></div>
 <table>
 <tbody><tr><th>Tool</th><th>What it does</th></tr>
 <tr><td><code>search_materials</code></td><td>Search for materials by number or description</td></tr>
@@ -31471,7 +31479,7 @@ SAP_VERIFY_SSL=true</code></pre></div>
 <pre><code>Generate ABAP Unit tests for an SD/FI pricing-and-tax class that computes net value (quantity x unit price) and country tax (DE 19%, US 8%, JP 10%, otherwise 15%): risk level harmless, use CL_OSQL_TEST_ENVIRONMENT test doubles for the VBAP / pricing data access, and cover positive, negative, and boundary cases (zero quantity, unknown country, 100% discount) with setup and teardown methods.</code></pre>
 </div>
 
-</div></div>
+<p><a href="#section-10" onclick="showSection('section-10'); return false;">← Participant Handout</a> | <a href="#landing" onclick="showSection('landing'); return false;">Back to Workshop Home →</a></p></div></div>
 
 </div>
 
