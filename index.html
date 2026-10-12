@@ -14413,7 +14413,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 <hr>
 <h3>Hands-On Lab 1.3: Configure Kiro for ABAP Development</h3>
 <blockquote>
-<p><svg class="icon ico-info"><use href="#i-bulb"></use></svg><strong>Model selection:</strong> In the Kiro Chat model selector, choose <strong>Claude Opus 5</strong> (or the current top-tier Claude Opus model available in your Kiro plan) for the best ABAP generation quality. The default lighter model is fine for simple prompts, but Opus produces noticeably better RAP artifacts, clean-core refactoring, and multi-object reasoning.</p>
+<p><svg class="icon ico-info"><use href="#i-bulb"></use></svg><strong>Model selection:</strong> Complex ABAP work &mdash; RAP artifacts, clean-core refactoring, multi-object changes &mdash; tends to benefit from a higher-capability model. In the Kiro model selector, pick a <strong>top-tier model</strong>, or use <strong>Auto</strong> to let Kiro route each task to a suitable model; a lighter/faster model is fine for simple prompts. This is practical guidance from our own testing, <strong>not an AWS/SAP-mandated setting</strong> &mdash; see Kiro&rsquo;s <a href="https://kiro.dev/docs/models/available-models/" target="_blank" rel="noopener">Available models</a> for the current lineup. Either way, the ABAP Accelerator&rsquo;s <strong>ATC validation loop improves correctness regardless of the model you choose</strong>.</p>
 </blockquote>
 <h4>Step 1: Create a steering file for ABAP standards</h4>
 <ol>
@@ -14489,7 +14489,7 @@ ALV grid, filtered by company code and date range
 <p><strong>Time:</strong> 10 minutes</p>
 
 <h3>Objective</h3>
-<p>Install an SAP ABAP MCP server and connect it to your IDE so Kiro can read SAP objects directly.</p>
+<p>Connect Kiro to SAP through the official <strong>AWS ABAP Accelerator</strong> MCP server so Kiro can read, generate, and validate ABAP directly &mdash; with the community <code>mcp-adt</code> server as a read-only fallback.</p>
 
 <h3>Prerequisites</h3>
 <ul>
@@ -14500,7 +14500,8 @@ ALV grid, filtered by company code and date range
 
 <h3>Steps</h3>
 
-<p><strong>Step 1 — Clone and install the MCP server:</strong></p>
+<p><strong>Step 1 — Install the MCP server.</strong> This workshop uses the official <strong>AWS ABAP Accelerator</strong> as the recommended server &mdash; it gives Kiro the full system-aware loop (create &rarr; syntax &rarr; <strong>ATC</strong> &rarr; activate) and the governance guardrails from <a href="#section-gov" onclick="showSection('section-gov'); return false;">Module&nbsp;2</a>. Follow the 6-step <a href="#section-13" onclick="showSection('section-13'); setTimeout(function(){var el=document.getElementById('accelerator-setup'); if(el) el.scrollIntoView({behavior:'smooth'});},120); return false;">ABAP Accelerator setup &rarr;</a> (clone the AWS Solutions Library repo, create the <code>.env</code>, start it on <code>localhost:8000</code>, register it by URL), then return here to verify.</p>
+<p style="margin:.6rem 0 .2rem;"><strong>Alternative &mdash; community <code>mcp-adt</code> (read-only).</strong> If you cannot run the Accelerator yet, this lightweight Python server is fine for a laptop demo. It is <em>not</em> the official AWS tooling and lacks the write / ATC / activate loop:</p>
 <div class="code-wrap"><button class="copy-btn" onclick="copyCode('lab-mcp-1')">Copy</button><pre><code id="lab-mcp-1">git clone https://github.com/YahorNovik/mcp-adt.git
 cd mcp-adt
 python3 -m venv .venv
@@ -14725,7 +14726,7 @@ Use modern ABAP syntax with inline declarations.
 <p><a href="#section-gov" onclick="showSection('section-gov'); return false;">Next: Module 2 — Governed AI Development →</a></p></div></div>
 <div id="section-gov" class="section" style="display:none;"><div class="container">
 <h1>Module 2: Governed AI Development</h1>
-<p>Before the hands-on modules, turn your setup into a <strong>governed</strong> setup. The same two mechanisms you met in Module 1 &mdash; <strong>steering files</strong> and <strong>agent hooks</strong> &mdash; are not just productivity features; used deliberately they are your <strong>guardrails</strong>. This short module wires them up so every lab that follows runs with the brakes on: unsafe writes are blocked, generated code must pass a quality gate, nothing reaches a transport without a human, security is generated in rather than bolted on, and business data stays out of the model.</p>
+<p>Before the hands-on modules, turn your setup into a <strong>governed</strong> setup. The same two mechanisms you met in <a href="#section-0" onclick="showSection('section-0'); return false;">Module 1</a> &mdash; <strong>steering files</strong> and <strong>agent hooks</strong> &mdash; are not just productivity features; used deliberately they are your <strong>guardrails</strong>. This short module wires them up so every lab that follows runs with the brakes on: unsafe writes are blocked, generated code must pass a quality gate, nothing reaches a transport without a human, security is generated in rather than bolted on, and business data stays out of the model.</p>
 <blockquote><svg class="icon ico-info"><use href="#i-bulb"></use></svg><strong>The principle:</strong> an AI agent that can write to your SAP system is only as safe as the controls around it. &ldquo;The agent usually does the right thing&rdquo; is not a control. Make the right thing the <em>only</em> thing it can do.</blockquote>
 <h2>Learning objectives</h2>
 <ul>
@@ -14752,7 +14753,7 @@ Use modern ABAP syntax with inline declarations.
 <ol>
 <li>Open the <strong>Kiro panel</strong> &rarr; <strong>Agent Steering &amp; Skills</strong>.</li>
 <li>Click <strong>Generate</strong> to scaffold the foundation files (<code>product.md</code>, <code>tech.md</code>, <code>structure.md</code>), or <strong>+</strong> to add your own, e.g. <code>abap.md</code>.</li>
-<li>Write your rules in markdown (the clean-core + ATC-gate policy from &sect;2 belongs here).</li>
+<li>Write your rules in markdown (the clean-core + ATC-gate policy from <a href="#section-gov" onclick="showSection('section-gov'); setTimeout(function(){ var hs=document.querySelectorAll('#section-gov h2'); for(var i=0;i&lt;hs.length;i++){ if(hs[i].textContent.indexOf('ATC quality gate')!==-1){ hs[i].scrollIntoView({behavior:'smooth',block:'start'}); break; } } }, 120); return false;">the ATC quality gate (step 2)</a> belongs here).</li>
 <li>Optionally set an <strong>inclusion mode</strong> in front-matter: <code>always</code> (default), <code>fileMatch</code> with a <code>fileMatchPattern</code>, or <code>manual</code> (loaded only when you reference it with <code>#</code>).</li>
 <li>Save. New chats pick it up automatically.</li>
 </ol>
@@ -14805,7 +14806,7 @@ inclusion: always
 <ol>
 <li><strong>Easiest — ask Kiro in chat:</strong> &ldquo;Create a PreToolUse hook that blocks the ABAP Accelerator <em>release</em> tool and gates <em>activate</em> on ATC variant Z_AI_GATE.&rdquo; Kiro writes the hook file for you.</li>
 <li>Or create <code>.kiro/hooks/abap-write-gate.json</code> by hand with the v1 schema below.</li>
-<li>Add the gate script <code>.kiro/hooks/abap_write_gate.sh</code> and <code>chmod +x</code> it. The event (tool name + arguments) arrives as JSON on <strong>STDIN</strong>; the full script is in &sect;1 below.</li>
+<li>Add the gate script <code>.kiro/hooks/abap_write_gate.sh</code> and <code>chmod +x</code> it. The event (tool name + arguments) arrives as JSON on <strong>STDIN</strong>; the full script is in <a href="#section-gov" onclick="showSection('section-gov'); setTimeout(function(){ var hs=document.querySelectorAll('#section-gov h2'); for(var i=0;i&lt;hs.length;i++){ if(hs[i].textContent.indexOf('Enforce')!==-1){ hs[i].scrollIntoView({behavior:'smooth',block:'start'}); break; } } }, 120); return false;">the PreToolUse hook (step 1)</a> below.</li>
 <li>The hook activates automatically — no prompting needed. Test it (try to activate before ATC &rarr; blocked).</li>
 </ol>
 <div class="code-wrap"><button class="copy-btn" onclick="copyCode('gov-setup-2')">Copy</button><pre><code id="gov-setup-2" class="language-json">{
@@ -14851,7 +14852,7 @@ When generating or changing ABAP in this project:
     }
   ]
 }</code></pre></div>
-<p>The gate script enforces policy in plain code &mdash; for example: refuse any <code>release</code> tool call outright (humans release transports, see &sect;3), and refuse <code>activate</code> unless the ATC gate (&sect;2) has just passed:</p>
+<p>The gate script enforces policy in plain code &mdash; for example: refuse any <code>release</code> tool call outright (humans release transports, see <a href="#section-gov" onclick="showSection('section-gov'); setTimeout(function(){ var hs=document.querySelectorAll('#section-gov h2'); for(var i=0;i&lt;hs.length;i++){ if(hs[i].textContent.indexOf('to a transport')!==-1){ hs[i].scrollIntoView({behavior:'smooth',block:'start'}); break; } } }, 120); return false;">step 3 — the transport review path</a>), and refuse <code>activate</code> unless <a href="#section-gov" onclick="showSection('section-gov'); setTimeout(function(){ var hs=document.querySelectorAll('#section-gov h2'); for(var i=0;i&lt;hs.length;i++){ if(hs[i].textContent.indexOf('ATC quality gate')!==-1){ hs[i].scrollIntoView({behavior:'smooth',block:'start'}); break; } } }, 120); return false;">the ATC quality gate (step 2)</a> has just passed:</p>
 <div class="code-wrap"><button class="copy-btn" onclick="copyCode('gov-2')">Copy</button><pre><code id="gov-2" class="language-bash">#!/usr/bin/env bash
 # .kiro/hooks/abap_write_gate.sh  — exit 2 blocks the tool call
 # Kiro passes the PreToolUse event (tool name + args) as JSON on STDIN.
@@ -14880,7 +14881,7 @@ exit 0</code></pre></div>
 <li><input type="checkbox"> Agent generates &amp; iterates in <code>$TMP</code> until ATC (<code>Z_AI_GATE</code>) is clean.</li>
 <li><input type="checkbox"> A developer reviews the <strong>diff</strong> (via <strong>abapGit</strong> or <strong>gCTS</strong>) &mdash; not just the agent&rsquo;s summary.</li>
 <li><input type="checkbox"> On approval, the developer moves the objects into a transportable package and assigns the transport.</li>
-<li><input type="checkbox"> <strong>Four-eyes</strong>: a second person releases the transport. The agent <em>never</em> releases (enforced by the hook in &sect;1).</li>
+<li><input type="checkbox"> <strong>Four-eyes</strong>: a second person releases the transport. The agent <em>never</em> releases (enforced by <a href="#section-gov" onclick="showSection('section-gov'); setTimeout(function(){ var hs=document.querySelectorAll('#section-gov h2'); for(var i=0;i&lt;hs.length;i++){ if(hs[i].textContent.indexOf('Enforce')!==-1){ hs[i].scrollIntoView({behavior:'smooth',block:'start'}); break; } } }, 120); return false;">the PreToolUse hook (step 1)</a>).</li>
 </ol>
 <div class="setup-note"><strong><svg class="icon ico-info"><use href="#i-info"></use></svg>Describe, don&rsquo;t release.</strong> Have the agent write a clear transport description of <em>what</em> changed and <em>why</em> &mdash; that becomes the reviewer&rsquo;s starting point, and keeps a human in the loop at the one step that leaves the sandbox.</div>
 <h2>4. Secure coding, generated in</h2>
@@ -14939,7 +14940,7 @@ Then refactor until these characterization tests still pass.</code></pre></div>
 <p>Before we start the real labs, let's build confidence with a simple prompt. Copy and paste this into your chat:</p>
 <div class="code-wrap"><button class="copy-btn" onclick="copyCode('warmup1')">Copy</button><pre><code id="warmup1">Write a simple ABAP report that prints "Hello, Kiro!" to the screen. Use modern ABAP syntax.</code></pre></div>
 <div class="expected-output"><div class="expected-output-header">Expected: You should get a short report with WRITE or cl_demo_output</div></div>
-<div class="if-stuck"><span class="if-stuck-label">If you get stuck:</span> This is just a warm-up. If it doesn't work, check your connection in Module 1. You can skip ahead and come back.</div>
+<div class="if-stuck"><span class="if-stuck-label">If you get stuck:</span> This is just a warm-up. If it doesn't work, check your connection in <a href="#section-0" onclick="showSection('section-0'); return false;">Module 1</a>. You can skip ahead and come back.</div>
 </div>
 <h2>3.1 Prompting Strategies for ABAP</h2>
 <p>Effective prompts for ABAP code generation should include:</p>
@@ -15454,6 +15455,7 @@ security implications of using dynamic table names?
 <hr>
 <h2>Hands-On Lab 4.4: Validate a Program Against its Functional Spec</h2>
 <p>Real customer scenario: you have a Functional Specification (FS) and the ABAP program a developer wrote from it. Use Kiro to check whether the program actually implements the spec &mdash; clause by clause &mdash; and flag gaps, deviations, and missing edge cases.</p>
+<div style="background:#FFF8F2;border:1px solid #f0d9c4;border-radius:8px;padding:.85rem 1.1rem;margin:1rem 0;"><strong style="color:#B35900;">Mandatory review gate.</strong> Run this FS-vs-code compliance check as a <strong>required gate before any generated or refactored program is proposed for activation</strong> &mdash; alongside the ATC gate (<code>Z_AI_GATE</code>) from <a href="#section-gov" onclick="showSection('section-gov'); return false;">Module&nbsp;2</a>. If the clause-by-clause table shows any unmet FS requirement, the change does not pass: fix the gap (or get the FS amended) before activating.</div>
 <h3>Instructions</h3>
 <ol><li>Open the ABAP program (or paste the source), attach or paste the Functional Spec, then enter:</li></ol>
 <div class="code-wrap"><button class="copy-btn" onclick="copyCode('cb-m3fs')">Copy</button><pre><code id="cb-m3fs">Compare this ABAP program against the attached Functional Spec. Produce a compliance report:
@@ -15467,7 +15469,7 @@ Do not change the code yet -- just report.</code></pre></div>
 <li>Verify Kiro:<ul class="verify-list"><li><input type="checkbox"> Maps every FS clause to Implemented / Partial / Missing</li><li><input type="checkbox"> Cites evidence (method / line) for each</li><li><input type="checkbox"> Flags deviations and missing validations</li><li><input type="checkbox"> Gives a prioritized remediation list</li></ul></li>
 <li>Optional: follow up with &ldquo;apply the Priority-1 fixes&rdquo; and let the ABAP Accelerator ATC-check the result.</li></ol>
 <div class="expected-output"><div class="expected-output-header">Expected: A clause-by-clause compliance table (Implemented / Partial / Missing) with evidence, a deviations list, missing-validation callouts, and a prioritized remediation plan &mdash; no code changed yet.</div></div>
-<blockquote><p><svg class="icon ico-info"><use href="#i-bulb"></use></svg><strong>Tie-in:</strong> this is the reverse of AI-DLC&rsquo;s Inception (Module 8) &mdash; instead of spec &rarr; code, you go code &rarr; spec-compliance. Same principle: the Functional Spec is the source of truth.</p></blockquote>
+<blockquote><p><svg class="icon ico-info"><use href="#i-bulb"></use></svg><strong>Tie-in:</strong> this is the reverse of AI-DLC&rsquo;s Inception (<a href="#section-15" onclick="showSection('section-15'); return false;">Module 8</a>) &mdash; instead of spec &rarr; code, you go code &rarr; spec-compliance. Same principle: the Functional Spec is the source of truth.</p></blockquote>
 <hr>
 <p><a href="#section-1" onclick="showSection('section-1'); return false;">← Module 3</a> | <a href="#section-3" onclick="showSection('section-3'); return false;">Next: Module 5 — Modernization &amp; Refactoring →</a></p></div></div>
 <div id="section-3" class="section" style="display:none;"><div class="container"><div class="module-banner" style="background-image:url('assets/img-ac4aa6b7234c.png')"><h1>Module 5: Clean Core Modernization &amp; Refactoring (45 minutes)</h1></div>
@@ -15576,7 +15578,7 @@ Do not change the code yet -- just report.</code></pre></div>
 </table>
 <h2>5.2 Clean ABAP Principles</h2>
 <ul>
-<li>Use meaningful, descriptive names &mdash; and apply them <em>consistently</em>. This workshop keeps the lightweight <code>lv_/lt_/ls_/lo_</code> local prefixes defined in the <code>.kiro/steering/abap.md</code> steering file (see the naming-conventions table in Module 1). Clean ABAP itself leans away from encoded prefixes, so the rule that matters is: pick one scheme in your steering file and have Kiro follow it everywhere &mdash; don't mix.</li>
+<li>Use meaningful, descriptive names &mdash; and apply them <em>consistently</em>. This workshop keeps the lightweight <code>lv_/lt_/ls_/lo_</code> local prefixes defined in the <code>.kiro/steering/abap.md</code> steering file (see the naming-conventions table in <a href="#section-0" onclick="showSection('section-0'); setTimeout(function(){ var hs=document.querySelectorAll('#section-0 h2, #section-0 h3, #section-0 h4'); for(var i=0;i&lt;hs.length;i++){ if(hs[i].textContent.indexOf('Object-naming')!==-1){ hs[i].scrollIntoView({behavior:'smooth',block:'start'}); break; } } }, 120); return false;">Module 1</a>). Clean ABAP itself leans away from encoded prefixes, so the rule that matters is: pick one scheme in your steering file and have Kiro follow it everywhere &mdash; don't mix.</li>
 <li>Keep methods small and focused</li>
 <li>Prefer functional over procedural style</li>
 <li>Use exceptions instead of return codes</li>
@@ -15859,6 +15861,7 @@ Identify all issues and provide a corrected version.
 </ol>
 
 <div class="expected-output"><div class="expected-output-header">Expected: Kiro lists each bug and performance issue and returns a corrected version that addresses all of them.</div></div><h2>Hands-On Lab 6.2: Analyze an ABAP Dump</h2>
+<div style="background:#fff3e0;border:1px solid #f0d98a;padding:0.6rem 0.8rem;border-radius:0 6px 6px 0;margin:0.8rem 0;font-size:0.9rem;"><svg class="icon ico-warn"><use href="#i-warn"></use></svg><strong>Anonymise before you paste.</strong> The sample below is synthetic. When you analyse a <em>real</em> dump, strip business and personal data first &mdash; user IDs, customer / material numbers, hostnames, IP addresses, file paths and payload values &mdash; and keep only the error type, program / include, line, and the relevant source lines. Never paste production data into the LLM (<a href="#section-gov" onclick="showSection('section-gov'); return false;">Module&nbsp;2</a> governance).</div>
 <h3>Instructions</h3>
 <ol>
 <li>Simulate an ST22 dump analysis by providing this error context to Kiro:</li>
@@ -16075,11 +16078,11 @@ replacements. Reference the SAP simplification list where applicable.
 <table class="uc-table">
 <thead><tr><th>Customer scenario</th><th>Approach with Kiro + ABAP Accelerator</th><th>Uses</th></tr></thead>
 <tbody>
-<tr><td data-label="Scenario"><strong>Functional Spec vs Program</strong></td><td data-label="Approach">Feed the FS + ABAP source to Kiro; get a clause-by-clause compliance report (Implemented / Partial / Missing), deviations, and a fix list.</td><td data-label="Uses">Lab 4.4 (Module 4)</td></tr>
-<tr><td data-label="Scenario"><strong>Workflow on status change</strong></td><td data-label="Approach">Kiro generates the status-change handler (BAdI / event class / status logic); the Accelerator activates it. You wire the SAP Business Workflow event linkage in SAP.</td><td data-label="Uses">Lab 3.8 (Module 3) · <em>Workflow config is manual</em></td></tr>
+<tr><td data-label="Scenario"><strong>Functional Spec vs Program</strong></td><td data-label="Approach">Feed the FS + ABAP source to Kiro; get a clause-by-clause compliance report (Implemented / Partial / Missing), deviations, and a fix list.</td><td data-label="Uses"><a href="#section-2" onclick="showSection('section-2'); setTimeout(function(){ var hs=document.querySelectorAll('#section-2 h2, #section-2 h3, #section-2 h4'); for(var i=0;i&lt;hs.length;i++){ if(hs[i].textContent.indexOf('Lab 4.4')!==-1){ hs[i].scrollIntoView({behavior:'smooth',block:'start'}); break; } } }, 120); return false;">Lab 4.4 (Module 4)</a></td></tr>
+<tr><td data-label="Scenario"><strong>Workflow on status change</strong></td><td data-label="Approach">Kiro generates the status-change handler (BAdI / event class / status logic); the Accelerator activates it. You wire the SAP Business Workflow event linkage in SAP.</td><td data-label="Uses"><a href="#section-1" onclick="showSection('section-1'); setTimeout(function(){ var hs=document.querySelectorAll('#section-1 h2, #section-1 h3, #section-1 h4'); for(var i=0;i&lt;hs.length;i++){ if(hs[i].textContent.indexOf('Lab 3.8')!==-1){ hs[i].scrollIntoView({behavior:'smooth',block:'start'}); break; } } }, 120); return false;">Lab 3.8 (Module 3)</a> · <em>Workflow config is manual</em></td></tr>
 <tr><td data-label="Scenario"><strong>ALV + Variant &rarr; Excel &rarr; email / share</strong></td><td data-label="Approach">Kiro generates a background job: SUBMIT with the saved variant &rarr; XLSX (an available spreadsheet API) &rarr; CL_BCS email or OPEN DATASET to a server share.</td><td data-label="Uses">Lab 3.6</td></tr>
-<tr><td data-label="Scenario"><strong>Normalize multi-format Excel</strong></td><td data-label="Approach">Kiro generates an ingestion / transform program that maps varied XLSX layouts to one canonical structure, with validation and error rows.</td><td data-label="Uses">Lab 3.7 (Module 3)</td></tr>
-<tr><td data-label="Scenario"><strong>Excel macro: ECC 6.0 &rarr; Fiori (S/4)</strong></td><td data-label="Approach">Two-sided: on SAP, the Accelerator builds / exposes a released OData (RAP) service; on the client, Kiro rewrites the VBA macro to call OData/HTTPS instead of the old ECC connection.</td><td data-label="Uses">Lab 5.4 (Module 5) · <em>VBA is client-side (Kiro)</em></td></tr>
+<tr><td data-label="Scenario"><strong>Normalize multi-format Excel</strong></td><td data-label="Approach">Kiro generates an ingestion / transform program that maps varied XLSX layouts to one canonical structure, with validation and error rows.</td><td data-label="Uses"><a href="#section-1" onclick="showSection('section-1'); setTimeout(function(){ var hs=document.querySelectorAll('#section-1 h2, #section-1 h3, #section-1 h4'); for(var i=0;i&lt;hs.length;i++){ if(hs[i].textContent.indexOf('Lab 3.7')!==-1){ hs[i].scrollIntoView({behavior:'smooth',block:'start'}); break; } } }, 120); return false;">Lab 3.7 (Module 3)</a></td></tr>
+<tr><td data-label="Scenario"><strong>Excel macro: ECC 6.0 &rarr; Fiori (S/4)</strong></td><td data-label="Approach">Two-sided: on SAP, the Accelerator builds / exposes a released OData (RAP) service; on the client, Kiro rewrites the VBA macro to call OData/HTTPS instead of the old ECC connection.</td><td data-label="Uses"><a href="#section-3" onclick="showSection('section-3'); setTimeout(function(){ var hs=document.querySelectorAll('#section-3 h2, #section-3 h3, #section-3 h4'); for(var i=0;i&lt;hs.length;i++){ if(hs[i].textContent.indexOf('Lab 5.4')!==-1){ hs[i].scrollIntoView({behavior:'smooth',block:'start'}); break; } } }, 120); return false;">Lab 5.4 (Module 5)</a> · <em>VBA is client-side (Kiro)</em></td></tr>
 <tr><td data-label="Scenario"><strong>Excel &rarr; post into S/4 (Fiori)</strong></td><td data-label="Approach">Kiro generates an inbound loader (RAP behavior / BAPI / OData deep-insert) with field mapping, validation, and a result log.</td><td data-label="Uses">Lab 8.1 · 6.3 (REST API)</td></tr>
 </tbody>
 </table>
@@ -16132,11 +16135,11 @@ replacements. Reference the SAP simplification list where applicable.
 <tbody>
 <tr><td data-label="Option"><strong>Your existing non-prod / sandbox S/4HANA</strong></td><td data-label="Good for">Everything &mdash; real ATC &amp; data</td><td data-label="Caveats">Best option; needs developer authorization + the ABAP Accelerator installed</td></tr>
 <tr><td data-label="Option"><strong>SAP S/4HANA Fully-Activated Appliance via SAP Cloud Appliance Library (CAL) on AWS EC2</strong></td><td data-label="Good for">A throwaway, pre-loaded S/4 to try the labs</td><td data-label="Caveats">Requires an SAP license / S-user; hourly EC2 cost &mdash; time-box it</td></tr>
-<tr><td data-label="Option"><strong>SAP BTP ABAP Environment trial (ABAP Cloud)</strong></td><td data-label="Good for">Clean-core RAP + OData scenarios (Lab 8.1, and the S/4 side of 4.4)</td><td data-label="Caveats">ABAP Cloud, not classic ECC &mdash; can&rsquo;t reproduce the ECC 6.0 source in Lab 5.4</td></tr>
+<tr><td data-label="Option"><strong>SAP BTP ABAP Environment trial (ABAP Cloud)</strong></td><td data-label="Good for">Clean-core RAP + OData scenarios (Lab 8.1, and the S/4 side of 4.4)</td><td data-label="Caveats">ABAP Cloud, not classic ECC &mdash; can&rsquo;t reproduce the ECC 6.0 source in <a href="#section-3" onclick="showSection('section-3'); setTimeout(function(){ var hs=document.querySelectorAll('#section-3 h2, #section-3 h3, #section-3 h4'); for(var i=0;i&lt;hs.length;i++){ if(hs[i].textContent.indexOf('Lab 5.4')!==-1){ hs[i].scrollIntoView({behavior:'smooth',block:'start'}); break; } } }, 120); return false;">Lab 5.4</a></td></tr>
 <tr><td data-label="Option"><strong>Kiro + Amazon Bedrock</strong></td><td data-label="Good for">Always required (the AI side)</td><td data-label="Caveats">Kiro is a free download; enable a Claude model in your AWS region</td></tr>
 </tbody>
 </table>
-<blockquote><p><svg class="icon ico-info"><use href="#i-bulb"></use></svg><strong>Honest note:</strong> the Excel-VBA-from-<strong>ECC&nbsp;6.0</strong> scenario (Lab 5.4) needs a real ECC or S/4 source &mdash; it can&rsquo;t be reproduced on a BTP trial. Verify current SAP CAL / BTP-trial licensing and availability with SAP, as those programs change. Everything else runs on a modern S/4 sandbox.</p></blockquote>
+<blockquote><p><svg class="icon ico-info"><use href="#i-bulb"></use></svg><strong>Honest note:</strong> the Excel-VBA-from-<strong>ECC&nbsp;6.0</strong> scenario (<a href="#section-3" onclick="showSection('section-3'); setTimeout(function(){ var hs=document.querySelectorAll('#section-3 h2, #section-3 h3, #section-3 h4'); for(var i=0;i&lt;hs.length;i++){ if(hs[i].textContent.indexOf('Lab 5.4')!==-1){ hs[i].scrollIntoView({behavior:'smooth',block:'start'}); break; } } }, 120); return false;">Lab 5.4</a>) needs a real ECC or S/4 source &mdash; it can&rsquo;t be reproduced on a BTP trial. Verify current SAP CAL / BTP-trial licensing and availability with SAP, as those programs change. Everything else runs on a modern S/4 sandbox.</p></blockquote>
 
 
 <hr>
@@ -30102,7 +30105,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 </details>
 <!--LAB71ALT-END-->
 <blockquote>
-<p><svg class="icon ico-info"><use href="#i-info"></use></svg><strong>Prerequisites:</strong> Kiro with the ABAP Accelerator MCP server configured (Module 1, Kiro setup), a non-production S/4HANA system with developer authorization, and the AI-DLC steering files set up in your workspace. Select <strong>Claude Opus 5</strong> (or the current top-tier Claude Opus model available in your Kiro plan) in the Kiro model selector for best results.</p>
+<p><svg class="icon ico-info"><use href="#i-info"></use></svg><strong>Prerequisites:</strong> Kiro with the ABAP Accelerator MCP server configured (<a href="#section-0" onclick="showSection('section-0'); return false;">Module 1, Kiro setup</a>), a non-production S/4HANA system with developer authorization, and the AI-DLC steering files set up in your workspace. Select a <strong>top-tier model</strong> (or use <strong>Auto</strong> to let Kiro route the task) in the Kiro model selector for best results.</p>
 </blockquote>
 <h3>Step 1 — State your business intent</h3>
 <p>In Kiro chat, paste a natural-language intent describing what to build, the functional scope, technical requirements, and what is explicitly out of scope. Kiro’s Inception phase turns this into a <strong>functional specification</strong> (elaborated requirements and Units of Work) that you review and approve <em>before</em> any ABAP is generated. For example:</p>
@@ -30172,12 +30175,12 @@ Out of Scope:
 <li><strong>AI-DLC</strong> turns a plain-language business intent into working, clean-core ABAP through Inception &rarr; Construction &rarr; Operations, with you approving at each gate.</li>
 <li><strong>Clean core</strong> is the target: released APIs, ABAP Cloud / RAP, no core modification &mdash; upgrade-stable and cloud-ready.</li>
 <li>Prompt quality drives output quality &mdash; be specific, and always review and test generated code before you activate it.</li>
-<li>The real-world customer scenarios (Module 7.7) map directly to labs you can run on your own SAP.</li>
+<li>The real-world customer scenarios (<a href="#section-5" onclick="showSection('section-5'); setTimeout(function(){ var hs=document.querySelectorAll('#section-5 h2, #section-5 h3, #section-5 h4'); for(var i=0;i&lt;hs.length;i++){ if(hs[i].textContent.indexOf('7.7')!==-1){ hs[i].scrollIntoView({behavior:'smooth',block:'start'}); break; } } }, 120); return false;">Module 7.7</a>) map directly to labs you can run on your own SAP.</li>
 </ol>
 <h3>Next Steps</h3>
 <ul>
 <li>Try the laptop-only &ldquo;generation&rdquo; mode with Kiro + Amazon Bedrock, then run a proof of concept on your own non-prod S/4HANA.</li>
-<li>Install the ABAP Accelerator and connect it to a sandbox (see Module 7.7 &rarr; &ldquo;Environment &amp; How to Try This Yourself&rdquo;).</li>
+<li>Install the ABAP Accelerator and connect it to a sandbox (see <a href="#section-5" onclick="showSection('section-5'); setTimeout(function(){ var hs=document.querySelectorAll('#section-5 h2, #section-5 h3, #section-5 h4'); for(var i=0;i&lt;hs.length;i++){ if(hs[i].textContent.indexOf('7.7')!==-1){ hs[i].scrollIntoView({behavior:'smooth',block:'start'}); break; } } }, 120); return false;">Module 7.7</a> &rarr; &ldquo;Environment &amp; How to Try This Yourself&rdquo;).</li>
 <li>Pick one real backlog item and build it with AI-DLC; share learnings with your SAP team.</li>
 </ul>
 <h2>Q&amp;A Session</h2>
